@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{202F45E6-82E1-4541-9A82-66492A6014AB}</ProjectGuid>
+    <ProjectGuid>{FF492B0D-B3CC-43EC-8631-6AE8DCB9E52C}</ProjectGuid>
     <RootNamespace>KTX2PNT</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

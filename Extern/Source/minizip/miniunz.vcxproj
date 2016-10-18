@@ -18,7 +18,7 @@
     <ClInclude Include="iowin32.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{40F4740B-360C-45E0-B201-E749097B239D}</ProjectGuid>
+    <ProjectGuid>{91EF0863-4E5F-406B-A7A5-04EBE91DE17C}</ProjectGuid>
     <RootNamespace>miniunz</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
