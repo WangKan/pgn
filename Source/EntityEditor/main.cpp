@@ -11,7 +11,7 @@
 #include <PGN/Graphics/SceneEntity.h>
 #include <PGN/Graphics/ScenePointLight.h>
 #include <PGN/Math/Math.h>
-#include <PGN/Platform/Graphics/Window.h>
+#include <PGN/Platform/UI/Window.h>
 #include <PGN/Utilities/Clock.h>
 #include <PGN/Utilities/LinearTransformations.h>
 #include <PGN/Utilities/SkeletalAnimation/Animation.h>

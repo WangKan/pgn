@@ -9,7 +9,7 @@
 #include <PGN/Graphics/SceneEntity.h>
 #include <PGN/Graphics/ScenePointLight.h>
 #include <PGN/Platform/DebugHeap.h>
-#include <PGN/Platform/Graphics/Window.h>
+#include <PGN/Platform/UI/Window.h>
 #include <PGN/Utilities/SkeletalAnimation/Animation.h>
 #include <PGN/Utilities/SkeletalAnimation/AnimationFactory.h>
 #include <PGN/Utilities/SkeletalAnimation/Skeleton.h>

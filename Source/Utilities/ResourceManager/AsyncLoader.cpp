@@ -15,8 +15,8 @@
 #include <PGN/Common/debug_new.h>
 #include <PGN/FileStream/FileStream.h>
 #include <PGN/FileStream/StdFileStream.h>
-#include <PGN/Platform/Graphics/RenderingContext.h>
 #include <PGN/Platform/outputDebugInfo.h>
+#include <PGN/Platform/UI/RenderingContext.h>
 #define PGN_STATIC_IMPORT
 #include <PGN/Utilities/CircularBuffer.h>
 #include <PGN/Utilities/Pipeline.h>

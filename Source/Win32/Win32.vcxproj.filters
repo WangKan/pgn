@@ -19,11 +19,11 @@
     <Filter Include="Header Files\Thread">
       <UniqueIdentifier>{dad4475c-db13-4f08-b50e-7a79281bba7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{6ca7c907-eab7-4de8-8f73-6a88cba18b32}</UniqueIdentifier>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{5ed6686b-773d-451c-9b9c-6b8128eb7c3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Graphics">
-      <UniqueIdentifier>{e2190eb8-c5e7-4eef-b78a-b1bd32c18ca6}</UniqueIdentifier>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{0db5bd5e-3d68-497c-b334-195c7d4b3ce5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,9 +36,6 @@
     <ClCompile Include="Thread\sleep.cpp">
       <Filter>Source Files\Thread</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\Window.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="pageAlloc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -47,12 +44,6 @@
     </ClCompile>
     <ClCompile Include="DebugHeap.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\RenderingContext.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics\WGL.cpp">
-      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>Source Files</Filter>
@@ -66,6 +57,15 @@
     <ClCompile Include="FileStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UI\RenderingContext.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\WGL.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Window.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Include\PGN\Platform\Thread\Mutex.h">
@@ -76,18 +76,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Include\PGN\Platform\Thread\sleep.h">
       <Filter>Header Files\Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\PGN\Platform\Graphics\Window.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\PGN\Platform\Graphics\Display.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\PGN\Platform\Graphics\GL.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\PGN\Platform\Graphics\RenderingContext.h">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Include\PGN\Platform\pageAlloc.h">
       <Filter>Header Files</Filter>
@@ -101,9 +89,6 @@
     <ClInclude Include="DebugHeap.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\WGL.h">
-      <Filter>Source Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Include\PGN\Platform\Time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -115,6 +100,24 @@
     </ClInclude>
     <ClInclude Include="..\..\Include\PGN\Platform\FileStream.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\Display.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\GL.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\GXM.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\RenderingContext.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\Window.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\WGL.h">
+      <Filter>Source Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

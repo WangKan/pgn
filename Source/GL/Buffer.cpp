@@ -1,5 +1,5 @@
 #include <PGN/Common/debug_new.h>
-#include <PGN/Platform/Graphics/GL.h>
+#include <PGN/Platform/UI/GL.h>
 #include <PGN/RenderingSystem/Buffer.h>
 #include "RenderingSystem.h"
 #include "VertexInputLayout.h"

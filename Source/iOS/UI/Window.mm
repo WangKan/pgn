@@ -1,5 +1,5 @@
 #include <PGN/Common/debug_new.h>
-#include <PGN/Platform/Graphics/Window.h>
+#include <PGN/Platform/UI/Window.h>
 #include "CAEAGLLayerEX.h"
 #include "GLInfo.h"
 

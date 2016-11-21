@@ -1,7 +1,7 @@
 #include <cassert>
 #include <PGN/Common/debug_new.h>
-#include <PGN/Platform/Graphics/GL.h>
-#include <PGN/Platform/Graphics/RenderingContext.h>
+#include <PGN/Platform/UI/GL.h>
+#include <PGN/Platform/UI/RenderingContext.h>
 #include "RenderingSystem.h"
 #include "ResourceView.h"
 

@@ -1,8 +1,8 @@
 #include <cassert>
 #include <iostream>
 #include <PGN/Common/debug_new.h>
-#include <PGN/Platform/Graphics/GL.h>
 #include <PGN/Platform/outputDebugInfo.h>
+#include <PGN/Platform/UI/GL.h>
 #include <PGN/Utilities/Text.h>
 #include "RenderingSystem.h"
 #include "Shader.h"

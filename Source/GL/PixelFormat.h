@@ -1,5 +1,5 @@
 #pragma once
-#include <PGN/Platform/Graphics/GL.h>
+#include <PGN/Platform/UI/GL.h>
 
 struct PixelFormat
 {

@@ -1,5 +1,5 @@
 #include <PGN/Common/debug_new.h>
-#include <PGN/Platform/Graphics/GL.h>
+#include <PGN/Platform/UI/GL.h>
 #include <PGN/RenderingSystem/OutputMergerState.h>
 #include "RenderingSystem.h"
 

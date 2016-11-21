@@ -1,5 +1,5 @@
 #define PGN_DLL_EXPORT
-#include <PGN/Platform/Graphics/Window.h>
+#include <PGN/Platform/UI/Window.h>
 #undef PGN_DLL_EXPORT
 
 #include <Windows.h>

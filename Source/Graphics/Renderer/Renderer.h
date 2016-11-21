@@ -1,6 +1,6 @@
 #include <map>
 #include <PGN/Math/Math.h>
-#include <PGN/Platform/Graphics/Display.h>
+#include <PGN/Platform/UI/Display.h>
 #include <PGN/Utilities/HeapAllocator2.h>
 #include <PGN/Utilities/Queue.h>
 #include <string>

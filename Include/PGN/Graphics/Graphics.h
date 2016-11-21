@@ -1,7 +1,7 @@
 #pragma once
 #include "../Common/DllInterface.h"
 #include "../Common/Interface.h"
-#include <PGN/Platform/Graphics/Display.h>
+#include <PGN/Platform/UI/Display.h>
 namespace pgn {
 
 class Camera;

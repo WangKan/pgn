@@ -12,9 +12,9 @@
 #include <PGN/Common/Blob.h>
 #include <PGN/Common/debug_new.h>
 #include <PGN/FileStream/FileStream.h>
-#include <PGN/Platform/Graphics/RenderingContext.h>
-#include <PGN/Platform/Graphics/Window.h>
 #include <PGN/Platform/pageAlloc.h>
+#include <PGN/Platform/UI/RenderingContext.h>
+#include <PGN/Platform/UI/Window.h>
 #include <PGN/RenderingSystem/DepthStencilState.h>
 #include <PGN/RenderingSystem/DepthStencilView.h>
 #include <PGN/RenderingSystem/OutputMergerState.h>

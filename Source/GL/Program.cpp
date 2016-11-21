@@ -1,8 +1,8 @@
 #include <cassert>
 #include <PGN/Common/Blob.h>
 #include <PGN/Common/debug_new.h>
-#include <PGN/Platform/Graphics/GL.h>
 #include <PGN/Platform/outputDebugInfo.h>
+#include <PGN/Platform/UI/GL.h>
 #include <set>
 #include "Program.h"
 #include "RenderingSystem.h"

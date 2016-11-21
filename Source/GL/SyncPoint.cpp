@@ -1,6 +1,6 @@
 #include <cassert>
 #include <PGN/Common/debug_new.h>
-#include <PGN/Platform/Graphics/GL.h>
+#include <PGN/Platform/UI/GL.h>
 #include <PGN/RenderingSystem/SyncPoint.h>
 #include "RenderingSystem.h"
 

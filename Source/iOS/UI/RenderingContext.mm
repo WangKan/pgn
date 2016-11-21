@@ -1,7 +1,7 @@
 #import  <OpenGLES/ES3/gl.h>
 #import  <OpenGLES/ES3/glext.h>
 #include <PGN/Common/debug_new.h>
-#include <PGN/Platform/Graphics/RenderingContext.h>
+#include <PGN/Platform/UI/RenderingContext.h>
 #include <vector>
 #include "CAEAGLLayerEX.h"
 

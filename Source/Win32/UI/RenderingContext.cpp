@@ -1,5 +1,5 @@
 #define PGN_DLL_EXPORT
-#include <PGN/Platform/Graphics/RenderingContext.h>
+#include <PGN/Platform/UI/RenderingContext.h>
 #undef PGN_DLL_EXPORT
 
 #include <gl/gl.h>

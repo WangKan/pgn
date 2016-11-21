@@ -1,5 +1,5 @@
 #define PGN_DLL_EXPORT
-#include <PGN/Platform/Graphics/GL.h>
+#include <PGN/Platform/UI/GL.h>
 #undef PGN_DLL_EXPORT
 
 class WGL

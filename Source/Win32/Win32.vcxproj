@@ -17,17 +17,17 @@
   <ItemGroup>
     <ClCompile Include="DebugHeap.cpp" />
     <ClCompile Include="FileStream.cpp" />
-    <ClCompile Include="Graphics\RenderingContext.cpp" />
-    <ClCompile Include="Graphics\WGL.cpp" />
     <ClCompile Include="pageAlloc.cpp" />
     <ClCompile Include="Thread\Semaphore.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="outputDebugInfo.cpp" />
-    <ClCompile Include="Graphics\Window.cpp" />
     <ClCompile Include="SystemInfo.cpp" />
     <ClCompile Include="Thread\Mutex.cpp" />
     <ClCompile Include="Thread\Signal.cpp" />
     <ClCompile Include="Thread\sleep.cpp" />
+    <ClCompile Include="UI\RenderingContext.cpp" />
+    <ClCompile Include="UI\WGL.cpp" />
+    <ClCompile Include="UI\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Include\PGN\Platform\DebugHeap.h" />
@@ -36,16 +36,17 @@
     <ClInclude Include="..\..\Include\PGN\Platform\Thread\Semaphore.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\Time.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\outputDebugInfo.h" />
-    <ClInclude Include="..\..\Include\PGN\Platform\Graphics\Display.h" />
-    <ClInclude Include="..\..\Include\PGN\Platform\Graphics\GL.h" />
-    <ClInclude Include="..\..\Include\PGN\Platform\Graphics\RenderingContext.h" />
-    <ClInclude Include="..\..\Include\PGN\Platform\Graphics\Window.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\SystemInfo.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\Thread\Mutex.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\Thread\Signal.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\Thread\sleep.h" />
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\Display.h" />
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\GL.h" />
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\GXM.h" />
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\RenderingContext.h" />
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\Window.h" />
     <ClInclude Include="DebugHeap.h" />
-    <ClInclude Include="Graphics\WGL.h" />
+    <ClInclude Include="UI\WGL.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{330F68BE-BAA0-434E-82B2-5363E5D2B3A3}</ProjectGuid>

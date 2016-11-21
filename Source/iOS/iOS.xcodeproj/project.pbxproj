@@ -8,11 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		575912A91A383D7C001B1CCD /* DebugHeap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575912981A383D7C001B1CCD /* DebugHeap.cpp */; };
-		575912AA1A383D7C001B1CCD /* CAEAGLLayerEX.m in Sources */ = {isa = PBXBuildFile; fileRef = 5759129B1A383D7C001B1CCD /* CAEAGLLayerEX.m */; };
-		575912AB1A383D7C001B1CCD /* GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5759129C1A383D7C001B1CCD /* GL.cpp */; };
-		575912AC1A383D7C001B1CCD /* GLInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5759129E1A383D7C001B1CCD /* GLInfo.mm */; };
-		575912AD1A383D7C001B1CCD /* RenderingContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5759129F1A383D7C001B1CCD /* RenderingContext.mm */; };
-		575912AE1A383D7C001B1CCD /* Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 575912A01A383D7C001B1CCD /* Window.mm */; };
 		575912AF1A383D7C001B1CCD /* outputDebugInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 575912A11A383D7C001B1CCD /* outputDebugInfo.mm */; };
 		575912B01A383D7C001B1CCD /* pageAlloc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575912A21A383D7C001B1CCD /* pageAlloc.cpp */; };
 		575912B11A383D7C001B1CCD /* Mutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575912A41A383D7C001B1CCD /* Mutex.cpp */; };
@@ -20,6 +15,11 @@
 		575912B31A383D7C001B1CCD /* Signal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575912A61A383D7C001B1CCD /* Signal.cpp */; };
 		575912B51A383D7C001B1CCD /* Time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575912A81A383D7C001B1CCD /* Time.cpp */; };
 		57698BBC1A6CEEFF00BF2621 /* sleep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57698BBB1A6CEEFF00BF2621 /* sleep.cpp */; };
+		C2CF9F391DE34EF800D835EB /* CAEAGLLayerEX.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CF9F331DE34EF800D835EB /* CAEAGLLayerEX.m */; };
+		C2CF9F3A1DE34EF800D835EB /* GL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2CF9F341DE34EF800D835EB /* GL.cpp */; };
+		C2CF9F3B1DE34EF800D835EB /* GLInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CF9F361DE34EF800D835EB /* GLInfo.mm */; };
+		C2CF9F3C1DE34EF800D835EB /* RenderingContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CF9F371DE34EF800D835EB /* RenderingContext.mm */; };
+		C2CF9F3D1DE34EF800D835EB /* Window.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2CF9F381DE34EF800D835EB /* Window.mm */; };
 		C2CFC21B1DD76FA900BC11A3 /* FileStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2CFC21A1DD76FA900BC11A3 /* FileStream.cpp */; };
 /* End PBXBuildFile section */
 
@@ -37,10 +37,6 @@
 
 /* Begin PBXFileReference section */
 		5759127F1A383D5A001B1CCD /* DebugHeap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DebugHeap.h; path = ../../Include/PGN/Platform/DebugHeap.h; sourceTree = "<group>"; };
-		575912821A383D5A001B1CCD /* Display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
-		575912831A383D5A001B1CCD /* GL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GL.h; sourceTree = "<group>"; };
-		575912841A383D5A001B1CCD /* RenderingContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderingContext.h; sourceTree = "<group>"; };
-		575912851A383D5A001B1CCD /* Window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
 		575912871A383D5A001B1CCD /* GamePad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GamePad.h; sourceTree = "<group>"; };
 		575912881A383D5A001B1CCD /* InputDeviceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InputDeviceManager.h; sourceTree = "<group>"; };
 		575912891A383D5A001B1CCD /* Keyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Keyboard.h; sourceTree = "<group>"; };
@@ -57,13 +53,6 @@
 		575912961A383D5A001B1CCD /* Time.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Time.h; path = ../../Include/PGN/Platform/Time.h; sourceTree = "<group>"; };
 		575912971A383D7C001B1CCD /* DebugHeap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugHeap.h; sourceTree = "<group>"; };
 		575912981A383D7C001B1CCD /* DebugHeap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugHeap.cpp; sourceTree = "<group>"; };
-		5759129A1A383D7C001B1CCD /* CAEAGLLayerEX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAEAGLLayerEX.h; sourceTree = "<group>"; };
-		5759129B1A383D7C001B1CCD /* CAEAGLLayerEX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAEAGLLayerEX.m; sourceTree = "<group>"; };
-		5759129C1A383D7C001B1CCD /* GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GL.cpp; sourceTree = "<group>"; };
-		5759129D1A383D7C001B1CCD /* GLInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLInfo.h; sourceTree = "<group>"; };
-		5759129E1A383D7C001B1CCD /* GLInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLInfo.mm; sourceTree = "<group>"; };
-		5759129F1A383D7C001B1CCD /* RenderingContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RenderingContext.mm; sourceTree = "<group>"; };
-		575912A01A383D7C001B1CCD /* Window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Window.mm; sourceTree = "<group>"; };
 		575912A11A383D7C001B1CCD /* outputDebugInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = outputDebugInfo.mm; sourceTree = "<group>"; };
 		575912A21A383D7C001B1CCD /* pageAlloc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pageAlloc.cpp; sourceTree = "<group>"; };
 		575912A41A383D7C001B1CCD /* Mutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Mutex.cpp; sourceTree = "<group>"; };
@@ -72,6 +61,18 @@
 		575912A81A383D7C001B1CCD /* Time.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Time.cpp; sourceTree = "<group>"; };
 		57698BBB1A6CEEFF00BF2621 /* sleep.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sleep.cpp; sourceTree = "<group>"; };
 		57C688BA18D93612000417D9 /* libiOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2CF9F2C1DE34EA100D835EB /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Display.h; path = ../../Include/PGN/Platform/UI/Display.h; sourceTree = "<group>"; };
+		C2CF9F2D1DE34EA100D835EB /* GL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GL.h; path = ../../Include/PGN/Platform/UI/GL.h; sourceTree = "<group>"; };
+		C2CF9F2E1DE34EA100D835EB /* GXM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GXM.h; path = ../../Include/PGN/Platform/UI/GXM.h; sourceTree = "<group>"; };
+		C2CF9F2F1DE34EA100D835EB /* RenderingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RenderingContext.h; path = ../../Include/PGN/Platform/UI/RenderingContext.h; sourceTree = "<group>"; };
+		C2CF9F301DE34EA100D835EB /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Window.h; path = ../../Include/PGN/Platform/UI/Window.h; sourceTree = "<group>"; };
+		C2CF9F321DE34EF800D835EB /* CAEAGLLayerEX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CAEAGLLayerEX.h; path = UI/CAEAGLLayerEX.h; sourceTree = "<group>"; };
+		C2CF9F331DE34EF800D835EB /* CAEAGLLayerEX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CAEAGLLayerEX.m; path = UI/CAEAGLLayerEX.m; sourceTree = "<group>"; };
+		C2CF9F341DE34EF800D835EB /* GL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GL.cpp; path = UI/GL.cpp; sourceTree = "<group>"; };
+		C2CF9F351DE34EF800D835EB /* GLInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLInfo.h; path = UI/GLInfo.h; sourceTree = "<group>"; };
+		C2CF9F361DE34EF800D835EB /* GLInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GLInfo.mm; path = UI/GLInfo.mm; sourceTree = "<group>"; };
+		C2CF9F371DE34EF800D835EB /* RenderingContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RenderingContext.mm; path = UI/RenderingContext.mm; sourceTree = "<group>"; };
+		C2CF9F381DE34EF800D835EB /* Window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Window.mm; path = UI/Window.mm; sourceTree = "<group>"; };
 		C2CFC2191DD76F9B00BC11A3 /* FileStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileStream.h; path = ../../Include/PGN/Platform/FileStream.h; sourceTree = "<group>"; };
 		C2CFC21A1DD76FA900BC11A3 /* FileStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileStream.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,18 +88,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		575912811A383D5A001B1CCD /* Graphics */ = {
-			isa = PBXGroup;
-			children = (
-				575912821A383D5A001B1CCD /* Display.h */,
-				575912831A383D5A001B1CCD /* GL.h */,
-				575912841A383D5A001B1CCD /* RenderingContext.h */,
-				575912851A383D5A001B1CCD /* Window.h */,
-			);
-			name = Graphics;
-			path = ../../Include/PGN/Platform/Graphics;
-			sourceTree = "<group>";
-		};
 		575912861A383D5A001B1CCD /* Input */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,20 +112,6 @@
 			);
 			name = Thread;
 			path = ../../Include/PGN/Platform/Thread;
-			sourceTree = "<group>";
-		};
-		575912991A383D7C001B1CCD /* Graphics */ = {
-			isa = PBXGroup;
-			children = (
-				5759129A1A383D7C001B1CCD /* CAEAGLLayerEX.h */,
-				5759129B1A383D7C001B1CCD /* CAEAGLLayerEX.m */,
-				5759129C1A383D7C001B1CCD /* GL.cpp */,
-				5759129D1A383D7C001B1CCD /* GLInfo.h */,
-				5759129E1A383D7C001B1CCD /* GLInfo.mm */,
-				5759129F1A383D7C001B1CCD /* RenderingContext.mm */,
-				575912A01A383D7C001B1CCD /* Window.mm */,
-			);
-			path = Graphics;
 			sourceTree = "<group>";
 		};
 		575912A31A383D7C001B1CCD /* Thread */ = {
@@ -170,9 +145,9 @@
 		57C688E318D936B4000417D9 /* Include */ = {
 			isa = PBXGroup;
 			children = (
+				C2CF9F2B1DE34E6900D835EB /* UI */,
 				C2CFC2191DD76F9B00BC11A3 /* FileStream.h */,
 				5759127F1A383D5A001B1CCD /* DebugHeap.h */,
-				575912811A383D5A001B1CCD /* Graphics */,
 				575912861A383D5A001B1CCD /* Input */,
 				5759128C1A383D5A001B1CCD /* outputDebugInfo.h */,
 				5759128D1A383D5A001B1CCD /* pageAlloc.h */,
@@ -186,16 +161,42 @@
 		57C688FB18D936E8000417D9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C2CF9F311DE34EEA00D835EB /* UI */,
 				C2CFC21A1DD76FA900BC11A3 /* FileStream.cpp */,
 				575912971A383D7C001B1CCD /* DebugHeap.h */,
 				575912981A383D7C001B1CCD /* DebugHeap.cpp */,
-				575912991A383D7C001B1CCD /* Graphics */,
 				575912A11A383D7C001B1CCD /* outputDebugInfo.mm */,
 				575912A21A383D7C001B1CCD /* pageAlloc.cpp */,
 				575912A31A383D7C001B1CCD /* Thread */,
 				575912A81A383D7C001B1CCD /* Time.cpp */,
 			);
 			name = Source;
+			sourceTree = "<group>";
+		};
+		C2CF9F2B1DE34E6900D835EB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C2CF9F2C1DE34EA100D835EB /* Display.h */,
+				C2CF9F2D1DE34EA100D835EB /* GL.h */,
+				C2CF9F2E1DE34EA100D835EB /* GXM.h */,
+				C2CF9F2F1DE34EA100D835EB /* RenderingContext.h */,
+				C2CF9F301DE34EA100D835EB /* Window.h */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		C2CF9F311DE34EEA00D835EB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C2CF9F321DE34EF800D835EB /* CAEAGLLayerEX.h */,
+				C2CF9F331DE34EF800D835EB /* CAEAGLLayerEX.m */,
+				C2CF9F341DE34EF800D835EB /* GL.cpp */,
+				C2CF9F351DE34EF800D835EB /* GLInfo.h */,
+				C2CF9F361DE34EF800D835EB /* GLInfo.mm */,
+				C2CF9F371DE34EF800D835EB /* RenderingContext.mm */,
+				C2CF9F381DE34EF800D835EB /* Window.mm */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,20 +250,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				575912AC1A383D7C001B1CCD /* GLInfo.mm in Sources */,
-				575912AB1A383D7C001B1CCD /* GL.cpp in Sources */,
+				C2CF9F3B1DE34EF800D835EB /* GLInfo.mm in Sources */,
+				C2CF9F3A1DE34EF800D835EB /* GL.cpp in Sources */,
 				575912A91A383D7C001B1CCD /* DebugHeap.cpp in Sources */,
 				C2CFC21B1DD76FA900BC11A3 /* FileStream.cpp in Sources */,
-				575912AE1A383D7C001B1CCD /* Window.mm in Sources */,
 				575912B01A383D7C001B1CCD /* pageAlloc.cpp in Sources */,
-				575912AA1A383D7C001B1CCD /* CAEAGLLayerEX.m in Sources */,
-				575912AD1A383D7C001B1CCD /* RenderingContext.mm in Sources */,
+				C2CF9F3D1DE34EF800D835EB /* Window.mm in Sources */,
 				575912B51A383D7C001B1CCD /* Time.cpp in Sources */,
+				C2CF9F3C1DE34EF800D835EB /* RenderingContext.mm in Sources */,
 				575912B31A383D7C001B1CCD /* Signal.cpp in Sources */,
 				575912B11A383D7C001B1CCD /* Mutex.cpp in Sources */,
 				575912B21A383D7C001B1CCD /* Semaphore.cpp in Sources */,
 				575912AF1A383D7C001B1CCD /* outputDebugInfo.mm in Sources */,
 				57698BBC1A6CEEFF00BF2621 /* sleep.cpp in Sources */,
+				C2CF9F391DE34EF800D835EB /* CAEAGLLayerEX.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

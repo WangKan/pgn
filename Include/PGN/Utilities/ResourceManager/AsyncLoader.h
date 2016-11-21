@@ -1,6 +1,6 @@
 #pragma once
 #include <PGN/Common/DllInterface.h>
-#include <PGN/Platform/Graphics/Display.h>
+#include <PGN/Platform/UI/Display.h>
 namespace pgn {
 
 class AssetLoader;
