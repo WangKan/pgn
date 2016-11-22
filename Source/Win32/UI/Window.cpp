@@ -6,10 +6,41 @@
 #include <cassert>
 #include <gl/gl.h>
 #include <gl/wglext.h>
+#include <list>
+#include <map>
 #include <PGN/Common/debug_new.h>
+#include "Gesture/DraggingGestureRecognizer.h"
 #include "WGL.h"
 
+class GestureRecognizer;
 extern PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB;
+
+class Window : public pgn::Window
+{
+public:
+	HWND hWnd;
+	HDC hDC;
+	static const int maxTitleLen = 255;
+	char title[maxTitleLen + 1];
+	bool fullScreen;
+	bool userResizable;
+	WNDPROC baseClassProc;
+	std::list<GestureRecognizer*> gestureRecognizers;
+
+	Window(int redBits, int greenBits, int blueBits, int alphaBits, int depthBits, int stencilBits, int samples, char title[], bool fullScreen, bool userResizable, int x, int y, int clientWidth, int clientHeight);
+	Window(int redBits, int greenBits, int blueBits, int alphaBits, int depthBits, int stencilBits, int samples, HWND hWnd);
+	virtual void dispose();
+	virtual void _free();
+	virtual bool processMessages();
+	virtual HWND getOSHandle();
+	virtual HDC getDisplay();
+	virtual int getClientWidth();
+	virtual int getClientHeight();
+	virtual void getClientSize(int* w, int* h);
+	virtual void present();
+	virtual void addGestureRecognizer(pgn::DraggingGestureRecognizer* recognizer);
+	virtual void removeGestureRecognizer(pgn::GestureRecognizer* recognizer);
+};
 
 enum
 {
@@ -17,6 +48,9 @@ enum
 	, WM_PGN_DEACTIVATE
 	, WM_PGN_CLOSE
 };
+
+class Window;
+static std::map<HWND, Window*>* map = 0;
 
 static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -29,6 +63,7 @@ static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 	translatedMessage.message = 0;
 	translatedMessage.wParam = 0;	// 后面给PostMessage传了这个值，若不初始化，debug版会异常
 	translatedMessage.lParam = 0;	// 后面给PostMessage传了这个值，若不初始化，debug版会异常
+
 	LRESULT result = 0;
 
 	switch (message)
@@ -49,7 +84,12 @@ static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 		return true;
 
 	default:
-		result = DefWindowProc(hWnd, message, wParam, lParam);
+		Window* wnd = (*map)[hWnd];
+
+		for (auto recognizer : wnd->gestureRecognizers)
+			recognizer->processInput(message, wParam, lParam);
+
+		result = CallWindowProc(wnd->baseClassProc, hWnd, message, wParam, lParam);
 	}
 
 	if (translatedMessage.message)
@@ -82,28 +122,6 @@ void unregWndClass()
 }
 
 static int wndClassRefCount = 0;
-
-class Window : public pgn::Window
-{
-	HWND hWnd;
-	HDC hDC;
-	static const int maxTitleLen = 255;
-	char title[maxTitleLen + 1];
-	bool fullScreen;
-	bool userResizable;
-public:
-	Window(int redBits, int greenBits, int blueBits, int alphaBits, int depthBits, int stencilBits, int samples, char title[], bool fullScreen, bool userResizable, int x, int y, int clientWidth, int clientHeight);
-	Window(int redBits, int greenBits, int blueBits, int alphaBits, int depthBits, int stencilBits, int samples, HWND hWnd);
-	virtual void dispose();
-	virtual void _free();
-	virtual bool processMessages();
-	virtual HWND getOSHandle();
-	virtual HDC getDisplay();
-	virtual int getClientWidth();
-	virtual int getClientHeight();
-	virtual void getClientSize(int* w, int* h);
-	virtual void present();
-};
 
 void createSwapChain(HDC hDC, int redBits, int greenBits, int blueBits, int alphaBits, int depthBits, int stencilBits, int samples)
 {
@@ -197,8 +215,17 @@ Window::Window(int redBits, int greenBits, int blueBits, int alphaBits, int dept
 
 Window::Window(int redBits, int greenBits, int blueBits, int alphaBits, int depthBits, int stencilBits, int samples, HWND hWnd)
 {
+	fullScreen = false;
+
 	this->hWnd = hWnd;
 	hDC = GetDC(hWnd);
+
+	baseClassProc = (WNDPROC)SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LONG_PTR)wndProc);
+
+	if (!map)
+		map = debug_new std::map<HWND, Window*>;
+
+	(*map)[hWnd] = this;
 
 	wgl.addRef();
 	createSwapChain(hDC, redBits, greenBits, blueBits, alphaBits, depthBits, stencilBits, samples);
@@ -226,6 +253,17 @@ void Window::dispose()
 
 			if (--wndClassRefCount == 0)
 				unregWndClass();
+		}
+		else
+		{
+			SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LONG_PTR)baseClassProc);
+			map->erase(hWnd);
+
+			if (map->empty())
+			{
+				delete map;
+				map = 0;
+			}
 		}
 	}
 
@@ -273,7 +311,7 @@ bool Window::processMessages()
 					ChangeDisplaySettings(&dm, CDS_FULLSCREEN);
 				}
 				break;
-				
+
 			case WM_PGN_DEACTIVATE:
 
 				if(fullScreen)
@@ -329,4 +367,15 @@ void Window::getClientSize(int* w, int* h)
 void Window::present()
 {
 	SwapBuffers(hDC);
+}
+
+void Window::addGestureRecognizer(pgn::DraggingGestureRecognizer* _recognizer)
+{
+	DraggingGestureRecognizer* recognizer = (DraggingGestureRecognizer*)_recognizer;
+	gestureRecognizers.push_back((GestureRecognizer*)recognizer);
+}
+
+void Window::removeGestureRecognizer(pgn::GestureRecognizer* recognizer)
+{
+
 }

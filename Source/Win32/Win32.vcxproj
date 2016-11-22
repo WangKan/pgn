@@ -25,6 +25,7 @@
     <ClCompile Include="Thread\Mutex.cpp" />
     <ClCompile Include="Thread\Signal.cpp" />
     <ClCompile Include="Thread\sleep.cpp" />
+    <ClCompile Include="UI\Gesture\DraggingGestureRecognizer.cpp" />
     <ClCompile Include="UI\RenderingContext.cpp" />
     <ClCompile Include="UI\WGL.cpp" />
     <ClCompile Include="UI\Window.cpp" />
@@ -41,11 +42,15 @@
     <ClInclude Include="..\..\Include\PGN\Platform\Thread\Signal.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\Thread\sleep.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\UI\Display.h" />
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\Gesture\DraggingGestureRecognizer.h" />
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\Gesture\GestureRecognizer.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\UI\GL.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\UI\GXM.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\UI\RenderingContext.h" />
     <ClInclude Include="..\..\Include\PGN\Platform\UI\Window.h" />
     <ClInclude Include="DebugHeap.h" />
+    <ClInclude Include="UI\Gesture\DraggingGestureRecognizer.h" />
+    <ClInclude Include="UI\Gesture\GestureRecognizer.h" />
     <ClInclude Include="UI\WGL.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

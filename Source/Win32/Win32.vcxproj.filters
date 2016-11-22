@@ -25,6 +25,12 @@
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{0db5bd5e-3d68-497c-b334-195c7d4b3ce5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\UI\Gesture">
+      <UniqueIdentifier>{ccf94879-6e05-4c37-bcc4-a7b22da5f992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI\Gesture">
+      <UniqueIdentifier>{3e614b0a-e4ad-411b-8cd7-806bc371407a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Thread\Mutex.cpp">
@@ -65,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="UI\Window.cpp">
       <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Gesture\DraggingGestureRecognizer.cpp">
+      <Filter>Source Files\UI\Gesture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +127,18 @@
     </ClInclude>
     <ClInclude Include="UI\WGL.h">
       <Filter>Source Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\Gesture\GestureRecognizer.h">
+      <Filter>Header Files\UI\Gesture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Platform\UI\Gesture\DraggingGestureRecognizer.h">
+      <Filter>Header Files\UI\Gesture</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Gesture\DraggingGestureRecognizer.h">
+      <Filter>Source Files\UI\Gesture</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Gesture\GestureRecognizer.h">
+      <Filter>Source Files\UI\Gesture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

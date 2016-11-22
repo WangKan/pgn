@@ -31,6 +31,9 @@ typedef UIView* OSWindow;
 typedef void* OSWindow;
 #endif
 
+class DraggingGestureRecognizer;
+class GestureRecognizer;
+
 class Window : public Interface
 {
 public:
@@ -44,6 +47,8 @@ public:
 	virtual int getClientHeight() = 0;
 	virtual void getClientSize(int* w, int* h) = 0;
 	virtual void present() = 0;
+	virtual void addGestureRecognizer(DraggingGestureRecognizer* recognizer) = 0;
+	virtual void removeGestureRecognizer(GestureRecognizer* recognizer) = 0;
 };
 
 }
