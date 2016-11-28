@@ -1,38 +1,52 @@
 namespace pgn {
 
-template<class T, int size>
+template<class T, int capacity>
 class Queue
 {
 public:
-	T a[size + 1];
+	T a[capacity];
+	int size;
 	int begin, end;
 
 	Queue()
 	{
+		size = 0;
 		begin = 0;
 		end = 0;
 	}
 
-	void push(T e)
+	void push(T& e)
 	{
 		a[end++] = e;
-		end %= size + 1;
+		end %= capacity;
+		size++;
 	}
 
 	void pop()
 	{
 		begin++;
-		begin %= size + 1;
+		begin %= capacity;
+		size--;
 	}
 
-	T front()
+	T& front()
+	{
+		return a[begin];
+	}
+
+	T& back()
 	{
 		return a[begin];
 	}
 
 	bool empty()
 	{
-		return begin == end;
+		return size == 0;
+	}
+
+	bool full()
+	{
+		return size == capacity;
 	}
 };
 
