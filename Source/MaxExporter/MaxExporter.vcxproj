@@ -14,6 +14,7 @@
     <ClInclude Include="About.h" />
     <ClInclude Include="AnimExporter.h" />
     <ClInclude Include="MeshExporter.h" />
+    <ClInclude Include="NavExporter.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
@@ -21,6 +22,7 @@
     <ClCompile Include="AnimExporter.cpp" />
     <ClCompile Include="DllEntry.cpp" />
     <ClCompile Include="MeshExporter.cpp" />
+    <ClCompile Include="NavExporter.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -55,13 +57,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\..\$(Configuration)\</OutDir>
+    <OutDir>..\..\Build\$(Platform)_$(Configuration)\</OutDir>
     <TargetName>PGN_$(ProjectName)</TargetName>
     <TargetExt>.dle</TargetExt>
     <IncludePath>..\..\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>..\..\$(Configuration)\</OutDir>
+    <OutDir>..\..\Build\$(Platform)_$(Configuration)\</OutDir>
     <TargetName>PGN_$(ProjectName)</TargetName>
     <TargetExt>.dle</TargetExt>
     <IncludePath>..\..\Include;$(IncludePath)</IncludePath>
@@ -71,11 +73,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ADSK_3DSMAX_SDK_2014)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>MaxExporter.def</ModuleDefinitionFile>
       <AdditionalDependencies>core.lib;maxutil.lib;geom.lib;mesh.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ADSK_3DSMAX_SDK_2014)\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -85,6 +89,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ADSK_3DSMAX_SDK_2014)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -92,6 +97,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>MaxExporter.def</ModuleDefinitionFile>
       <AdditionalDependencies>core.lib;maxutil.lib;geom.lib;mesh.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ADSK_3DSMAX_SDK_2014)\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

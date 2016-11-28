@@ -4,12 +4,14 @@
 #include "DirectionalLight.h"
 #include "Entity.h"
 #include "Graphics.h"
+#include "NavModel.h"
 #include "Model.h"
 #include "PointLight.h"
 
 Graphics::Graphics(pgn::Display displayPrototype, pgn::FileStream* assetStream, pgn::FileStream* cacheStream)
 	: renderer(displayPrototype, assetStream, cacheStream)
 {
+	navModelPool = pgn::Pool::create(sizeof(NavModel));
 	modelPool = pgn::Pool::create(sizeof(Model));
 	entityPool = pgn::Pool::create(sizeof(Entity));
 	pointLightPool = pgn::Pool::create(sizeof(PointLight));
@@ -19,6 +21,7 @@ Graphics::Graphics(pgn::Display displayPrototype, pgn::FileStream* assetStream, 
 
 void Graphics::dispose()
 {
+	navModelPool->destroy();
 	modelPool->destroy();
 	entityPool->destroy();
 	pointLightPool->destroy();

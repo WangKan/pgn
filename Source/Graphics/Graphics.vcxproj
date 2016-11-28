@@ -42,6 +42,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="NavModel.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Entity.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="NavModel.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Entity.cpp" />

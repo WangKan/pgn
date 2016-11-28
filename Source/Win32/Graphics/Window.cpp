@@ -43,6 +43,11 @@ static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 		translatedMessage.message = WM_PGN_CLOSE;
 		break;
 
+	case WM_SETCURSOR:
+
+		SetCursor(LoadCursor(NULL, IDC_ARROW));
+		return true;
+
 	default:
 		result = DefWindowProc(hWnd, message, wParam, lParam);
 	}

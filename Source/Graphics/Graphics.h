@@ -5,12 +5,14 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/TextureInfo.h"
 
+class NavModel;
 class Model;
 
 class Graphics : public pgn::Graphics
 {
 public:
 	Renderer renderer;
+	pgn::Pool* navModelPool;
 	pgn::Pool* modelPool;
 	TextureSetAllocator texSetAllocator;
 	pgn::Pool* entityPool;
@@ -25,6 +27,7 @@ public:
 	virtual pgn::Scene* createScene();
 	virtual pgn::Camera* createCamera();
 	virtual pgn::Model* createModel();
+	virtual pgn::NavModel* createNavModel();
 	virtual pgn::Entity* createEntity();
 	virtual pgn::PointLight* createPointLight();
 	virtual pgn::DirectionalLight* createDirectionalLight();

@@ -21,4 +21,5 @@ public:
 	SceneEntity(Entity* entity, bool useInstancedDrawing);
 	virtual void setScale(float xz, float y);
 	virtual void setWorldMat(pgn::Float4x3* mat);
+	virtual void getWorldPos(pgn::Float3& pos);
 };

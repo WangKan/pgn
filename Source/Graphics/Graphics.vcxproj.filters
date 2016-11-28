@@ -270,6 +270,9 @@
     <ClInclude Include="DirectionalLight.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="NavModel.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Model.cpp">
@@ -405,6 +408,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NavModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

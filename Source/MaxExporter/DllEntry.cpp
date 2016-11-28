@@ -2,6 +2,7 @@
 #include <max.h>
 #include "AnimExporter.h"
 #include "MeshExporter.h"
+#include "NavExporter.h"
 
 HINSTANCE hInstance = 0;
  
@@ -25,6 +26,7 @@ ClassDesc* classDescs[] =
 {
 	  meshExporterDesc
 	, animExporterDesc
+	, navExporterDesc
 };
 
 int LibNumberClasses()
