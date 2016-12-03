@@ -2,13 +2,14 @@
 #include <PGN/Utilities/LinearTransformations.h>
 #undef PGN_DLL_EXPORT
 
+#include <PGN/Math/Math.h>
 #include "sinCosTable.h"
 
-void pgn::computeWorldMat(pgn::Float4x3* result, float x, float y, float z, int yaw)
+void pgn::buildWorldMat(float x, float y, float z, int yaw, Float4x3* result)
 {
-	pgn::Float4x3& m = *result;
+	Float4x3& m = *result;
 
-	pgn::Float2 sinCos = sinCosTable[yaw];
+	Float2 sinCos = sinCosTable[yaw];
 
 	m[0][0] = sinCos[1];	m[1][0] = 0;		m[2][0] = -sinCos[0];
 	m[0][1] = 0;			m[1][1] = 1;		m[2][1] = 0;
