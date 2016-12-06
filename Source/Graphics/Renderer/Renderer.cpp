@@ -1028,7 +1028,7 @@ void Renderer::render(FrameContext* frameContext)
 	pgn::Float4x4 proj = frameContext->proj;
 
 	pgn::Float4x4 modView;
-	modView = view;
+	modView.float4x3 = view;
 	modView[3][0] = 0;
 	modView[3][1] = 0;
 	modView[3][2] = 0;

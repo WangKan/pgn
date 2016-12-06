@@ -10,7 +10,7 @@ SkeletonTemplate::SkeletonTemplate(int numBones, pgn::Float4x3* offsetMats, pgn:
 	{
 		bones.emplace_back();
 		Bone* bone = &bones.back();
-		bone->offsetMat = offsetMats[i];
+		bone->offsetMat.float4x3 = offsetMats[i];
 		pgn::Float4& col3 = bone->offsetMat[3];
 		col3[0] = 0.0f;
 		col3[1] = 0.0f;

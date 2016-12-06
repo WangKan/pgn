@@ -58,7 +58,7 @@ void Camera::setViewMat(pgn::Float4x3* mat)
 void Camera::buildVFPlanes()
 {
 	pgn::Float4x4 modView;
-	modView = viewMat;
+	modView.float4x3 = viewMat;
 	modView[3][0] = 0;
 	modView[3][1] = 0;
 	modView[3][2] = 0;

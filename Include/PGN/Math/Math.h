@@ -46,11 +46,6 @@ struct Float4
 	{
 		return v[i];
 	}
-
-	void operator=(Float3& v)
-	{
-		float3 = v;
-	}
 };
 
 struct Float4x3
@@ -74,11 +69,6 @@ struct Float4x4
 	Float4& operator[](int i)
 	{
 		return col[i];
-	}
-
-	void operator=(Float4x3& mat)
-	{
-		float4x3 = mat;
 	}
 };
 

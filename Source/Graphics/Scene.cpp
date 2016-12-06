@@ -157,7 +157,7 @@ void Scene::commit(pgn::Camera* _camera)
 		for (auto& sceneDirLight : sceneDirLights)
 		{
 			frameContext->wDirLights[i].intensity_spec = sceneDirLight.dirLight->intensity_spec;
-			frameContext->wDirLights[i].dir_enabled = sceneDirLight.dir;
+			frameContext->wDirLights[i].dir_enabled.float3 = sceneDirLight.dir;
 			frameContext->wDirLights[i].dir_enabled[3] = 1.0f;
 			i++;
 		}
@@ -274,12 +274,12 @@ void Scene::commit(pgn::Camera* _camera)
 					ScenePointLight* scenePointLight = *it++;
 					PointLight* light = scenePointLight->pointLight;
 
-					instances[k].pos_scale = scenePointLight->pos;
+					instances[k].pos_scale.float3 = scenePointLight->pos;
 					instances[k].pos_scale[3] = light->radius;
 					instances[k].lightIndex = i;
 
 					frameContext->wPointLights[i].intensity_spec = light->intensity_spec;
-					frameContext->wPointLights[i].pos_att = scenePointLight->pos;
+					frameContext->wPointLights[i].pos_att.float3 = scenePointLight->pos;
 					frameContext->wPointLights[i].pos_att[3] = light->att;
 
 					i++;
