@@ -39,33 +39,3 @@ void buildOrthogonalProjMatLH(pgn::Float4x3* _mat, float w, float h, float n, fl
 	mat[0][2] = 0;		mat[1][2] = 0;		mat[2][2] = 1 / (f - n);
 	mat[0][3] = 0;		mat[1][3] = 0;		mat[2][3] = -n / (f - n);
 }
-
-void buildMatRotationX(pgn::Float4x3* _mat, float angle)
-{
-	pgn::Float4x3& mat = *_mat;
-
-	mat[0][0] = 1;		mat[1][0] = 0;				mat[2][0] = 0;
-	mat[0][1] = 0;		mat[1][1] = cos(angle);		mat[2][1] = sin(angle);
-	mat[0][2] = 0;		mat[1][2] = -sin(angle);	mat[2][2] = cos(angle);
-	mat[0][3] = 0;		mat[1][3] = 0;				mat[2][3] = 0;
-}
-
-void buildMatRotationY(pgn::Float4x3* _mat, float angle)
-{
-	pgn::Float4x3& mat = *_mat;
-
-	mat[0][0] = cos(angle);		mat[1][0] = 0;		mat[2][0] = -sin(angle);
-	mat[0][1] = 0;				mat[1][1] = 1;		mat[2][1] = 0;
-	mat[0][2] = sin(angle);		mat[1][2] = 0;		mat[2][2] = cos(angle);
-	mat[0][3] = 0;				mat[1][3] = 0;		mat[2][3] = 0;
-}
-
-void buildMatRotationZ(pgn::Float4x3* _mat, float angle)
-{
-	pgn::Float4x3& mat = *_mat;
-
-	mat[0][0] = cos(angle);		mat[1][0] = sin(angle);		mat[2][0] = 0;
-	mat[0][1] = -sin(angle);	mat[1][1] = cos(angle);		mat[2][1] = 0;
-	mat[0][2] = 0;				mat[1][2] = 0;				mat[2][2] = 1;
-	mat[0][3] = 0;				mat[1][3] = 0;				mat[2][3] = 0;
-}
