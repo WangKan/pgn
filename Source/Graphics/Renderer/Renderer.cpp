@@ -1027,24 +1027,15 @@ void Renderer::render(FrameContext* frameContext)
 	pgn::Float4x3 view = frameContext->view;
 	pgn::Float4x4 proj = frameContext->proj;
 
-	pgn::Float4x4 modView;
-	modView.float4x3 = view;
-	modView[3][0] = 0;
-	modView[3][1] = 0;
-	modView[3][2] = 0;
-	modView[3][3] = 1;
-
-	pgn::Float3 camPos;
-	camPos[0] = -modView[0][3];
-	camPos[1] = -modView[1][3];
-	camPos[2] = -modView[2][3];
-
-	modView[0][3] = 0;
-	modView[1][3] = 0;
-	modView[2][3] = 0;
+	pgn::Float4x4 view4x4;
+	view4x4.float4x3 = view;
+	view4x4[3][0] = 0;
+	view4x4[3][1] = 0;
+	view4x4[3][2] = 0;
+	view4x4[3][3] = 1;
 
 	pgn::Float4x4 viewProj;
-	pgn::mul(&modView, &proj, &viewProj);
+	pgn::mul(&view4x4, &proj, &viewProj);
 
 	pgn::Float4x4 invProj =
 	{
@@ -1058,13 +1049,7 @@ void Renderer::render(FrameContext* frameContext)
 	{
 		frameContext->vPointLights[i].intensity_spec = frameContext->wPointLights[i].intensity_spec;
 		frameContext->vPointLights[i].pos_att[3] = frameContext->wPointLights[i].pos_att[3];
-
-		pgn::Float3 wpos = frameContext->wPointLights[i].pos_att.float3;
-		pgn::Float3& vpos = frameContext->vPointLights[i].pos_att.float3;
-
-		vpos[0] = wpos[0] * view[0][0] + wpos[1] * view[0][1] + wpos[2] * view[0][2] + view[0][3];
-		vpos[1] = wpos[0] * view[1][0] + wpos[1] * view[1][1] + wpos[2] * view[1][2] + view[1][3];
-		vpos[2] = wpos[0] * view[2][0] + wpos[1] * view[2][1] + wpos[2] * view[2][2] + view[2][3];
+		pgn::transformVertex(&frameContext->wPointLights[i].pos_att.float3, &view, &frameContext->vPointLights[i].pos_att.float3);
 	}
 
 	for (int i = 0; i < FrameContext::maxNumDirLights; i++)
@@ -1073,17 +1058,22 @@ void Renderer::render(FrameContext* frameContext)
 
 		frameContext->vDirLights[i].intensity_spec = frameContext->wDirLights[i].intensity_spec;
 		frameContext->vDirLights[i].dir_enabled[3] = frameContext->wDirLights[i].dir_enabled[3];
-
-		pgn::Float3 wdir = frameContext->wDirLights[i].dir_enabled.float3;
-		pgn::Float3& vdir = frameContext->vDirLights[i].dir_enabled.float3;
-
-		vdir[0] = wdir[0] * view[0][0] + wdir[1] * view[0][1] + wdir[2] * view[0][2];
-		vdir[1] = wdir[0] * view[1][0] + wdir[1] * view[1][1] + wdir[2] * view[1][2];
-		vdir[2] = wdir[0] * view[2][0] + wdir[1] * view[2][1] + wdir[2] * view[2][2];
+		pgn::transformVector(&frameContext->wDirLights[i].dir_enabled.float3, &view, &frameContext->vDirLights[i].dir_enabled.float3);
 	}
 
+	pgn::Float4x3 invRot;
+	pgn::inverse(&view, &invRot);
+
+	pgn::Float3 _camPos;
+	_camPos[0] = -view[0][3];
+	_camPos[1] = -view[1][3];
+	_camPos[2] = -view[2][3];
+
+	pgn::Float3 camPos;
+	pgn::transformVector(&_camPos, &invRot, &camPos); // 因为是纯旋转，所以用了transformVector。
+
 	envConsts[CAM_POS].p = &camPos;
-	envConsts[VIEW].p = &modView.float4x3;
+	envConsts[VIEW].p = &view;
 	envConsts[VIEW_PROJ].p = &viewProj;
 	envConsts[INV_PROJ].p = &invProj;
 	envConsts[W_POINT_LIGHT].p = frameContext->wPointLights;

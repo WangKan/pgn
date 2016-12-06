@@ -16,6 +16,7 @@
 #include <PGN/Utilities/SkeletalAnimation/SkeletonFactory.h>
 #include <PGN/Utilities/SkeletalAnimation/SkeletonTemplate.h>
 #include <PGN/Utilities/Clock.h>
+#include <PGN/Utilities/LinearTransformations.h>
 #include <PGN/Math/Utilities.h>
 #include <ode/ode.h>
 #include "SceneManager.h"
@@ -73,10 +74,10 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 		0, 1, 0, -40,
 		0, 0, 1, 120,
 	};
-	pgn::Float3 eye = { 0.0f, 10.0f, -40.0f };
-	pgn::Float3 lookAt = { 0, 30, 0 };
+	pgn::Float3 eye = { 0.0f, 30.0f, -20.0f };
+	pgn::Float3 lookAt = { 0, 0, 0 };
 	pgn::Float3 up = { 0, 1, 0 };
-	buildViewMatrix(viewMat, eye, lookAt, up);
+	pgn::buildViewMat(&eye, &lookAt, &up, &viewMat);
 	sm->setCameraViewMat(viewMat);
 
 	pgn::Float4x3 worldMat =

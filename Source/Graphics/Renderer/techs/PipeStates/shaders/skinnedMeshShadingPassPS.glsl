@@ -24,13 +24,13 @@ void main()
 
 		PointLight light = wPointLights[lightIndex];
 
-		highp vec3 lightVec = light.pos_att.xyz - camPos - wpos;
+		highp vec3 lightVec = light.pos_att.xyz - wpos;
 		highp float dist = length(lightVec);
 		highp float invDist = 1.0 / dist;
 		lowp vec3 L = lightVec * invDist;
 		lowp float NdotL = max(0.0, dot(n,L));
 		lowp vec3 R = 2.0 * NdotL * n - L;
-		lowp vec3 V = normalize(-wpos);
+		lowp vec3 V = normalize(camPos - wpos);
 		lowp float VdotR = max(0.0, dot(V,R));
 		lowp float att = 1.0 / (light.pos_att.w * dist*dist*dist*dist + 1.0);
 

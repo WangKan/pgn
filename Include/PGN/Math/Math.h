@@ -86,6 +86,11 @@ PGN_DLL_INTERFACE void mul(Float4x4* a, Float4x4* b, Float4x4* result);
 PGN_DLL_INTERFACE void mul(Float4x4* a, Float4x3* b, Float4x3* result);
 PGN_DLL_INTERFACE void mul(Float4x3* a, Float4x3* b, Float4x3* result); // 3x3¾ØÕó³Ë·¨
 
+PGN_DLL_INTERFACE void transformVertex(Float3* v, Float4x3* m, Float3* result);
+PGN_DLL_INTERFACE void transformVector(Float3* v, Float4x3* m, Float3* result);
+
+PGN_DLL_INTERFACE void inverse(Float4x3* m, Float4x3* result); // 3x3¾ØÕóµÄÄæ
+
 PGN_DLL_INTERFACE void lerp(Float3* a, Float3* b, float t, Float3* result);
 PGN_DLL_INTERFACE void slerp(Float4* a, Float4* b, float t, Float4* result);
 
@@ -102,5 +107,7 @@ PGN_DLL_INTERFACE void precomputeYTriangle(Float2* Axz, Float2* Bxz, Float2* Cxz
 PGN_DLL_INTERFACE float computeYTriangle(Float4* intermediateVars1, Float2* intermediateVars2, Float2* xz);
 
 PGN_DLL_INTERFACE bool pointInTriangle(Float3& p, Float3& a, Float3& b, Float3& c);
+
+PGN_DLL_INTERFACE void sincos(float x, float* s, float* c);
 
 }

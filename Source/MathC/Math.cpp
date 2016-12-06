@@ -39,6 +39,51 @@ void pgn::mul(Float4x3* _a, Float4x3* _b, Float4x3* _result)
 			r[col][row] = a[0][row] * b[col][0] + a[1][row] * b[col][1] + a[2][row] * b[col][2];
 }
 
+void pgn::transformVertex(Float3* _v, Float4x3* _m, Float3* _result)
+{
+	Float3& v = *_v;
+	Float4x3& m = *_m;
+	Float3& r = *_result;
+
+	r[0] = v[0] * m[0][0] + v[1] * m[0][1] + v[2] * m[0][2] + m[0][3];
+	r[1] = v[0] * m[1][0] + v[1] * m[1][1] + v[2] * m[1][2] + m[1][3];
+	r[2] = v[0] * m[2][0] + v[1] * m[2][1] + v[2] * m[2][2] + m[2][3];
+}
+
+void pgn::transformVector(Float3* _v, Float4x3* _m, Float3* _result)
+{
+	Float3& v = *_v;
+	Float4x3& m = *_m;
+	Float3& r = *_result;
+
+	r[0] = v[0] * m[0][0] + v[1] * m[0][1] + v[2] * m[0][2];
+	r[1] = v[0] * m[1][0] + v[1] * m[1][1] + v[2] * m[1][2];
+	r[2] = v[0] * m[2][0] + v[1] * m[2][1] + v[2] * m[2][2];
+}
+
+void pgn::inverse(Float4x3* _m, Float4x3* result)
+{
+	Float4x3& m = *_m;
+	Float4x3& r = *result;
+
+	float invDet = 1.0f / dot(cross(m[0].float3, m[1].float3), m[2].float3);
+
+	r[0][0] = (m[1][1] * m[2][2] - m[1][2] * m[2][1]) * invDet;
+	r[0][1] = (m[0][2] * m[2][1] - m[0][1] * m[2][2]) * invDet;
+	r[0][2] = (m[0][1] * m[1][2] - m[0][2] * m[1][1]) * invDet;
+	r[0][3] = 0;
+
+	r[1][0] = (m[1][2] * m[2][0] - m[1][0] * m[2][2]) * invDet;
+	r[1][1] = (m[0][0] * m[2][2] - m[0][2] * m[2][0]) * invDet;
+	r[1][2] = (m[0][2] * m[1][0] - m[0][0] * m[1][2]) * invDet;
+	r[1][3] = 0;
+
+	r[2][0] = (m[1][0] * m[2][1] - m[1][1] * m[2][0]) * invDet;
+	r[2][1] = (m[0][1] * m[2][0] - m[0][0] * m[2][1]) * invDet;
+	r[2][2] = (m[0][0] * m[1][1] - m[0][1] * m[1][0]) * invDet;
+	r[2][3] = 0;
+}
+
 void pgn::lerp(Float3* _a, Float3* _b, float t, Float3* _result)
 {
 	Float3& a = *_a;
@@ -261,3 +306,8 @@ bool pgn::pointInTriangle(Float3& p, Float3& a, Float3& b, Float3& c)
 	return u + v <= 1;
 }
 
+void pgn::sincos(float x, float* s, float* c)
+{
+	*s = sinf(x);
+	*c = cosf(x);
+}

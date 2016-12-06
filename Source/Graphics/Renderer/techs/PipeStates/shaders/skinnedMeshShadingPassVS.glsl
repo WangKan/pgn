@@ -20,10 +20,6 @@ void main()
 
 	mat3x4 world = instances[gl_InstanceID].world;
 
-	world[0][3] -= camPos.x;
-	world[1][3] -= camPos.y;
-	world[2][3] -= camPos.z;
-
 	wpos = vec4(mpos, 1.0) * world;
 	n = vec4(mnor, 0.0) * world;
 

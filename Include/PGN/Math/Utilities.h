@@ -20,6 +20,11 @@ inline bool operator!=(pgn::Float2& a, pgn::Float2& b)
 	return a[0] != b[0] || a[1] != b[1];
 }
 
+inline pgn::Float2 operator-(pgn::Float2& v)
+{
+	return pgn::Float2(-v[0], -v[1]);
+}
+
 inline pgn::Float2 operator+(pgn::Float2& a, pgn::Float2& b)
 {
 	return pgn::Float2(a[0] + b[0], a[1] + b[1]);
@@ -65,6 +70,12 @@ inline bool operator==(pgn::Float3& a, pgn::Float3& b)
 inline bool operator!=(pgn::Float3& a, pgn::Float3& b)
 {
 	return a[0] != b[0] || a[1] != b[1] || a[2] != b[2];
+}
+
+inline pgn::Float3 operator-(pgn::Float3& v)
+{
+	pgn::Float3 r = { -v[0], -v[1], -v[2] };
+	return r;
 }
 
 inline pgn::Float3 operator+(pgn::Float3& a, pgn::Float3& b)
