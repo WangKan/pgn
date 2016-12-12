@@ -17,7 +17,7 @@
 #include <PGN/Utilities/SkeletalAnimation/SkeletonTemplate.h>
 #include <PGN/Utilities/Clock.h>
 #include <PGN/Utilities/LinearTransformations.h>
-#include <PGN/Math/Utilities.h>
+#include <PGN/Math/Math.h>
 #include <ode/ode.h>
 #include "SceneManager.h"
 #include "PathFinder.h"
@@ -105,10 +105,9 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 		{
 			POINT pt;
 			GetCursorPos(&pt);
-			pgn::Float3 begin, end;
-			sm->screenPointToRay(begin, end, (float)pt.x, (float)pt.y);
+			pgn::Float3 begin, dir;
+			sm->screenPointToRay(pt.x, pt.y, begin, dir);
 			dGeomID ray = dCreateRay(space, 100.f);
-			pgn::Float3 dir = normalize(end - begin);
 			dGeomRaySet(ray, begin[0], begin[1], begin[2], dir[0], dir[1], dir[2]);
 			dContactGeom c;
 			int result = dCollide(ray, ground, 1, &c, sizeof(dContactGeom));

@@ -25,6 +25,7 @@
 #include <PGN/RenderingSystem/Shader.h>
 #include <PGN/RenderingSystem/SyncPoint.h>
 #include <PGN/RenderingSystem/Texture.h>
+#include <PGN/Utilities/LinearTransformations.h>
 #include <PGN/Utilities/Pipeline.h>
 #include <PGN/Utilities/ResourceManager/AsyncLoader.h>
 #include <PGN/Utilities/ResourceManager/ResourceHandle.h>
@@ -1061,16 +1062,13 @@ void Renderer::render(FrameContext* frameContext)
 		pgn::transformVector(&frameContext->wDirLights[i].dir_enabled.float3, &view, &frameContext->vDirLights[i].dir_enabled.float3);
 	}
 
-	pgn::Float4x3 invRot;
-	pgn::inverse(&view, &invRot);
-
-	pgn::Float3 _camPos;
-	_camPos[0] = -view[0][3];
-	_camPos[1] = -view[1][3];
-	_camPos[2] = -view[2][3];
+	pgn::Float4x3 invView;
+	pgn::calculateInverseViewMat(&view, &invView);
 
 	pgn::Float3 camPos;
-	pgn::transformVector(&_camPos, &invRot, &camPos); // 因为是纯旋转，所以用了transformVector。
+	camPos[0] = invView[0][3];
+	camPos[1] = invView[1][3];
+	camPos[2] = invView[2][3];
 
 	envConsts[CAM_POS].p = &camPos;
 	envConsts[VIEW].p = &view;

@@ -118,9 +118,9 @@ void SceneManager::setCameraViewMat(pgn::Float4x3& viewMat)
 	camera->setViewMat(&viewMat);
 }
 
-void SceneManager::screenPointToRay(pgn::Float3& begin, pgn::Float3& end, float x, float y)
+void SceneManager::screenPointToRay(int x, int y, pgn::Float3& origin, pgn::Float3& dir)
 {
-	camera->screenPointToRay(begin, end, x, y);
+	camera->screenPointToRay(x, y, &origin, &dir);
 }
 
 void SceneManager::addPointLight(pgn::Float4 intensity, float radius, pgn::Float3 pos)

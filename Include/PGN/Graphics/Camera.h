@@ -16,7 +16,7 @@ public:
 
 	virtual void setViewMat(Float4x3* mat) = 0;
 
-	virtual void screenPointToRay(pgn::Float3& begin, pgn::Float3& end, float x, float y) = 0;
+	virtual void screenPointToRay(int x, int y, Float3* origin, Float3* dir) = 0;
 };
 
 }

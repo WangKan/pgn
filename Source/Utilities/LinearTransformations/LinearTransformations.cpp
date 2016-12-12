@@ -124,3 +124,20 @@ void pgn::buildViewMat(Float4x3* baseViewMat, Float3* pivotInWorldSpace, float y
 
 	mul(&BR1, &R2, result);
 }
+
+void pgn::calculateInverseViewMat(Float4x3* viewMat, Float4x3* result)
+{
+	pgn::Float3 invTRow4;
+	invTRow4[0] = -(*viewMat)[0][3];
+	invTRow4[1] = -(*viewMat)[1][3];
+	invTRow4[2] = -(*viewMat)[2][3];
+
+	pgn::inverse(viewMat, result);
+
+	pgn::Float3 row4;
+	pgn::transformVector(&invTRow4, result, &row4);
+
+	(*result)[0][3] = row4[0];
+	(*result)[1][3] = row4[1];
+	(*result)[2][3] = row4[2];
+}

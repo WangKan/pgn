@@ -1,3 +1,5 @@
+#include <PGN/Math/Utilities.h>
+#include <PGN/Utilities/LinearTransformations.h>
 #include "Camera.h"
 #include "Graphics.h"
 #include "Matrix.h"
@@ -23,11 +25,24 @@ void Camera::_free()
 void Camera::setFrustumLH(float w, float h, float n, float f)
 {
 	buildPerspectiveProjMatLH(&projMat, w, h, n, f);
+
+	frustum.l = -w / 2.0f;
+	frustum.r = w / 2.0f;
+	frustum.t = h / 2.0f;
+	frustum.b = -h / 2.0f;
+	frustum.n = n;
 }
 
 void Camera::setFrustumFovLH(float verticalFov, float aspectRatio, float n, float f)
 {
-	buildPerspectiveProjMatFovLH(&projMat, verticalFov, aspectRatio, n, f);
+	float w, h;
+	buildPerspectiveProjMatFovLH(&projMat, verticalFov, aspectRatio, n, f, &w, &h);
+
+	frustum.l = -w / 2.0f;
+	frustum.r = w / 2.0f;
+	frustum.t = h / 2.0f;
+	frustum.b = -h / 2.0f;
+	frustum.n = n;
 }
 
 void Camera::setOrthoLH(float w, float h, float n, float f)
@@ -51,92 +66,25 @@ void Camera::setViewport(int left, int top, int width, int height, int fullHeigh
 void Camera::setViewMat(pgn::Float4x3* mat)
 {
 	viewMat = *mat;
-
-	buildVFPlanes();
 }
 
-void Camera::buildVFPlanes()
+void Camera::screenPointToRay(int x, int y, pgn::Float3* origin, pgn::Float3* dir)
 {
-	pgn::Float4x4 modView;
-	modView.float4x3 = viewMat;
-	modView[3][0] = 0;
-	modView[3][1] = 0;
-	modView[3][2] = 0;
-	modView[3][3] = 1;
+	pgn::Float3 vPos;
 
-	camPos[0] = -modView[0][3];
-	camPos[1] = -modView[1][3];
-	camPos[2] = -modView[2][3];
+	float s = (float)(x - viewport.left) / viewport.width;
+	float t = (float)(y - viewport.top) / viewport.height;
 
-	pgn::Float4x4 mat;
-	pgn::mul(&modView, &projMat, &mat);
+	vPos[0] = (1.0f - s) * frustum.l + s * frustum.r;
+	vPos[1] = (1.0f - t) * frustum.t + t * frustum.b;
+	vPos[2] = frustum.n;
 
-	planes[VF_LEFT_PLANE].normal[0] = mat[3][0] + mat[0][0];
-	planes[VF_LEFT_PLANE].normal[1] = mat[3][1] + mat[0][1];
-	planes[VF_LEFT_PLANE].normal[2] = mat[3][2] + mat[0][2];
-	planes[VF_LEFT_PLANE].distance = mat[3][3] + mat[0][3];
+	pgn::Float4x3 invViewMat;
+	pgn::calculateInverseViewMat(&viewMat, &invViewMat);
 
-	// right clipping plane
-	planes[VF_RIGHT_PLANE].normal[0] = mat[3][0] - mat[0][0];
-	planes[VF_RIGHT_PLANE].normal[1] = mat[3][1] - mat[0][1];
-	planes[VF_RIGHT_PLANE].normal[2] = mat[3][2] - mat[0][2];
-	planes[VF_RIGHT_PLANE].distance = mat[3][3] - mat[0][3];
+	pgn::transformVertex(&vPos, &invViewMat, origin);
 
-	// top clipping plane
-	planes[VF_TOP_PLANE].normal[0] = mat[3][0] - mat[1][0];
-	planes[VF_TOP_PLANE].normal[1] = mat[3][1] - mat[1][1];
-	planes[VF_TOP_PLANE].normal[2] = mat[3][2] - mat[1][2];
-	planes[VF_TOP_PLANE].distance = mat[3][3] - mat[1][3];
-
-	// bottom clipping plane
-	planes[VF_BOTTOM_PLANE].normal[0] = mat[3][0] + mat[1][0];
-	planes[VF_BOTTOM_PLANE].normal[1] = mat[3][1] + mat[1][1];
-	planes[VF_BOTTOM_PLANE].normal[2] = mat[3][2] + mat[1][2];
-	planes[VF_BOTTOM_PLANE].distance = mat[3][3] + mat[1][3];
-
-	// far clipping plane
-	planes[VF_FAR_PLANE].normal[0] = mat[3][0] - mat[2][0];
-	planes[VF_FAR_PLANE].normal[1] = mat[3][1] - mat[2][1];
-	planes[VF_FAR_PLANE].normal[2] = mat[3][2] - mat[2][2];
-	planes[VF_FAR_PLANE].distance = mat[3][3] - mat[2][3];
-
-	// near clipping plane
-	planes[VF_NEAR_PLANE].normal[0] = mat[2][0];
-	planes[VF_NEAR_PLANE].normal[1] = mat[2][1];
-	planes[VF_NEAR_PLANE].normal[2] = mat[2][2];
-	planes[VF_NEAR_PLANE].distance = mat[2][3];
-
-	// normalize normals
-	for (int i = 0; i != VF_PLANE_COUNT; ++i)
-	{
-		pgn::Float3& n = planes[i].normal;
-		float len = -1 / sqrt(n[0] * n[0] + n[1] * n[1] + n[2] * n[2]);
-		n[0] *= len;
-		n[1] *= len;
-		n[2] *= len;
-		planes[i].distance *= len;
-	}
+	pgn::Float3 d;
+	pgn::transformVector(&vPos, &invViewMat, &d);
+	*dir = normalize(d);
 }
-
-void Camera::screenPointToRay(pgn::Float3& begin, pgn::Float3& end, float x, float y)
-{
-	pgn::Float3 farLeftUp = getFarLeftUp();
-	pgn::Float3 farRightUp = getFarRightUp();
-	pgn::Float3 farLeftDown = getFarLeftDown();
-	pgn::Float3 leftToRight;
-	pgn::Float3 upToDown;
-	for(int i = 0; i < 3; ++i)
-		leftToRight[i] = farRightUp[i] - farLeftUp[i];
-	for (int i = 0; i < 3; ++i)
-		upToDown[i] = farLeftDown[i] - farLeftUp[i];
-
-	float dx = (x - viewport.left) / viewport.width;
-	float dy = (y - viewport.top) / viewport.height;
-
-	for (int i = 0; i < 3; ++i)
-		begin[i] = camPos[i];
-
-	for (int i = 0; i < 3; ++i)
-		end[i] = farLeftUp[i] + (leftToRight[i] * dx) + (upToDown[i] * dy);
-}
-

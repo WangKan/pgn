@@ -28,7 +28,7 @@ public:
 	pgn::SceneEntity* addCharacter(char* pnm, pgn::Float4x3& worldMat, float scale);
 	void tick(int dt);
 	void setCameraViewMat(pgn::Float4x3& viewMat);
-	void screenPointToRay(pgn::Float3& begin, pgn::Float3& end, float x, float y);
+	void screenPointToRay(int x, int y, pgn::Float3& origin, pgn::Float3& dir);
 
 private:
 	std::list<pgn::SceneEntity* > sceneEntities;
