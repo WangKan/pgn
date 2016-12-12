@@ -84,12 +84,22 @@ static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 		return true;
 
 	default:
-		Window* wnd = (*map)[hWnd];
 
-		for (auto recognizer : wnd->gestureRecognizers)
-			recognizer->processInput(message, wParam, lParam);
+		if (map)
+		{
+			Window* wnd = (*map)[hWnd];
 
-		result = CallWindowProc(wnd->baseClassProc, hWnd, message, wParam, lParam);
+			for (auto recognizer : wnd->gestureRecognizers)
+				recognizer->processInput(message, wParam, lParam);
+
+			if (wnd->baseClassProc)
+			{
+				result = CallWindowProc(wnd->baseClassProc, hWnd, message, wParam, lParam);
+				break;
+			}
+		}
+
+		result = DefWindowProc(hWnd, message, wParam, lParam);
 	}
 
 	if (translatedMessage.message)
@@ -207,6 +217,14 @@ Window::Window(int redBits, int greenBits, int blueBits, int alphaBits, int dept
 	AdjustWindowRectEx(&clientRect, style, FALSE, exStyle);
 	hWnd = CreateWindowEx(exStyle, wndClassName, this->title, style, x, y, clientRect.right - clientRect.left, clientRect.bottom - clientRect.top, HWND_DESKTOP, NULL, GetModuleHandle(NULL), NULL);
 	hDC = GetDC(hWnd);
+
+	baseClassProc = 0;
+
+	if (!map)
+		map = debug_new std::map<HWND, Window*>;
+
+	(*map)[hWnd] = this;
+
 	ShowWindow(hWnd, SW_SHOWNORMAL);
 
 	wgl.addRef();
