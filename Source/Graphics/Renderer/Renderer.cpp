@@ -797,7 +797,7 @@ void Renderer::beginDraw(pgn::Window* wnd, RendererConfig* _cfg)
 	bool programsReady = false;
 	static char cacheFileName[] = "shaders.bin";
 
-	if (cacheStream)
+	if (/*cacheStream*/0)
 	{
 		cacheStream->open(cacheFileName, pgn::FileStream::in);
 
