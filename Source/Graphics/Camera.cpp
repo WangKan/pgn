@@ -25,9 +25,9 @@ void Camera::setFrustumLH(float w, float h, float n, float f)
 	buildPerspectiveProjMatLH(&projMat, w, h, n, f);
 }
 
-void Camera::setFrustumFovLH(float fovY, float aspectRatio, float n, float f)
+void Camera::setFrustumFovLH(float verticalFov, float aspectRatio, float n, float f)
 {
-	buildPerspectiveProjMatFovLH(&projMat, fovY, aspectRatio, n, f);
+	buildPerspectiveProjMatFovLH(&projMat, verticalFov, aspectRatio, n, f);
 }
 
 void Camera::setOrthoLH(float w, float h, float n, float f)

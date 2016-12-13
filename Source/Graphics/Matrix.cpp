@@ -23,9 +23,9 @@ void buildPerspectiveProjMatLH(pgn::Float4x4* _mat, float w, float h, float n, f
 }
 #endif
 
-void buildPerspectiveProjMatFovLH(pgn::Float4x4* mat, float fovY, float aspectRatio, float n, float f)
+void buildPerspectiveProjMatFovLH(pgn::Float4x4* mat, float verticalFov, float aspectRatio, float n, float f)
 {
-	float h = n * tan(fovY/2) * 2;
+	float h = n * tan(verticalFov/2) * 2;
 	float w = h * aspectRatio;
 	buildPerspectiveProjMatLH(mat, w, h, n, f);
 }

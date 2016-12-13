@@ -29,7 +29,7 @@ public:
 	virtual void _free();
 
 	virtual void setFrustumLH(float w, float h, float n, float f);
-	virtual void setFrustumFovLH(float fovY, float aspectRatio, float n, float f);
+	virtual void setFrustumFovLH(float verticalFov, float aspectRatio, float n, float f);
 	virtual void setOrthoLH(float w, float h, float n, float f);
 
 	virtual void setViewport(int left, int top, int width, int height, int fullHeight);
