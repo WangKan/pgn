@@ -22,7 +22,7 @@ inline bool operator!=(pgn::Float2& a, pgn::Float2& b)
 
 inline pgn::Float2 operator+(pgn::Float2& a, pgn::Float2& b)
 {
-	return pgn::Float2(a.v[0] + b.v[0], a.v[1] + b.v[1]);
+	return pgn::Float2(a[0] + b[0], a[1] + b[1]);
 }
 
 inline pgn::Float2 operator-(pgn::Float2& a, pgn::Float2& b)
@@ -42,7 +42,7 @@ inline float dot(pgn::Float2& a, pgn::Float2& b)
 
 inline float cross(pgn::Float2& a, pgn::Float2& b)
 {
-	return a.v[0] * b.v[1] - a.v[1] * b.v[0];
+	return a[0] * b[1] - a[1] * b[0];
 }
 
 inline float length(pgn::Float2& v)
@@ -69,13 +69,13 @@ inline bool operator!=(pgn::Float3& a, pgn::Float3& b)
 
 inline pgn::Float3 operator+(pgn::Float3& a, pgn::Float3& b)
 {
-	pgn::Float3 r = { a.v[0] + b.v[0], a.v[1] + b.v[1], a.v[2] + b.v[2] };
+	pgn::Float3 r = { a[0] + b[0], a[1] + b[1], a[2] + b[2] };
 	return r;
 }
 
 inline pgn::Float3 operator-(pgn::Float3& a, pgn::Float3& b)
 {
-	pgn::Float3 r = { a.v[0] - b.v[0], a.v[1] - b.v[1], a.v[2] - b.v[2] };
+	pgn::Float3 r = { a[0] - b[0], a[1] - b[1], a[2] - b[2] };
 	return r;
 }
 
