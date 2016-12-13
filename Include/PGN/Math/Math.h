@@ -101,10 +101,6 @@ PGN_DLL_INTERFACE void closestPtSegmentSegment(Float2* p1, Float2* q1, Float2* p
 PGN_DLL_INTERFACE void precomputeYTriangle(Float2* Axz, Float2* Bxz, Float2* Cxz, float Ay, float By, float Cy, Float4* intermediateVars1, Float2* intermediateVars2);
 PGN_DLL_INTERFACE float computeYTriangle(Float4* intermediateVars1, Float2* intermediateVars2, Float2* xz);
 
-PGN_DLL_INTERFACE bool equals(Float3& a, Float3& b);
-PGN_DLL_INTERFACE void normalize3d(Float3& a);
-PGN_DLL_INTERFACE float length3d(Float3& a, Float3& b);
-PGN_DLL_INTERFACE void cross3d(Float3& result, Float3& a, Float3& b);
-PGN_DLL_INTERFACE float dot3d(Float3& a, Float3& b);
 PGN_DLL_INTERFACE bool pointInTriangle(Float3& p, Float3& a, Float3& b, Float3& c);
+
 }

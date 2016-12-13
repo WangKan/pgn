@@ -1,8 +1,8 @@
 #pragma once
 #include "../Common/DllInterface.h"
+#include "Math.h"
 namespace pgn{
 
-struct Float3;
 class PGN_DLL_INTERFACE Plane
 {
 public:

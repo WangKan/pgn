@@ -4,6 +4,7 @@
 
 #include <float.h>
 #include <math.h>
+#include <PGN/Math/Utilities.h>
 
 void pgn::mul(Float4x4* _a, Float4x4* _b, Float4x4* _result)
 {
@@ -132,38 +133,6 @@ void pgn::sub(Float4* a, Float4* b, Float4* results, int count)
 	}
 }
 
-inline pgn::Float2 operator+(const pgn::Float2& a, const pgn::Float2& b)
-{
-	return pgn::Float2(a.v[0] + b.v[0], a.v[1] + b.v[1]);
-}
-
-inline pgn::Float2 operator-(pgn::Float2& a, pgn::Float2& b)
-{
-	return pgn::Float2(a[0] - b[0], a[1] - b[1]);
-}
-
-inline pgn::Float2 operator*(pgn::Float2& v, float t)
-{
-	return pgn::Float2(v[0] * t, v[1] * t);
-}
-
-inline float dot(pgn::Float2& a, pgn::Float2& b)
-{
-	return a[0] * b[0] + a[1] * b[1];
-}
-
-inline float cross(const pgn::Float2& a, const pgn::Float2& b)
-{
-	return a.v[0] * b.v[1] - a.v[1] * b.v[0];
-}
-
-inline float clamp(float n, float min, float max)
-{
-	if (n < min) return min;
-	if (n > max) return max;
-	return n;
-}
-
 bool pgn::pointInCCWTriangle(Float2* _p, Float2* _a, Float2* _b, Float2* _c)
 {
 	Float2& p = *_p;
@@ -267,48 +236,17 @@ float pgn::computeYTriangle(Float4* _intermediateVars1, Float2* _intermediateVar
 	return s * vars2[0] + t * vars2[1];
 }
 
-bool pgn::equals(Float3& a, Float3& b)
-{
-	//return ((a[0] - b[0])*(a[0] - b[0]) + (a[1] - b[1])*(a[1] - b[1]) + (a[2] - b[2])*(a[2] - b[2])) < 1e-3;
-	return a[0] == b[0] && a[1] == b[1] && a[2] == b[2];
-}
-
-void pgn::normalize3d(Float3& a)
-{
-	float dist = sqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
-	a[0] /= dist;
-	a[1] /= dist;
-	a[2] /= dist;
-}
-
-float pgn::length3d(Float3& a, Float3& b)
-{
-	return sqrt((a[0] - b[0])*(a[0] - b[0]) + (a[1] - b[1])*(a[1] - b[1]) + (a[2] - b[2])*(a[2] - b[2]));
-}
-
-void pgn::cross3d(Float3& result, Float3& a, Float3& b)
-{
-	result[0] = a[1] * b[2] - a[2] * b[1];
-	result[1] = a[2] * b[0] - a[0] * b[2];
-	result[2] = a[0] * b[1] - a[1] * b[0];
-}
-
-float pgn::dot3d(Float3& a, Float3& b)
-{
-	return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
-}
-
 bool pgn::pointInTriangle(Float3& p, Float3& a, Float3& b, Float3& c)
 {
 	pgn::Float3 v0 = { c[0] - a[0], c[1] - a[1], c[2] - a[2] };
 	pgn::Float3 v1 = { b[0] - a[0], b[1] - a[1], b[2] - a[2] };
 	pgn::Float3 v2 = { p[0] - a[0], p[1] - a[1], p[2] - a[2] };
 
-	float dot00 = pgn::dot3d(v0, v0);
-	float dot01 = pgn::dot3d(v0, v1);
-	float dot02 = pgn::dot3d(v0, v2);
-	float dot11 = pgn::dot3d(v1, v1);
-	float dot12 = pgn::dot3d(v1, v2);
+	float dot00 = dot(v0, v0);
+	float dot01 = dot(v0, v1);
+	float dot02 = dot(v0, v2);
+	float dot11 = dot(v1, v1);
+	float dot12 = dot(v1, v2);
 
 	float inverDeno = 1.0f / (dot00 * dot11 - dot01 * dot01);
 

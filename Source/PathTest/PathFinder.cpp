@@ -1,5 +1,5 @@
 #include <PGN/Common/debug_new.h>
-#include <PGN/Math/Math.h>
+#include <PGN/Math/Utilities.h>
 #include "PathFinder.h"
 
 int Line::classifyPoint(pgn::Float3& p)
@@ -34,7 +34,7 @@ int PathNode::getAdjacentSide(unsigned short a, unsigned short b)
 
 void PathNode::computeHeuristic(pgn::Float3& pos)
 {
-	h = pgn::length3d(center, pos);
+	h = length(center - pos);
 }
 
 void PathNode::setArrivalSide(int idx, PathNode* node)
@@ -110,9 +110,9 @@ void PathFinder::build(void* vertices, int vertexCount, void* indices, int index
 		m[1] = { 0.5f*(v[1][0] + v[2][0]), 0.5f*(v[1][1] + v[2][1]), 0.5f*(v[1][2] + v[2][2]) };
 		m[2] = { 0.5f*(v[2][0] + v[0][0]), 0.5f*(v[2][1] + v[0][1]), 0.5f*(v[2][2] + v[0][2]) };
 		
-		node->sideDistance[0] = pgn::length3d(m[0], m[1]);
-		node->sideDistance[1] = pgn::length3d(m[1], m[2]);
-		node->sideDistance[2] = pgn::length3d(m[2], m[0]);
+		node->sideDistance[0] = length(m[0] - m[1]);
+		node->sideDistance[1] = length(m[1] - m[2]);
+		node->sideDistance[2] = length(m[2] - m[0]);
 		
 		pathNodes.push_back(node);
 	}
@@ -229,7 +229,7 @@ void PathFinder::getPath(std::deque<pgn::Float3>& path)
 
 	// 获取路点
 	WayPoint wayPoint(gridPath[0], startPos);
-	while (!pgn::equals(wayPoint.pos, endPos))
+	while (wayPoint.pos != endPos)
 	{
 		getFurthestWayPoint(wayPoint, gridPath);
 		path.push_back(wayPoint.pos);
@@ -284,7 +284,7 @@ void PathFinder::getFurthestWayPoint(WayPoint& wayPoint, std::vector<PathNode*>&
 			testPtB = outSide.pointB;
 		}
 
-		if (!pgn::equals(lastPtA, testPtA)) 
+		if (lastPtA != testPtA) 
 		{
 			if (lastLineB.classifyPoint(testPtA) > 0)
 			{// RIGHT SIDE
@@ -300,7 +300,7 @@ void PathFinder::getFurthestWayPoint(WayPoint& wayPoint, std::vector<PathNode*>&
 			}
 		}
 
-		if (!pgn::equals(lastPtB, testPtB)) 
+		if (lastPtB != testPtB) 
 		{
 			if (lastLineA.classifyPoint(testPtB) < 0) 
 			{// LEFT SIDE

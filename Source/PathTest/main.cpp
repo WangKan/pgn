@@ -16,23 +16,19 @@
 #include <PGN/Utilities/SkeletalAnimation/SkeletonFactory.h>
 #include <PGN/Utilities/SkeletalAnimation/SkeletonTemplate.h>
 #include <PGN/Utilities/Clock.h>
-#include <PGN/Math/Math.h>
+#include <PGN/Math/Utilities.h>
 #include <ode/ode.h>
 #include "SceneManager.h"
 #include "PathFinder.h"
 
 void buildViewMatrix(pgn::Float4x3& viewMatrix, pgn::Float3& eye, pgn::Float3& lookAt, pgn::Float3& up)
 {
-	pgn::Float3 d = { lookAt[0] - eye[0], lookAt[1] - eye[1], lookAt[2] - eye[2] };
-	normalize3d(d);
+	pgn::Float3 d = normalize(lookAt - eye);
 
 	// Calculate x
-	pgn::Float3 r;
-	cross3d(r, d, up);
-	normalize3d(r);
+	pgn::Float3 r = normalize(cross(d, up));
 
-	cross3d(up, r, d);
-	normalize3d(up);
+	up = normalize(cross(r, d));
 
 	// Fill in the view matrix entries
 	viewMatrix[0][0] = r[0];
@@ -47,9 +43,9 @@ void buildViewMatrix(pgn::Float4x3& viewMatrix, pgn::Float3& eye, pgn::Float3& l
 	viewMatrix[2][1] = -d[1];
 	viewMatrix[2][2] = -d[2];
 
-	viewMatrix[0][3] = -dot3d(eye, r);
-	viewMatrix[1][3] = -dot3d(eye, up);
-	viewMatrix[2][3] = dot3d(eye, d);
+	viewMatrix[0][3] = -dot(eye, r);
+	viewMatrix[1][3] = -dot(eye, up);
+	viewMatrix[2][3] = dot(eye, d);
 }
 
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -138,8 +134,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 			pgn::Float3 begin, end;
 			sm->screenPointToRay(begin, end, (float)pt.x, (float)pt.y);
 			dGeomID ray = dCreateRay(space, 100.f);
-			pgn::Float3 dir = { end[0] - begin[0], end[1] - begin[1], end[2] - begin[2] };
-			pgn::normalize3d(dir);
+			pgn::Float3 dir = normalize(end - begin);
 			dGeomRaySet(ray, begin[0], begin[1], begin[2], dir[0], dir[1], dir[2]);
 			dContactGeom c;
 			int result = dCollide(ray, ground, 1, &c, sizeof(dContactGeom));

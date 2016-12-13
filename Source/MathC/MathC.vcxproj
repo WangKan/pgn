@@ -33,6 +33,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Include\PGN\Math\Math.h" />
     <ClInclude Include="..\..\Include\PGN\Math\Plane.h" />
+    <ClInclude Include="..\..\Include\PGN\Math\Utilities.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2D2C9C84-BFE3-4EE2-AA18-F0295F2DBA76}</ProjectGuid>
