@@ -275,13 +275,14 @@ void Window::dispose()
 		else
 		{
 			SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LONG_PTR)baseClassProc);
-			map->erase(hWnd);
+		}
 
-			if (map->empty())
-			{
-				delete map;
-				map = 0;
-			}
+		map->erase(hWnd);
+
+		if (map->empty())
+		{
+			delete map;
+			map = 0;
 		}
 	}
 
