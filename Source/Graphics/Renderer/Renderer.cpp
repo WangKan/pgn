@@ -1046,6 +1046,14 @@ void Renderer::render(FrameContext* frameContext)
 		0,					0,					1 / proj[2][3],		-proj[2][2] / proj[2][3]
 	};
 
+	pgn::Float4x3 invView;
+	pgn::calculateInverseViewMat(&view, &invView);
+
+	pgn::Float3 camPos;
+	camPos[0] = invView[0][3];
+	camPos[1] = invView[1][3];
+	camPos[2] = invView[2][3];
+
 	for (int i = 0; i < frameContext->numPointLights; i++)
 	{
 		frameContext->vPointLights[i].intensity_spec = frameContext->wPointLights[i].intensity_spec;
@@ -1062,18 +1070,10 @@ void Renderer::render(FrameContext* frameContext)
 		pgn::transformVector(&frameContext->wDirLights[i].dir_enabled.float3, &view, &frameContext->vDirLights[i].dir_enabled.float3);
 	}
 
-	pgn::Float4x3 invView;
-	pgn::calculateInverseViewMat(&view, &invView);
-
-	pgn::Float3 camPos;
-	camPos[0] = invView[0][3];
-	camPos[1] = invView[1][3];
-	camPos[2] = invView[2][3];
-
-	envConsts[CAM_POS].p = &camPos;
 	envConsts[VIEW].p = &view;
 	envConsts[VIEW_PROJ].p = &viewProj;
 	envConsts[INV_PROJ].p = &invProj;
+	envConsts[CAM_POS].p = &camPos;
 	envConsts[W_POINT_LIGHT].p = frameContext->wPointLights;
 	envConsts[V_POINT_LIGHT].p = frameContext->vPointLights;
 	envConsts[W_DIR_LIGHT].p = frameContext->wDirLights;
