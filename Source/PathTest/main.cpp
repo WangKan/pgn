@@ -22,33 +22,6 @@
 #include "SceneManager.h"
 #include "PathFinder.h"
 
-void buildViewMatrix(pgn::Float4x3& viewMatrix, pgn::Float3& eye, pgn::Float3& lookAt, pgn::Float3& up)
-{
-	pgn::Float3 d = normalize(lookAt - eye);
-
-	// Calculate x
-	pgn::Float3 r = normalize(cross(d, up));
-
-	up = normalize(cross(r, d));
-
-	// Fill in the view matrix entries
-	viewMatrix[0][0] = r[0];
-	viewMatrix[0][1] = r[1];
-	viewMatrix[0][2] = r[2];
-
-	viewMatrix[1][0] = up[0];
-	viewMatrix[1][1] = up[1];
-	viewMatrix[1][2] = up[2];
-
-	viewMatrix[2][0] = -d[0];
-	viewMatrix[2][1] = -d[1];
-	viewMatrix[2][2] = -d[2];
-
-	viewMatrix[0][3] = -dot(eye, r);
-	viewMatrix[1][3] = -dot(eye, up);
-	viewMatrix[2][3] = dot(eye, d);
-}
-
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	_beginDebugHeap();
