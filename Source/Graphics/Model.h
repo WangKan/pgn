@@ -3,11 +3,18 @@
 
 class Graphics;
 
+enum class GeomType
+{
+	Geometry,
+	EditableGeometry
+};
+
 class Model : public pgn::Model
 {
 public:
 	Graphics* graphics;
 	pgn::ResourceHandle* geomHandle;
+	GeomType geomType;
 	TextureInfo textureInfo;
 	bool _complete;
 	long long submittingStamp;
@@ -23,4 +30,7 @@ public:
 	virtual bool complete();
 	virtual int getNumSubsets();
 	virtual pgn::SkeletonTemplate* getSkeletonTemplate();
+
+	virtual void setEditableMesh(char fileName[]);
+	virtual void getAabb(int subset, pgn::Float3* min, pgn::Float3* max);
 };

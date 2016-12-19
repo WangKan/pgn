@@ -30,6 +30,7 @@
 #include <PGN/Utilities/ResourceManager/AsyncLoader.h>
 #include <PGN/Utilities/ResourceManager/ResourceHandle.h>
 #include <PGN/Utilities/ResourceManager/ResourceManager.h>
+#include "assets/EditableMeshFactory.h"
 #include "assets/MeshFactory.h"
 #include "assets/TextureFactory.h"
 #include "CBufAllocator.h"
@@ -191,6 +192,7 @@ Renderer::Renderer(pgn::Display displayPrototype, pgn::FileStream* assetStream, 
 	rc = pgn::RenderingContext::create(displayPrototype, 3);
 
 	meshFactory = debug_new MeshFactory(subsetAllocator);
+	editableMeshFactory = debug_new EditableMeshFactory(subsetAllocator);
 	textureFactory = debug_new TextureFactory;
 
 	heap = pgn::Heap::create();
@@ -215,6 +217,7 @@ Renderer::~Renderer()
 	rc->destroy();
 
 	delete meshFactory;
+	delete editableMeshFactory;
 	delete textureFactory;
 
 	heap->destroy();
@@ -393,6 +396,7 @@ void Renderer::beginDraw(pgn::Window* wnd, RendererConfig* _cfg)
 
 	resLoader = pgn::createAsyncLoader(rc, rs, display);
 	geomMgr = pgn::ResourceManager::create(meshFactory, assetStream, resLoader);
+	editableGeomMgr = pgn::ResourceManager::create(editableMeshFactory, assetStream, resLoader);
 	texMgr = pgn::ResourceManager::create(textureFactory, assetStream, resLoader);
 
 	// 创建灰色纹理
@@ -922,6 +926,7 @@ void Renderer::endDraw()
 	}
 
 	geomMgr->destroy();
+	editableGeomMgr->destroy();
 	texMgr->destroy();
 	pgn::destroyAsyncLoader(resLoader);
 

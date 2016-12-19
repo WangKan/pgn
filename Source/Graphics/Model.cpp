@@ -2,7 +2,7 @@
 #include <PGN/Utilities/ResourceManager/ResourceManager.h>
 #include "Graphics.h"
 #include "Model.h"
-#include "Renderer/Geometry.h"
+#include "Renderer/EditableGeometry.h"
 
 enum
 {
@@ -32,7 +32,12 @@ void Model::init()
 	textureInfo.textureSets.clear();
 
 	if (geomHandle)
-		graphics->renderer.geomMgr->releaseResource(geomHandle);
+	{
+		if (geomType == GeomType::Geometry)
+			graphics->renderer.geomMgr->releaseResource(geomHandle);
+		else
+			graphics->renderer.editableGeomMgr->releaseResource(geomHandle);
+	}
 }
 
 Model::~Model()
@@ -58,6 +63,7 @@ void Model::setMesh(char fileName[])
 {
 	init();
 	geomHandle = fileName ? graphics->renderer.geomMgr->getResource(fileName) : 0;
+	geomType = GeomType::Geometry;
 	_complete = false;
 }
 
@@ -112,4 +118,19 @@ int Model::getNumSubsets()
 pgn::SkeletonTemplate* Model::getSkeletonTemplate()
 {
 	return ((Geometry*)geomHandle->core())->skeletonTemplate;
+}
+
+void Model::setEditableMesh(char fileName[])
+{
+	init();
+	geomHandle = fileName ? graphics->renderer.editableGeomMgr->getResource(fileName) : 0;
+	geomType = GeomType::EditableGeometry;
+	_complete = false;
+}
+
+void Model::getAabb(int subset, pgn::Float3* min, pgn::Float3* max)
+{
+	EditableGeometry* geom = (EditableGeometry*)geomHandle->core();
+	*min = geom->subsets[subset].aabb.min;
+	*max = geom->subsets[subset].aabb.max;
 }

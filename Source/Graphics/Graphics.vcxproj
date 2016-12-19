@@ -47,11 +47,14 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Renderer\assets\Asset.h" />
+    <ClInclude Include="Renderer\assets\EditableMesh.h" />
+    <ClInclude Include="Renderer\assets\EditableMeshFactory.h" />
     <ClInclude Include="Renderer\assets\Mesh.h" />
     <ClInclude Include="Renderer\assets\MeshFactory.h" />
     <ClInclude Include="Renderer\assets\Texture.h" />
     <ClInclude Include="Renderer\assets\TextureFactory.h" />
     <ClInclude Include="Renderer\CBufRange.h" />
+    <ClInclude Include="Renderer\EditableGeometry.h" />
     <ClInclude Include="Renderer\Geometry.h" />
     <ClInclude Include="Renderer\GeometryHelper.h" />
     <ClInclude Include="Renderer\Movable2D.h" />
@@ -117,6 +120,8 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Renderer\assets\EditableMesh.cpp" />
+    <ClCompile Include="Renderer\assets\EditableMeshFactory.cpp" />
     <ClCompile Include="Renderer\assets\Mesh.cpp" />
     <ClCompile Include="Renderer\assets\MeshFactory.cpp" />
     <ClCompile Include="Renderer\assets\Texture.cpp" />

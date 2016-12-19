@@ -7,12 +7,14 @@
 #include <PGN/Utilities/CircularBuffer.h>
 #include <PGN/Utilities/SkeletalAnimation/SkeletonTemplate.h>
 #include <PGN/Utilities/SkeletalAnimation/SkeletonTemplateFactory.h>
+#include "../Geometry.h"
 #include "../GeometryHelper.h"
 #include "Mesh.h"
 
-Mesh::Mesh(pgn::AssetFactory* factory, SubsetAllocator& subsetAllocator, pgn::SkeletonTemplateFactory* skeletonFactory)
-	: Asset(factory), geom(subsetAllocator)
+Mesh::Mesh(pgn::AssetFactory* factory, Geometry* geom, pgn::SkeletonTemplateFactory* skeletonFactory)
+	: Asset(factory)
 {
+	this->geom = geom;
 	this->skeletonFactory = skeletonFactory;
 	ready = false;
 }
@@ -20,7 +22,7 @@ Mesh::Mesh(pgn::AssetFactory* factory, SubsetAllocator& subsetAllocator, pgn::Sk
 bool Mesh::cook(void* rawData)
 {
 	pgn::PNMHeader* header = (pgn::PNMHeader*)rawData;
-	geom.skeletonTemplate = header->numBones ? skeletonFactory->createSkeletonTemplate(header->numBones, (pgn::Float4x3*)((char*)header + header->offsetMatsChunkOffset), (pgn::Float4*)((char*)header + header->defaultRotChunkOffset), (pgn::Float3*)((char*)header + header->defaultPosChunkOffset), (unsigned char*)((char*)header + header->parentIndicesChunkOffset)) : 0;
+	geom->skeletonTemplate = header->numBones ? skeletonFactory->createSkeletonTemplate(header->numBones, (pgn::Float4x3*)((char*)header + header->offsetMatsChunkOffset), (pgn::Float4*)((char*)header + header->defaultRotChunkOffset), (pgn::Float3*)((char*)header + header->defaultPosChunkOffset), (unsigned char*)((char*)header + header->parentIndicesChunkOffset)) : 0;
 	return true;
 }
 
@@ -56,8 +58,8 @@ bool Mesh::submit(void* rawData, void* customArg)
 	}
 
 	GeometryHelper helper(rs);
-	helper.createGeometry(&geom, numAttribs, attribDescs, header->numVerts, header->numSubsets, header->numIndices, attribs, (char*)header + header->indicesChunkOffset);
-	geom.primType = pgn::PrimType::TRIANGLE_LIST;
+	helper.createGeometry(geom, numAttribs, attribDescs, header->numVerts, header->numSubsets, header->numIndices, attribs, (char*)header + header->indicesChunkOffset);
+	geom->primType = pgn::PrimType::TRIANGLE_LIST;
 
 	if (header->materialChunkSize)
 	{
@@ -69,9 +71,9 @@ bool Mesh::submit(void* rawData, void* customArg)
 		pgn::Buffer* buf = rs->createBuffer(&brdfCoeffBufDesc);
 		buf->update(0, brdfCoeffBufDesc.size, (char*)header + header->materialChunkOffset);
 
-		geom.brdfCoeffBuf.buf = buf;
-		geom.brdfCoeffBuf.offset = 0;
-		geom.brdfCoeffBuf.size = brdfCoeffBufDesc.size;
+		geom->brdfCoeffBuf.buf = buf;
+		geom->brdfCoeffBuf.offset = 0;
+		geom->brdfCoeffBuf.size = brdfCoeffBufDesc.size;
 	}
 
 	rs->flush();
@@ -85,17 +87,17 @@ void Mesh::unload(void* customArg)
 	if (!ready)
 		return;
 
-	if (geom.skeletonTemplate) geom.skeletonTemplate->destroy();
+	if (geom->skeletonTemplate) geom->skeletonTemplate->destroy();
 
 	pgn::RenderingSystem* rs = (pgn::RenderingSystem*)customArg;
 
 	GeometryHelper helper(rs);
-	helper.destroyGeometry(&geom);
+	helper.destroyGeometry(geom);
 
-	geom.brdfCoeffBuf.buf->destroy();
+	geom->brdfCoeffBuf.buf->destroy();
 }
 
 void* Mesh::core()
 {
-	return ready ? &geom : 0;
+	return ready ? geom : 0;
 }

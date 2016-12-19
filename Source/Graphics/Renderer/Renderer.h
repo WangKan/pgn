@@ -37,6 +37,7 @@ namespace pgn {
 
 class CBufAllocator;
 struct CBufRange;
+class EditableMeshFactory;
 class MeshFactory;
 class RenderingStage;
 struct ResourceView;
@@ -183,6 +184,7 @@ public:
 	SubsetAllocator subsetAllocator;
 
 	MeshFactory* meshFactory;
+	EditableMeshFactory* editableMeshFactory;
 	TextureFactory* textureFactory;
 
 	pgn::Heap* heap;
@@ -195,6 +197,7 @@ public:
 	pgn::FileStream* assetStream;
 	pgn::AssetLoader* resLoader;
 	pgn::ResourceManager* geomMgr;
+	pgn::ResourceManager* editableGeomMgr;
 	pgn::ResourceManager* texMgr;
 
 	pgn::FileStream* cacheStream;

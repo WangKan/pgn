@@ -273,6 +273,15 @@
     <ClInclude Include="NavModel.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\EditableGeometry.h">
+      <Filter>Source Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\EditableMesh.h">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\EditableMeshFactory.h">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Model.cpp">
@@ -412,6 +421,12 @@
     </ClCompile>
     <ClCompile Include="NavModel.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\assets\EditableMesh.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\assets\EditableMeshFactory.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
