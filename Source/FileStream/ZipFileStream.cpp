@@ -57,7 +57,7 @@ void ZipFileStream::open(const char fileName[], OpenMode mode)
 
 	char buf[maxNameLen + 1];
 	char* zipFileName = 0;
-	char* fileNameInZipFile;
+	char* fileNameInZipFile = 0;
 
 	size_t len = strlen(name);
 	for (int i = 0; i < len; i++)
