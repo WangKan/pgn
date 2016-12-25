@@ -33,6 +33,10 @@
     <ClCompile Include="LinearTransformations\LinearTransformations.cpp" />
     <ClCompile Include="LinearTransformations\sinCosTable.cpp" />
     <ClCompile Include="ManagedHeap.cpp" />
+    <ClCompile Include="PathFinding\NAV.cpp" />
+    <ClCompile Include="PathFinding\NAVFactory.cpp" />
+    <ClCompile Include="PathFinding\PathFinder.cpp" />
+    <ClCompile Include="PathFinding\PathFinderFactory.cpp" />
     <ClCompile Include="ResourceManager\AsyncLoader.cpp" />
     <ClCompile Include="ResourceManager\ResourceHandle.cpp" />
     <ClCompile Include="ResourceManager\ResourceManager.cpp" />
@@ -57,6 +61,8 @@
     <ClInclude Include="..\..\Include\PGN\Utilities\HeapAllocator2.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\LinearTransformations.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\ManagedHeap.h" />
+    <ClInclude Include="..\..\Include\PGN\Utilities\PathFinding\PathFinder.h" />
+    <ClInclude Include="..\..\Include\PGN\Utilities\PathFinding\PathFinderFactory.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\Queue.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\ResourceManager\Asset.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\ResourceManager\AssetFactory.h" />
@@ -79,6 +85,10 @@
     <ClInclude Include="..\..\Include\PGN\Utilities\SkeletalAnimation\SkeletonTemplateFactory.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\Text.h" />
     <ClInclude Include="LinearTransformations\sinCosTable.h" />
+    <ClInclude Include="PathFinding\NAV.h" />
+    <ClInclude Include="PathFinding\NAVFactory.h" />
+    <ClInclude Include="PathFinding\NavMesh.h" />
+    <ClInclude Include="PathFinding\PathFinder.h" />
     <ClInclude Include="ResourceManager\ResourceHandle.h" />
     <ClInclude Include="ResourceManager\ResourceManager.h" />
     <ClInclude Include="SkeletalAnimation\Anim.h" />

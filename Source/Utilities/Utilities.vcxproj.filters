@@ -34,6 +34,12 @@
     <Filter Include="Source Files\CollisionDetection">
       <UniqueIdentifier>{8dbca402-a26c-4f60-ae44-8cc0c18a9ba6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PathFinding">
+      <UniqueIdentifier>{b54e7c61-2d8f-4238-9937-9f933d3d7cd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PathFinding">
+      <UniqueIdentifier>{ba4accc4-b2d1-4a5f-8609-14fa51123545}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Text.cpp">
@@ -104,6 +110,18 @@
     </ClCompile>
     <ClCompile Include="CollisionDetection\BasicPrimitiveTests.cpp">
       <Filter>Source Files\CollisionDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinding\PathFinder.cpp">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinding\PathFinderFactory.cpp">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinding\NAV.cpp">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinding\NAVFactory.cpp">
+      <Filter>Source Files\PathFinding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +229,24 @@
     </ClInclude>
     <ClInclude Include="LinearTransformations\sinCosTable.h">
       <Filter>Source Files\LinearTransformations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Utilities\PathFinding\PathFinder.h">
+      <Filter>Header Files\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Utilities\PathFinding\PathFinderFactory.h">
+      <Filter>Header Files\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinding\PathFinder.h">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinding\NAV.h">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinding\NAVFactory.h">
+      <Filter>Source Files\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinding\NavMesh.h">
+      <Filter>Source Files\PathFinding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
