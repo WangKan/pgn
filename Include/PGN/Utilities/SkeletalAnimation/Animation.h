@@ -2,7 +2,7 @@
 #include "../../Common/Interface.h"
 namespace pgn {
 
-class Animation : public virtual Interface
+class Animation : public Interface
 {
 public:
 	virtual void set(char fileName[]) = 0;
