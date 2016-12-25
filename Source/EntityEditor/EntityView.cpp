@@ -1,9 +1,9 @@
 #include <PGN/FileStream/StdFileStream.h>
 #include <PGN/Graphics/Camera.h>
 #include <PGN/Graphics/DirectionalLight.h>
+#include <PGN/Graphics/EditableModel.h>
 #include <PGN/Graphics/Entity.h>
 #include <PGN/Graphics/Graphics.h>
-#include <PGN/Graphics/Model.h>
 #include <PGN/Graphics/Scene.h>
 #include <PGN/Graphics/SceneDirectionalLight.h>
 #include <PGN/Graphics/SceneEntity.h>
@@ -51,7 +51,7 @@ EntityView::EntityView(IntPtr^ hWnd, Options^ options)
 
 	entity = graphics->createEntity();
 
-	model = graphics->createModel();
+	model = graphics->createEditableModel();
 	entity->setModel(model);
 
 	skelFactory = pgn::SkeletonFactory::create();
@@ -214,7 +214,7 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 		char* str;
 
 		str = (char*)(void*)Marshal::StringToHGlobalAnsi(props->mesh);
-		model->setEditableMesh(str);
+		model->setMesh(str);
 		Marshal::FreeHGlobal(System::IntPtr((void*)str));
 
 		if (props->diffuseMap == "")

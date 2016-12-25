@@ -9,7 +9,7 @@ enum class GeomType
 	EditableGeometry
 };
 
-class Model : public pgn::Model
+class Model : public virtual pgn::Model
 {
 public:
 	Graphics* graphics;
@@ -30,7 +30,4 @@ public:
 	virtual bool complete();
 	virtual int getNumSubsets();
 	virtual pgn::SkeletonTemplate* getSkeletonTemplate();
-
-	virtual void setEditableMesh(char fileName[]);
-	virtual void getAabb(int subset, pgn::Float3* min, pgn::Float3* max);
 };

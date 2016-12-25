@@ -5,8 +5,9 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/TextureInfo.h"
 
-class NavModel;
+class EditableModel;
 class Model;
+class NavModel;
 
 class Graphics : public pgn::Graphics
 {
@@ -27,6 +28,7 @@ public:
 	virtual pgn::Scene* createScene();
 	virtual pgn::Camera* createCamera();
 	virtual pgn::Model* createModel();
+	virtual pgn::EditableModel* createEditableModel();
 	virtual pgn::NavModel* createNavModel();
 	virtual pgn::Entity* createEntity();
 	virtual pgn::PointLight* createPointLight();

@@ -13,9 +13,6 @@ public:
 	virtual bool complete() = 0;
 	virtual int getNumSubsets() = 0;
 	virtual SkeletonTemplate* getSkeletonTemplate() = 0;
-
-	virtual void setEditableMesh(char fileName[]/*0Çå³ý*/) = 0;
-	virtual void getAabb(int subset, Float3* min, Float3* max) = 0;
 };
 
 }

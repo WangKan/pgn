@@ -26,7 +26,7 @@ void Entity::_free()
 
 void Entity::setModel(pgn::Model* model)
 {
-	this->model = (Model*)model;
+	this->model = dynamic_cast<Model*>(model);
 }
 
 void Entity::setSkeleton(pgn::Skeleton* skel)

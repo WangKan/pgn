@@ -6,6 +6,7 @@ namespace pgn {
 
 class Camera;
 class DirectionalLight;
+class EditableModel;
 class Entity;
 class FileStream;
 class NavModel;
@@ -22,6 +23,7 @@ public:
 	virtual Scene* createScene() = 0;
 	virtual Camera* createCamera() = 0;
 	virtual Model* createModel() = 0;
+	virtual EditableModel* createEditableModel() = 0;
 	virtual NavModel* createNavModel() = 0;
 	virtual Entity* createEntity() = 0;
 	virtual PointLight* createPointLight() = 0;

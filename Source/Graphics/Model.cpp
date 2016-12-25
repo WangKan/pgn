@@ -2,7 +2,7 @@
 #include <PGN/Utilities/ResourceManager/ResourceManager.h>
 #include "Graphics.h"
 #include "Model.h"
-#include "Renderer/EditableGeometry.h"
+#include "Renderer/Geometry.h"
 
 enum
 {
@@ -118,19 +118,4 @@ int Model::getNumSubsets()
 pgn::SkeletonTemplate* Model::getSkeletonTemplate()
 {
 	return ((Geometry*)geomHandle->core())->skeletonTemplate;
-}
-
-void Model::setEditableMesh(char fileName[])
-{
-	init();
-	geomHandle = fileName ? graphics->renderer.editableGeomMgr->getResource(fileName) : 0;
-	geomType = GeomType::EditableGeometry;
-	_complete = false;
-}
-
-void Model::getAabb(int subset, pgn::Float3* min, pgn::Float3* max)
-{
-	EditableGeometry* geom = (EditableGeometry*)geomHandle->core();
-	*min = geom->subsets[subset].aabb.min;
-	*max = geom->subsets[subset].aabb.max;
 }
