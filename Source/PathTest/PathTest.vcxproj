@@ -24,10 +24,12 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PathFinder.cpp" />
+    <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PathFinder.h" />
+    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

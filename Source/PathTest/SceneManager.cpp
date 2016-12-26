@@ -1,3 +1,4 @@
+#include <PGN/Common/debug_new.h>
 #include <PGN/FileStream/StdFileStream.h>
 #include <PGN/Graphics/Camera.h>
 #include <PGN/Graphics/Entity.h>
@@ -17,6 +18,7 @@
 #include <PGN/Utilities/SkeletalAnimation/SkeletonFactory.h>
 #include <PGN/Utilities/SkeletalAnimation/SkeletonTemplate.h>
 #include <PGN/Utilities/Clock.h>
+#include "PhysicsWorld.h"
 #include "SceneManager.h"
 
 SceneManager::SceneManager() 
@@ -30,6 +32,7 @@ SceneManager::SceneManager()
 	animStream = NULL;
 	skelFactory = NULL;
 	animFactory = NULL;
+	physicsWorld = NULL;
 }
 
 SceneManager::~SceneManager() 
@@ -49,6 +52,9 @@ void SceneManager::init(pgn::Window* wnd)
 	animStream = pgn::createStdFileStream("");
 	skelFactory = pgn::SkeletonFactory::create();
 	animFactory = pgn::AnimationFactory::create(animStream);
+
+	physicsWorld = debug_new PhysicsWorld;
+	physicsWorld->init();
 
 	graphics->beginDraw(window);
 }
@@ -100,6 +106,8 @@ void SceneManager::destroy()
 	pgn::destroyStdFileStream(animStream);
 	pgn::destroyStdFileStream(assetStream);
 	pgn::destroyStdFileStream(cacheStream);
+	
+	delete physicsWorld;
 }
 
 void SceneManager::tick(int dt)
@@ -121,6 +129,21 @@ void SceneManager::setCameraViewMat(pgn::Float4x3& viewMat)
 void SceneManager::screenPointToRay(int x, int y, pgn::Float3& origin, pgn::Float3& dir)
 {
 	camera->screenPointToRay(x, y, &origin, &dir);
+}
+
+void SceneManager::addGroundToPhysicsWorld(void* vertices, int vertexCount, void* indices, int indexCount)
+{
+	physicsWorld->addGround(vertices, vertexCount, indices, indexCount);
+}
+
+bool SceneManager::rayIntersectGround(pgn::Float3& rayBegin, pgn::Float3& rayDir, pgn::Float3& contactPos)
+{
+	return physicsWorld->rayIntersectGround(rayBegin, rayDir, contactPos);
+}
+
+float SceneManager::getGroundHeight(float x, float z)
+{
+	return physicsWorld->getGroundHeight(x, z);
 }
 
 void SceneManager::addPointLight(pgn::Float4 intensity, float radius, pgn::Float3 pos)

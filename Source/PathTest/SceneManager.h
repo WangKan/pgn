@@ -15,6 +15,7 @@ namespace pgn{
 	class ScenePointLight;
 }
 
+class PhysicsWorld;
 class SceneManager
 {
 public:
@@ -29,6 +30,9 @@ public:
 	void tick(int dt);
 	void setCameraViewMat(pgn::Float4x3& viewMat);
 	void screenPointToRay(int x, int y, pgn::Float3& origin, pgn::Float3& dir);
+	void addGroundToPhysicsWorld(void* vertices, int vertexCount, void* indices, int indexCount);
+	bool rayIntersectGround(pgn::Float3& rayBegin, pgn::Float3& rayDir, pgn::Float3& contactPos);
+	float getGroundHeight(float x, float z);
 
 private:
 	std::list<pgn::SceneEntity* > sceneEntities;
@@ -49,4 +53,6 @@ private:
 	pgn::FileStream* animStream;
 	pgn::SkeletonFactory* skelFactory;
 	pgn::AnimationFactory* animFactory;
+
+	PhysicsWorld* physicsWorld;
 };
