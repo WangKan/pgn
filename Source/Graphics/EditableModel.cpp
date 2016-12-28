@@ -9,6 +9,11 @@ EditableModel::EditableModel(Graphics* graphics, TextureSetAllocator& texSetAllo
 {
 }
 
+void EditableModel::releaseGeom()
+{
+	graphics->renderer.editableGeomMgr->releaseResource(geomHandle);
+}
+
 pgn::EditableModel* Graphics::createEditableModel()
 {
 	return new(modelPool->alloc()) EditableModel(this, texSetAllocator);
@@ -18,7 +23,6 @@ void EditableModel::setMesh(char fileName[])
 {
 	init();
 	geomHandle = fileName ? graphics->renderer.editableGeomMgr->getResource(fileName) : 0;
-	geomType = GeomType::EditableGeometry;
 	_complete = false;
 }
 

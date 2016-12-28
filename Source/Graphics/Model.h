@@ -3,25 +3,18 @@
 
 class Graphics;
 
-enum class GeomType
-{
-	Geometry,
-	EditableGeometry
-};
-
 class Model : public virtual pgn::Model
 {
 public:
 	Graphics* graphics;
 	pgn::ResourceHandle* geomHandle;
-	GeomType geomType;
 	TextureInfo textureInfo;
 	bool _complete;
 	long long submittingStamp;
 
 	Model(Graphics* graphics, TextureSetAllocator& texSetAllocator);
+	virtual void releaseGeom();
 	void init();
-	~Model();
 	virtual void dispose();
 	virtual void _free();
 	virtual void setMesh(char fileName[]);

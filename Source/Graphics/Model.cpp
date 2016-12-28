@@ -21,6 +21,11 @@ Model::Model(Graphics* graphics, TextureSetAllocator& texSetAllocator)
 	submittingStamp = 0;
 }
 
+void Model::releaseGeom()
+{
+	graphics->renderer.geomMgr->releaseResource(geomHandle);
+}
+
 void Model::init()
 {
 	pgn::ResourceManager* texMgr = graphics->renderer.texMgr;
@@ -32,21 +37,12 @@ void Model::init()
 	textureInfo.textureSets.clear();
 
 	if (geomHandle)
-	{
-		if (geomType == GeomType::Geometry)
-			graphics->renderer.geomMgr->releaseResource(geomHandle);
-		else
-			graphics->renderer.editableGeomMgr->releaseResource(geomHandle);
-	}
-}
-
-Model::~Model()
-{
-	init();
+		releaseGeom();
 }
 
 void Model::dispose()
 {
+	init();
 }
 
 pgn::Model* Graphics::createModel()
@@ -63,7 +59,6 @@ void Model::setMesh(char fileName[])
 {
 	init();
 	geomHandle = fileName ? graphics->renderer.geomMgr->getResource(fileName) : 0;
-	geomType = GeomType::Geometry;
 	_complete = false;
 }
 
