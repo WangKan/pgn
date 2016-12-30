@@ -7,15 +7,25 @@ namespace pgn{
 	struct Float4x3;
 	class Graphics;
 	class Scene;
-	class NavModel;
+	class Camera;
 	class Model;
 	class Entity;
 	class PointLight;
 	class SceneEntity;
+	class Skeleton;
+	class Animation;
+	class FileStream;
+	class SkeletonFactory;
+	class AnimationFactory;
+	class PathFinder;
+	class PathFinderFactory;
+	class Physics;
+	class PhysicsFactory;
+	class PhysicsWorld;
+	class PhysicsWorldFactory;
 	class ScenePointLight;
 }
 
-class PhysicsWorld;
 class SceneManager
 {
 public:
@@ -23,36 +33,47 @@ public:
 	virtual ~SceneManager();
 	void init(pgn::Window* wnd);
 	void destroy();
-	void addPointLight(pgn::Float4 intensity, float radius, pgn::Float3 pos);
-	pgn::NavModel* addNavModel(char* nav);
-	pgn::Model* addModel(char* pnm, pgn::Float4x3& worldMat, float scale);
-	pgn::SceneEntity* addCharacter(char* pnm, pgn::Float4x3& worldMat, float scale);
 	void tick(int dt);
-	void setCameraViewMat(pgn::Float4x3& viewMat);
-	void screenPointToRay(int x, int y, pgn::Float3& origin, pgn::Float3& dir);
-	void addGroundToPhysicsWorld(void* vertices, int vertexCount, void* indices, int indexCount);
-	bool rayIntersectGround(pgn::Float3& rayBegin, pgn::Float3& rayDir, pgn::Float3& contactPos);
+	
+	void setCamera(pgn::Float3* eye, pgn::Float3* lookAt);
+	void screenPointToRay(int x, int y, pgn::Float3* origin, pgn::Float3* dir);
+	void addGroundToPhysicsWorld(pgn::Physics* physics);
+	bool rayIntersect(pgn::Float3* rayBegin, pgn::Float3* rayDir, pgn::Float3* contactPos);
 	float getGroundHeight(float x, float z);
+
+	void addPointLight(pgn::Float4 intensity, float radius, pgn::Float3* pos);
+	pgn::Model* addModel(char* pnm, char* tex, pgn::Float3* pos, float scale);
+	pgn::SceneEntity* addCharacter(char* pnm, char* tex, pgn::Float3* pos, float scale);
+	pgn::Physics* addPhysics(char* phy);
+	pgn::PathFinder* getPathFinder();
 
 private:
 	std::list<pgn::SceneEntity* > sceneEntities;
 	std::list<pgn::ScenePointLight* > scenePointLights;
-	std::list<pgn::NavModel* > navModels;
 	std::list<pgn::Model* > models;
 	std::list<pgn::Skeleton* > skeletons;
 	std::list<pgn::Animation* > animations;
 	std::list<pgn::Entity* > entities;
 	std::list<pgn::PointLight* > pointLights;
+	std::list<pgn::Physics* > physicsModels;
 	
-	pgn::Window* window;
 	pgn::FileStream* assetStream;
 	pgn::FileStream* cacheStream;
+	pgn::FileStream* animStream;
+
+	pgn::Window* window;
 	pgn::Graphics* graphics;
 	pgn::Scene* scene;
 	pgn::Camera* camera;
-	pgn::FileStream* animStream;
 	pgn::SkeletonFactory* skelFactory;
 	pgn::AnimationFactory* animFactory;
 
-	PhysicsWorld* physicsWorld;
+	pgn::FileStream* pathFinderStream;
+	pgn::PathFinder* pathFinder;
+	pgn::PathFinderFactory* pathFinderFactory;
+
+	pgn::FileStream* physicsStream;
+	pgn::PhysicsFactory* physicsFactory;
+	pgn::PhysicsWorld* physicsWorld;
+	pgn::PhysicsWorldFactory* physicsWorldFactory;
 };

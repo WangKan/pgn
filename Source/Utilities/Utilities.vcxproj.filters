@@ -40,6 +40,12 @@
     <Filter Include="Source Files\PathFinding">
       <UniqueIdentifier>{ba4accc4-b2d1-4a5f-8609-14fa51123545}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{02e1193b-1971-4dcf-95bb-099a04d7706e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{d0be8e72-3c3f-4337-9821-89865b2c9485}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Text.cpp">
@@ -122,6 +128,24 @@
     </ClCompile>
     <ClCompile Include="PathFinding\NAVFactory.cpp">
       <Filter>Source Files\PathFinding</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PHY.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PHYFactory.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Physics.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsFactory.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsWorld.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsWorldFactory.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +271,33 @@
     </ClInclude>
     <ClInclude Include="PathFinding\NavMesh.h">
       <Filter>Source Files\PathFinding</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PHY.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PHYFactory.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhyMesh.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Physics.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Utilities\Physics\Physics.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Utilities\Physics\PhysicsFactory.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Utilities\Physics\PhysicsWorld.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsWorld.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Utilities\Physics\PhysicsWorldFactory.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,13 +23,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PathFinder.cpp" />
-    <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PathFinder.h" />
-    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -81,8 +77,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>PGN_$(ProjectName)</TargetName>
-    <IncludePath>..\..\Include;..\..\Extern\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\Lib\$(Configuration)\;..\..\Extern\Lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <OutDir>..\..\Build\$(Platform)_$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_AsmOutput|x64'">
@@ -113,7 +109,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>dSINGLE;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -121,7 +117,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ImportLibrary>
       </ImportLibrary>
-      <AdditionalDependencies>ode_single.lib;PGN_Math.lib;PGN_FileStream.lib;PGN_Graphics.lib;PGN_Platform.lib;PGN_Utilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PGN_Math.lib;PGN_FileStream.lib;PGN_Graphics.lib;PGN_Platform.lib;PGN_Utilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4248 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>

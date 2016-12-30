@@ -15,6 +15,7 @@
     <ClInclude Include="AnimExporter.h" />
     <ClInclude Include="MeshExporter.h" />
     <ClInclude Include="NavExporter.h" />
+    <ClInclude Include="PhyExporter.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
@@ -23,6 +24,7 @@
     <ClCompile Include="DllEntry.cpp" />
     <ClCompile Include="MeshExporter.cpp" />
     <ClCompile Include="NavExporter.cpp" />
+    <ClCompile Include="PhyExporter.cpp" />
     <ClCompile Include="Utilities.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -37,6 +37,12 @@
     <ClCompile Include="PathFinding\NAVFactory.cpp" />
     <ClCompile Include="PathFinding\PathFinder.cpp" />
     <ClCompile Include="PathFinding\PathFinderFactory.cpp" />
+    <ClCompile Include="Physics\PHY.cpp" />
+    <ClCompile Include="Physics\PHYFactory.cpp" />
+    <ClCompile Include="Physics\Physics.cpp" />
+    <ClCompile Include="Physics\PhysicsFactory.cpp" />
+    <ClCompile Include="Physics\PhysicsWorld.cpp" />
+    <ClCompile Include="Physics\PhysicsWorldFactory.cpp" />
     <ClCompile Include="ResourceManager\AsyncLoader.cpp" />
     <ClCompile Include="ResourceManager\ResourceHandle.cpp" />
     <ClCompile Include="ResourceManager\ResourceManager.cpp" />
@@ -63,6 +69,10 @@
     <ClInclude Include="..\..\Include\PGN\Utilities\ManagedHeap.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\PathFinding\PathFinder.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\PathFinding\PathFinderFactory.h" />
+    <ClInclude Include="..\..\Include\PGN\Utilities\Physics\Physics.h" />
+    <ClInclude Include="..\..\Include\PGN\Utilities\Physics\PhysicsFactory.h" />
+    <ClInclude Include="..\..\Include\PGN\Utilities\Physics\PhysicsWorld.h" />
+    <ClInclude Include="..\..\Include\PGN\Utilities\Physics\PhysicsWorldFactory.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\Queue.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\ResourceManager\Asset.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\ResourceManager\AssetFactory.h" />
@@ -89,6 +99,11 @@
     <ClInclude Include="PathFinding\NAVFactory.h" />
     <ClInclude Include="PathFinding\NavMesh.h" />
     <ClInclude Include="PathFinding\PathFinder.h" />
+    <ClInclude Include="Physics\PHY.h" />
+    <ClInclude Include="Physics\PHYFactory.h" />
+    <ClInclude Include="Physics\PhyMesh.h" />
+    <ClInclude Include="Physics\Physics.h" />
+    <ClInclude Include="Physics\PhysicsWorld.h" />
     <ClInclude Include="ResourceManager\ResourceHandle.h" />
     <ClInclude Include="ResourceManager\ResourceManager.h" />
     <ClInclude Include="SkeletalAnimation\Anim.h" />
@@ -157,8 +172,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>PGN_$(ProjectName)</TargetName>
-    <IncludePath>..\..\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\Lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\Include;..\..\Extern\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Lib\$(Configuration)\;..\..\Extern\Lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <OutDir>..\..\Build\$(Platform)_$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|PSVita'">
@@ -169,8 +184,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>PGN_$(ProjectName)</TargetName>
-    <IncludePath>..\..\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\Lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\Include;..\..\Extern\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Lib\$(Configuration)\;..\..\Extern\Lib\$(Configuration)\;$(LibraryPath)</LibraryPath>
     <OutDir>..\..\Build\$(Platform)_$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|PSVita'">
@@ -193,12 +208,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>dSINGLE;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>..\..\Lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>PGN_FileStream.lib;PGN_Math.lib;PGN_Platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ode_singled.lib;PGN_FileStream.lib;PGN_Math.lib;PGN_Platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|PSVita'">
@@ -224,14 +239,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>dSINGLE;NDEBUG;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ImportLibrary>..\..\Lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>PGN_FileStream.lib;PGN_Math.lib;PGN_Platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ode_single.lib;PGN_FileStream.lib;PGN_Math.lib;PGN_Platform.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|PSVita'">

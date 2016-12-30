@@ -30,6 +30,9 @@
     <ClInclude Include="NavExporter.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="PhyExporter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="About.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NavExporter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhyExporter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

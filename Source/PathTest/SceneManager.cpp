@@ -1,42 +1,54 @@
-#include <PGN/Common/debug_new.h>
 #include <PGN/FileStream/StdFileStream.h>
 #include <PGN/Graphics/Camera.h>
 #include <PGN/Graphics/Entity.h>
 #include <PGN/Graphics/Graphics.h>
-#include <PGN/Graphics/NavModel.h>
 #include <PGN/Graphics/Model.h>
 #include <PGN/Graphics/PointLight.h>
 #include <PGN/Graphics/Scene.h>
 #include <PGN/Graphics/SceneEntity.h>
 #include <PGN/Graphics/ScenePointLight.h>
 #include <PGN/Math/Math.h>
-#include <PGN/Platform/DebugHeap.h>
 #include <PGN/Platform/UI/Window.h>
+#include <PGN/Utilities/LinearTransformations.h>
+#include <PGN/Utilities/PathFinding/PathFinder.h>
+#include <PGN/Utilities/PathFinding/PathFinderFactory.h>
+#include <PGN/Utilities/Physics/Physics.h>
+#include <PGN/Utilities/Physics/PhysicsFactory.h>
+#include <PGN/Utilities/Physics/PhysicsWorld.h>
+#include <PGN/Utilities/Physics/PhysicsWorldFactory.h>
 #include <PGN/Utilities/SkeletalAnimation/Animation.h>
 #include <PGN/Utilities/SkeletalAnimation/AnimationFactory.h>
 #include <PGN/Utilities/SkeletalAnimation/Skeleton.h>
 #include <PGN/Utilities/SkeletalAnimation/SkeletonFactory.h>
-#include <PGN/Utilities/SkeletalAnimation/SkeletonTemplate.h>
-#include <PGN/Utilities/Clock.h>
-#include "PhysicsWorld.h"
 #include "SceneManager.h"
 
 SceneManager::SceneManager() 
 {
-	window = NULL;
 	assetStream = NULL;
 	cacheStream = NULL;
+	animStream = NULL;
+
+	window = NULL;
 	graphics = NULL;
 	scene = NULL;
 	camera = NULL;
-	animStream = NULL;
+	
 	skelFactory = NULL;
 	animFactory = NULL;
+	
+	pathFinderStream = NULL;
+	pathFinder = NULL;
+	pathFinderFactory = NULL;
+
+	physicsStream = NULL;
+	physicsFactory = NULL;
 	physicsWorld = NULL;
+	physicsWorldFactory = NULL;
 }
 
 SceneManager::~SceneManager() 
 {
+	destroy();
 }
 
 void SceneManager::init(pgn::Window* wnd) 
@@ -53,7 +65,15 @@ void SceneManager::init(pgn::Window* wnd)
 	skelFactory = pgn::SkeletonFactory::create();
 	animFactory = pgn::AnimationFactory::create(animStream);
 
-	physicsWorld = debug_new PhysicsWorld;
+	physicsStream = pgn::createStdFileStream("");
+	physicsFactory = pgn::PhysicsFactory::create(physicsStream);
+
+	pathFinderStream = pgn::createStdFileStream("");
+	pathFinderFactory = pgn::PathFinderFactory::create(pathFinderStream);
+	pathFinder = pathFinderFactory->createPathFinder();
+
+	physicsWorldFactory = pgn::PhysicsWorldFactory::create();
+	physicsWorld = physicsWorldFactory->createPhysicsWorld();
 	physicsWorld->init();
 
 	graphics->beginDraw(window);
@@ -81,10 +101,6 @@ void SceneManager::destroy()
 	{
 		entity->destroy();
 	}
-	for (auto& navModel : navModels)
-	{
-		navModel->destroy();
-	}
 	for (auto& model : models)
 	{
 		model->destroy();
@@ -97,17 +113,28 @@ void SceneManager::destroy()
 	{
 		anim->destroy();
 	}
+	for (auto& physics : physicsModels)
+	{
+		physics->destroy();
+	}
+	physicsWorld->destroy();
+	pathFinder->destroy();
+	pathFinderFactory->destroy();
+
+	physicsFactory->destroy();
+	physicsWorldFactory->destroy();
 	
-	skelFactory->destroy();
 	animFactory->destroy();
+	skelFactory->destroy();
+	
 	graphics->endDraw();
 	graphics->destroy();
 
+	pgn::destroyStdFileStream(pathFinderStream);
+	pgn::destroyStdFileStream(physicsStream);
 	pgn::destroyStdFileStream(animStream);
 	pgn::destroyStdFileStream(assetStream);
 	pgn::destroyStdFileStream(cacheStream);
-	
-	delete physicsWorld;
 }
 
 void SceneManager::tick(int dt)
@@ -121,24 +148,27 @@ void SceneManager::tick(int dt)
 	scene->commit(camera);
 }
 
-void SceneManager::setCameraViewMat(pgn::Float4x3& viewMat)
+void SceneManager::setCamera(pgn::Float3* eye, pgn::Float3* lookAt)
 {
+	pgn::Float4x3 viewMat;
+	pgn::Float3 up = { 0, 1, 0 };
+	pgn::buildViewMat(eye, lookAt, &up, &viewMat);
 	camera->setViewMat(&viewMat);
 }
 
-void SceneManager::screenPointToRay(int x, int y, pgn::Float3& origin, pgn::Float3& dir)
+void SceneManager::screenPointToRay(int x, int y, pgn::Float3* origin, pgn::Float3* dir)
 {
-	camera->screenPointToRay(x, y, &origin, &dir);
+	camera->screenPointToRay(x, y, origin, dir);
 }
 
-void SceneManager::addGroundToPhysicsWorld(void* vertices, int vertexCount, void* indices, int indexCount)
+void SceneManager::addGroundToPhysicsWorld(pgn::Physics* physics)
 {
-	physicsWorld->addGround(vertices, vertexCount, indices, indexCount);
+	physicsWorld->addGround(physics);
 }
 
-bool SceneManager::rayIntersectGround(pgn::Float3& rayBegin, pgn::Float3& rayDir, pgn::Float3& contactPos)
+bool SceneManager::rayIntersect(pgn::Float3* rayBegin, pgn::Float3* rayDir, pgn::Float3* contactPos)
 {
-	return physicsWorld->rayIntersectGround(rayBegin, rayDir, contactPos);
+	return physicsWorld->rayIntersect(rayBegin, rayDir, contactPos);
 }
 
 float SceneManager::getGroundHeight(float x, float z)
@@ -146,35 +176,33 @@ float SceneManager::getGroundHeight(float x, float z)
 	return physicsWorld->getGroundHeight(x, z);
 }
 
-void SceneManager::addPointLight(pgn::Float4 intensity, float radius, pgn::Float3 pos)
+void SceneManager::addPointLight(pgn::Float4 intensity, float radius, pgn::Float3* pos)
 {
 	pgn::PointLight* light = graphics->createPointLight();
 	light->setIntensity(intensity[0], intensity[1], intensity[2], intensity[3]);
 	light->setRadius(radius);
 	pgn::ScenePointLight* sceneLight = scene->add(light);
-	sceneLight->setPosition(&pos);
+	sceneLight->setPosition(pos);
 	pointLights.push_back(light);
 	scenePointLights.push_back(sceneLight);
 }
 
-pgn::NavModel* SceneManager::addNavModel(char* nav)
-{
-	pgn::NavModel* model = graphics->createNavModel();
-	model->setMesh(nav);
-	navModels.push_back(model);
-	return model;
-}
-
-pgn::Model* SceneManager::addModel(char* pnm, pgn::Float4x3& worldMat, float scale)
+pgn::Model* SceneManager::addModel(char* pnm, char* tex, pgn::Float3* pos, float scale)
 {
 	pgn::Model* model = graphics->createModel();
 	model->setMesh(pnm);
-	model->setDiffuseMap(0, "gray");
+	model->setDiffuseMap(0, tex);
 	pgn::Entity* entity = graphics->createEntity();
 	entity->setModel(model);
 
 	pgn::SceneEntity* sceneEntity = scene->add(entity, false);
 	sceneEntity->setScale(scale, scale);
+	pgn::Float4x3 worldMat =
+	{
+		1, 0, 0, pos->v[0],
+		0, 1, 0, pos->v[1],
+		0, 0, 1, pos->v[2],
+	};
 	sceneEntity->setWorldMat(&worldMat);
 
 	models.push_back(model);
@@ -183,12 +211,12 @@ pgn::Model* SceneManager::addModel(char* pnm, pgn::Float4x3& worldMat, float sca
 	return model;
 }
 
-pgn::SceneEntity* SceneManager::addCharacter(char* pnm, pgn::Float4x3& worldMat, float scale)
+pgn::SceneEntity* SceneManager::addCharacter(char* pnm, char* tex, pgn::Float3* pos, float scale)
 {
 	pgn::Entity* entity = graphics->createEntity();
 	pgn::Model* model = graphics->createModel();
 	model->setMesh(pnm);
-	model->setDiffuseMap(0, "res/casual02_f_25.etc2.pnt");
+	model->setDiffuseMap(0, tex);
 	entity->setModel(model);
 
 	pgn::Skeleton* skel = skelFactory->createSkeleton();
@@ -198,6 +226,12 @@ pgn::SceneEntity* SceneManager::addCharacter(char* pnm, pgn::Float4x3& worldMat,
 	entity->setSkeleton(skel);
 	pgn::SceneEntity* sceneEntity = scene->add(entity, false);
 	sceneEntity->setScale(scale, scale);
+	pgn::Float4x3 worldMat =
+	{
+		1, 0, 0, pos->v[0],
+		0, 1, 0, pos->v[1],
+		0, 0, 1, pos->v[2],
+	};
 	sceneEntity->setWorldMat(&worldMat);
 
 	models.push_back(model);
@@ -206,5 +240,18 @@ pgn::SceneEntity* SceneManager::addCharacter(char* pnm, pgn::Float4x3& worldMat,
 	entities.push_back(entity);
 	sceneEntities.push_back(sceneEntity);
 	return sceneEntity;
+}
+
+pgn::Physics* SceneManager::addPhysics(char* phy)
+{
+	pgn::Physics* physics = physicsFactory->createPhysics();
+	physics->set(phy);
+	physicsModels.push_back(physics);
+	return physics;
+}
+
+pgn::PathFinder* SceneManager::getPathFinder()
+{
+	return pathFinder;
 }
 

@@ -34,7 +34,7 @@ PathFinderFactory::PathFinderFactory(pgn::FileStream* f)
 void PathFinderFactory::dispose()
 {
 	navMeshMgr->destroy();
-	delete navMeshMgr;
+	//delete navMeshMgr;
 	pgn::releaseDefaultAsyncLoader();
 	pool->destroy();
 }
