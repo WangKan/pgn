@@ -2,7 +2,6 @@
 #include "../Common/Interface.h"
 namespace pgn {
 
-struct Float3;
 class SkeletonTemplate;
 
 class Model : public Interface
