@@ -16,7 +16,12 @@ void EditableModel::releaseGeom()
 
 pgn::EditableModel* Graphics::createEditableModel()
 {
-	return new(modelPool->alloc()) EditableModel(this, texSetAllocator);
+	return new(editableModelPool->alloc()) EditableModel(this, texSetAllocator);
+}
+
+void EditableModel::_free()
+{
+	graphics->pendingEditableModelRemovals.push_back(this);
 }
 
 void EditableModel::setMesh(char fileName[])

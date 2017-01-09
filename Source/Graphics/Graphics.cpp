@@ -2,6 +2,7 @@
 #include <PGN/Common/debug_new.h>
 #include <PGN/Utilities/Heap.h>
 #include "DirectionalLight.h"
+#include "EditableModel.h"
 #include "Entity.h"
 #include "Graphics.h"
 #include "NavModel.h"
@@ -13,6 +14,7 @@ Graphics::Graphics(pgn::Display displayPrototype, pgn::FileStream* assetStream, 
 {
 	navModelPool = pgn::Pool::create(sizeof(NavModel));
 	modelPool = pgn::Pool::create(sizeof(Model));
+	editableModelPool = pgn::Pool::create(sizeof(EditableModel));
 	entityPool = pgn::Pool::create(sizeof(Entity));
 	pointLightPool = pgn::Pool::create(sizeof(PointLight));
 	dirLightPool = pgn::Pool::create(sizeof(DirectionalLight));
@@ -23,6 +25,7 @@ void Graphics::dispose()
 {
 	navModelPool->destroy();
 	modelPool->destroy();
+	editableModelPool->destroy();
 	entityPool->destroy();
 	pointLightPool->destroy();
 	dirLightPool->destroy();
@@ -54,14 +57,25 @@ void Graphics::endDraw()
 
 void Graphics::performPendingRemovals()
 {
-	while (!pendingRemovals.empty())
+	while (!pendingModelRemovals.empty())
 	{
-		Model* model = pendingRemovals.front();
+		Model* model = pendingModelRemovals.front();
 
 		if (model->submittingStamp > renderer.finishCount) break;
 
 		model->~Model();
 		modelPool->_free(model);
-		pendingRemovals.pop_front();
+		pendingModelRemovals.pop_front();
+	}
+
+	while (!pendingEditableModelRemovals.empty())
+	{
+		EditableModel* model = pendingEditableModelRemovals.front();
+
+		if (model->submittingStamp > renderer.finishCount) break;
+
+		model->~EditableModel();
+		editableModelPool->_free(model);
+		pendingEditableModelRemovals.pop_front();
 	}
 }

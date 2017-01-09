@@ -52,7 +52,7 @@ pgn::Model* Graphics::createModel()
 
 void Model::_free()
 {
-	graphics->pendingRemovals.push_back(this);
+	graphics->pendingModelRemovals.push_back(this);
 }
 
 void Model::setMesh(char fileName[])

@@ -15,12 +15,14 @@ public:
 	Renderer renderer;
 	pgn::Pool* navModelPool;
 	pgn::Pool* modelPool;
+	pgn::Pool* editableModelPool;
 	TextureSetAllocator texSetAllocator;
 	pgn::Pool* entityPool;
 	pgn::Pool* pointLightPool;
 	pgn::Pool* dirLightPool;
 	pgn::Heap* tmpBuf;
-	std::list<Model*, pgn::PoolAllocator<Model*, pgn::Pool>> pendingRemovals;
+	std::list<Model*, pgn::PoolAllocator<Model*, pgn::Pool>> pendingModelRemovals;
+	std::list<EditableModel*, pgn::PoolAllocator<EditableModel*, pgn::Pool>> pendingEditableModelRemovals;
 
 	Graphics(pgn::Display displayPrototype, pgn::FileStream* assetStream, pgn::FileStream* cacheStream);
 	virtual void dispose();

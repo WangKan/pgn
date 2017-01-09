@@ -1,3 +1,4 @@
+#pragma once
 #include <PGN/Graphics/Model.h>
 #include "Renderer/TextureInfo.h"
 
