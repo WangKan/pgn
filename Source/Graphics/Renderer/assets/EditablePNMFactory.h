@@ -6,7 +6,7 @@ namespace pgn {
 	class Pool;
 }
 
-class EditableMeshFactory : public pgn::AssetFactory
+class EditablePNMFactory : public pgn::AssetFactory
 {
 public:
 	pgn::Pool* meshPool;
@@ -14,8 +14,8 @@ public:
 	SubsetAllocator& subsetAllocator;
 	pgn::SkeletonTemplateFactory* skeletonTemplateFactory;
 
-	EditableMeshFactory(SubsetAllocator& subsetAllocator);
-	~EditableMeshFactory();
+	EditablePNMFactory(SubsetAllocator& subsetAllocator);
+	~EditablePNMFactory();
 	virtual pgn::Asset* create();
 	virtual void recycle(pgn::Asset* asset);
 };

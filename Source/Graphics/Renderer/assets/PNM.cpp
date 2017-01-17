@@ -9,9 +9,9 @@
 #include <PGN/Utilities/SkeletalAnimation/SkeletonTemplateFactory.h>
 #include "../Geometry.h"
 #include "../GeometryHelper.h"
-#include "Mesh.h"
+#include "PNM.h"
 
-Mesh::Mesh(pgn::AssetFactory* factory, Geometry* geom, pgn::SkeletonTemplateFactory* skeletonFactory)
+PNM::PNM(pgn::AssetFactory* factory, Geometry* geom, pgn::SkeletonTemplateFactory* skeletonFactory)
 	: Asset(factory)
 {
 	this->geom = geom;
@@ -19,7 +19,7 @@ Mesh::Mesh(pgn::AssetFactory* factory, Geometry* geom, pgn::SkeletonTemplateFact
 	ready = false;
 }
 
-bool Mesh::cook(void* rawData)
+bool PNM::cook(void* rawData)
 {
 	pgn::PNMHeader* header = (pgn::PNMHeader*)rawData;
 	geom->skeletonTemplate = header->numBones ? skeletonFactory->createSkeletonTemplate(header->numBones, (pgn::Float4x3*)((char*)header + header->offsetMatsChunkOffset), (pgn::Float4*)((char*)header + header->defaultRotChunkOffset), (pgn::Float3*)((char*)header + header->defaultPosChunkOffset), (unsigned char*)((char*)header + header->parentIndicesChunkOffset)) : 0;
@@ -38,7 +38,7 @@ pgn::VertexAttribDesc attribDescTable[] =
 	"texCoord1", pgn::FLOAT2, 0,
 };
 
-bool Mesh::submit(void* rawData, void* customArg)
+bool PNM::submit(void* rawData, void* customArg)
 {
 	pgn::RenderingSystem* rs = (pgn::RenderingSystem*)customArg;
 	pgn::PNMHeader* header = (pgn::PNMHeader*)rawData;
@@ -82,7 +82,7 @@ bool Mesh::submit(void* rawData, void* customArg)
 	return true;
 }
 
-void Mesh::unload(void* customArg)
+void PNM::unload(void* customArg)
 {
 	if (!ready)
 		return;
@@ -97,7 +97,7 @@ void Mesh::unload(void* customArg)
 	geom->brdfCoeffBuf.buf->destroy();
 }
 
-void* Mesh::core()
+void* PNM::core()
 {
 	return ready ? geom : 0;
 }

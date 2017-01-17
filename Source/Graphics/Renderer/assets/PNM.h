@@ -8,14 +8,14 @@ class SkeletonTemplateFactory;
 
 class Geometry;
 
-class Mesh : public Asset
+class PNM : public Asset
 {
 public:
 	Geometry* geom;
 	pgn::SkeletonTemplateFactory* skeletonFactory;
 	bool ready;
 
-	Mesh(pgn::AssetFactory* factory, Geometry* geom, pgn::SkeletonTemplateFactory* skeletonFactory);
+	PNM(pgn::AssetFactory* factory, Geometry* geom, pgn::SkeletonTemplateFactory* skeletonFactory);
 	virtual bool cook(void* rawData);
 	virtual bool submit(void* rawData, void* customArg);
 	virtual void unload(void* customArg);

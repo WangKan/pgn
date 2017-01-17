@@ -1,15 +1,15 @@
 #include <math.h>
 #include "../EditableGeometry.h"
-#include "EditableMesh.h"
+#include "EditablePNM.h"
 
-EditableMesh::EditableMesh(pgn::AssetFactory* factory, EditableGeometry* geom, pgn::SkeletonTemplateFactory* skeletonFactory)
-	: Mesh(factory, geom, skeletonFactory)
+EditablePNM::EditablePNM(pgn::AssetFactory* factory, EditableGeometry* geom, pgn::SkeletonTemplateFactory* skeletonFactory)
+	: PNM(factory, geom, skeletonFactory)
 {
 }
 
-bool EditableMesh::cook(void* rawData)
+bool EditablePNM::cook(void* rawData)
 {
-	Mesh::cook(rawData);
+	PNM::cook(rawData);
 	return true;
 }
 
@@ -31,7 +31,7 @@ public:
 	}
 };
 
-bool EditableMesh::submit(void* rawData, void* customArg)
+bool EditablePNM::submit(void* rawData, void* customArg)
 {
 	pgn::PNMHeader* header = (pgn::PNMHeader*)rawData;
 	float (*pos)[3] = (float(*)[3]) ((char*)header + header->attribChunkOffsetTable[pgn::PNMHeader::ATTRIB_POSITION]);
@@ -53,17 +53,17 @@ bool EditableMesh::submit(void* rawData, void* customArg)
 		editableGeom->subsets[i].aabb.max = aabb.max;
 	}
 
-	Mesh::submit(rawData, customArg);
+	PNM::submit(rawData, customArg);
 
 	return true;
 }
 
-void EditableMesh::unload(void* customArg)
+void EditablePNM::unload(void* customArg)
 {
-	Mesh::unload(customArg);
+	PNM::unload(customArg);
 }
 
-void* EditableMesh::core()
+void* EditablePNM::core()
 {
 	return ready ? geom : 0;
 }

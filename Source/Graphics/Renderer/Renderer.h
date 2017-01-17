@@ -37,11 +37,11 @@ namespace pgn {
 
 class CBufAllocator;
 struct CBufRange;
-class EditableMeshFactory;
-class MeshFactory;
+class EditablePNMFactory;
+class PNMFactory;
+class PNTFactory;
 class RenderingStage;
 struct ResourceView;
-class TextureFactory;
 struct VertexFormat;
 
 struct EnvConst
@@ -183,9 +183,9 @@ public:
 
 	SubsetAllocator subsetAllocator;
 
-	MeshFactory* meshFactory;
-	EditableMeshFactory* editableMeshFactory;
-	TextureFactory* textureFactory;
+	PNMFactory* pnmFactory;
+	EditablePNMFactory* editablePnmFactory;
+	PNTFactory* pntFactory;
 
 	pgn::Heap* heap;
 

@@ -4,13 +4,13 @@ namespace pgn {
 	class Pool;
 }
 
-class TextureFactory : public pgn::AssetFactory
+class PNTFactory : public pgn::AssetFactory
 {
 public:
 	pgn::Pool* pool;
 
-	TextureFactory();
-	~TextureFactory();
+	PNTFactory();
+	~PNTFactory();
 	virtual pgn::Asset* create();
 	virtual void recycle(pgn::Asset* asset);
 };

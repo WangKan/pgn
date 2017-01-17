@@ -2,36 +2,36 @@
 #include <PGN/Utilities/Pool.h>
 #include <PGN/Utilities/SkeletalAnimation/SkeletonTemplateFactory.h>
 #include "../Geometry.h"
-#include "Mesh.h"
-#include "MeshFactory.h"
+#include "PNM.h"
+#include "PNMFactory.h"
 
-MeshFactory::MeshFactory(SubsetAllocator& subsetAllocator)
+PNMFactory::PNMFactory(SubsetAllocator& subsetAllocator)
 	: subsetAllocator(subsetAllocator)
 {
-	meshPool = pgn::Pool::create(sizeof(Mesh));
+	meshPool = pgn::Pool::create(sizeof(PNM));
 	geomPool = pgn::Pool::create(sizeof(Geometry));
 	skeletonTemplateFactory = pgn::SkeletonTemplateFactory::create();
 }
 
-MeshFactory::~MeshFactory()
+PNMFactory::~PNMFactory()
 {
 	meshPool->destroy();
 	geomPool->destroy();
 	skeletonTemplateFactory->destroy();
 }
 
-pgn::Asset* MeshFactory::create()
+pgn::Asset* PNMFactory::create()
 {
 	Geometry* geom = new(geomPool->alloc()) Geometry(subsetAllocator);
-	return new(meshPool->alloc()) Mesh(this, geom, skeletonTemplateFactory);
+	return new(meshPool->alloc()) PNM(this, geom, skeletonTemplateFactory);
 }
 
-void MeshFactory::recycle(pgn::Asset* asset)
+void PNMFactory::recycle(pgn::Asset* asset)
 {
-	Mesh* mesh = (Mesh*)asset;
-	Geometry* geom = mesh->geom;
+	PNM* pnm = (PNM*)asset;
+	Geometry* geom = pnm->geom;
 
-	mesh->~Mesh();
+	pnm->~PNM();
 	meshPool->_free(asset);
 
 	geom->~Geometry();

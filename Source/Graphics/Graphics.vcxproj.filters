@@ -177,18 +177,6 @@
     <ClInclude Include="Renderer\assets\Asset.h">
       <Filter>Source Files\Renderer\assets</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\assets\Mesh.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\MeshFactory.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\Texture.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\TextureFactory.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer\techs\LightIndexingTechDesc.h">
       <Filter>Source Files\Renderer\techs</Filter>
     </ClInclude>
@@ -276,17 +264,29 @@
     <ClInclude Include="Renderer\EditableGeometry.h">
       <Filter>Source Files\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\assets\EditableMesh.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\EditableMeshFactory.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Include\PGN\Graphics\EditableModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditableModel.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\PNM.h">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\PNMFactory.h">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\EditablePNM.h">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\EditablePNMFactory.h">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\PNT.h">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\PNTFactory.h">
+      <Filter>Source Files\Renderer\assets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -365,18 +365,6 @@
     <ClCompile Include="Renderer\passes\LightVolumePassesEnvDescs.cpp">
       <Filter>Source Files\Renderer\passes</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\assets\Mesh.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\MeshFactory.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\Texture.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\TextureFactory.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\techs\LightIndexingTechDesc.cpp">
       <Filter>Source Files\Renderer\techs</Filter>
     </ClCompile>
@@ -428,14 +416,26 @@
     <ClCompile Include="NavModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\assets\EditableMesh.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\EditableMeshFactory.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
     <ClCompile Include="EditableModel.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\assets\PNM.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\assets\PNMFactory.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\assets\EditablePNM.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\assets\EditablePNMFactory.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\assets\PNT.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\assets\PNTFactory.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

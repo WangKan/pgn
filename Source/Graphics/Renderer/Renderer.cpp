@@ -30,9 +30,9 @@
 #include <PGN/Utilities/ResourceManager/AsyncLoader.h>
 #include <PGN/Utilities/ResourceManager/ResourceHandle.h>
 #include <PGN/Utilities/ResourceManager/ResourceManager.h>
-#include "assets/EditableMeshFactory.h"
-#include "assets/MeshFactory.h"
-#include "assets/TextureFactory.h"
+#include "assets/EditablePNMFactory.h"
+#include "assets/PNMFactory.h"
+#include "assets/PNTFactory.h"
 #include "CBufAllocator.h"
 #include "GeometryHelper.h"
 #include "passes/EnvDesc.h"
@@ -191,9 +191,9 @@ Renderer::Renderer(pgn::Display displayPrototype, pgn::FileStream* assetStream, 
 
 	rc = pgn::RenderingContext::create(displayPrototype, 3);
 
-	meshFactory = debug_new MeshFactory(subsetAllocator);
-	editableMeshFactory = debug_new EditableMeshFactory(subsetAllocator);
-	textureFactory = debug_new TextureFactory;
+	pnmFactory = debug_new PNMFactory(subsetAllocator);
+	editablePnmFactory = debug_new EditablePNMFactory(subsetAllocator);
+	pntFactory = debug_new PNTFactory;
 
 	heap = pgn::Heap::create();
 
@@ -216,9 +216,9 @@ Renderer::~Renderer()
 
 	rc->destroy();
 
-	delete meshFactory;
-	delete editableMeshFactory;
-	delete textureFactory;
+	delete pnmFactory;
+	delete editablePnmFactory;
+	delete pntFactory;
 
 	heap->destroy();
 }
@@ -395,9 +395,9 @@ void Renderer::beginDraw(pgn::Window* wnd, RendererConfig* _cfg)
 	rs = pgn::RenderingSystem::create(rc);
 
 	resLoader = pgn::createAsyncLoader(rc, rs, display);
-	geomMgr = pgn::ResourceManager::create(meshFactory, assetStream, resLoader);
-	editableGeomMgr = pgn::ResourceManager::create(editableMeshFactory, assetStream, resLoader);
-	texMgr = pgn::ResourceManager::create(textureFactory, assetStream, resLoader);
+	geomMgr = pgn::ResourceManager::create(pnmFactory, assetStream, resLoader);
+	editableGeomMgr = pgn::ResourceManager::create(editablePnmFactory, assetStream, resLoader);
+	texMgr = pgn::ResourceManager::create(pntFactory, assetStream, resLoader);
 
 	// 创建灰色纹理
 	{

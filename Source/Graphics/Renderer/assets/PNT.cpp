@@ -1,20 +1,20 @@
 #include <PGN/Assets/PNT.h>
 #include <PGN/RenderingSystem/RenderingSystem.h>
 #include <PGN/RenderingSystem/Texture.h>
-#include "Texture.h"
+#include "PNT.h"
 
-_Texture::_Texture(pgn::AssetFactory* factory)
+PNT::PNT(pgn::AssetFactory* factory)
 	: Asset(factory)
 {
 	tex = 0;
 }
 
-bool _Texture::cook(void* rawData)
+bool PNT::cook(void* rawData)
 {
 	return true;
 }
 
-bool _Texture::submit(void* rawData, void* customArg)
+bool PNT::submit(void* rawData, void* customArg)
 {
 	pgn::RenderingSystem* rs = (pgn::RenderingSystem*)customArg;
 	pgn::PNTHeader* header = (pgn::PNTHeader*)rawData;
@@ -47,7 +47,7 @@ bool _Texture::submit(void* rawData, void* customArg)
 	return true;
 }
 
-void _Texture::unload(void* customArg)
+void PNT::unload(void* customArg)
 {
 	if (!tex)
 		return;
@@ -55,7 +55,7 @@ void _Texture::unload(void* customArg)
 	tex->destroy();
 }
 
-void* _Texture::core()
+void* PNT::core()
 {
 	return tex;
 }
