@@ -21,7 +21,7 @@ public ref class EntityView
 	pgn::DirectionalLight* dirLight;
 	pgn::SceneDirectionalLight* sceneDirLight;
 
-	pgn::Entity* entity;
+	pgn::SkeletalModel* skeletalModel;
 	pgn::EditableModel* model;
 	pgn::SkeletonFactory* skelFactory;
 	pgn::Skeleton* skel;

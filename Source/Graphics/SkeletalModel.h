@@ -1,4 +1,4 @@
-#include <PGN/Graphics/Entity.h>
+#include <PGN/Graphics/SkeletalModel.h>
 
 namespace pgn {
 	struct Float4x3;
@@ -7,7 +7,7 @@ namespace pgn {
 
 class Model;
 
-class Entity : public pgn::Entity
+class SkeletalModel : public pgn::SkeletalModel
 {
 public:
 	pgn::Pool* pool;
@@ -15,7 +15,7 @@ public:
 	pgn::Skeleton* skel;
 	pgn::Float4x3* boneMats;
 
-	Entity(pgn::Pool* pool);
+	SkeletalModel(pgn::Pool* pool);
 	virtual void dispose();
 	virtual void _free();
 	virtual void setModel(pgn::Model* model);

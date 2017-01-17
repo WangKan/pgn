@@ -25,7 +25,7 @@ public:
 	virtual void dispose();
 	virtual void _free();
 
-	virtual pgn::SceneEntity* add(pgn::Entity* entity, bool useInstancedDrawing);
+	virtual pgn::SceneEntity* add(pgn::SkeletalModel* skeletalModel, bool useInstancedDrawing);
 	virtual void remove(pgn::SceneEntity* sceneEntity);
 
 	virtual pgn::ScenePointLight* add(pgn::PointLight* light);

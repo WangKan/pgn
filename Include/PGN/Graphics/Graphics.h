@@ -7,12 +7,12 @@ namespace pgn {
 class Camera;
 class DirectionalLight;
 class EditableModel;
-class Entity;
 class FileStream;
 class NavModel;
 class Model;
 class PointLight;
 class Scene;
+class SkeletalModel;
 class Window;
 
 class Graphics : public Interface
@@ -25,7 +25,7 @@ public:
 	virtual Model* createModel() = 0;
 	virtual EditableModel* createEditableModel() = 0;
 	virtual NavModel* createNavModel() = 0;
-	virtual Entity* createEntity() = 0;
+	virtual SkeletalModel* createSkeletalModel() = 0;
 	virtual PointLight* createPointLight() = 0;
 	virtual DirectionalLight* createDirectionalLight() = 0;
 	virtual void beginDraw(pgn::Window* wnd) = 0;

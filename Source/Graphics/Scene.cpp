@@ -6,13 +6,13 @@
 #include <PGN/Utilities/SkeletalAnimation/SkeletonTemplate.h>
 #include "Camera.h"
 #include "DirectionalLight.h"
-#include "Entity.h"
 #include "Graphics.h"
 #include "Model.h"
 #include "PointLight.h"
 #include "Renderer/CBufAllocator.h"
 #include "Renderer/Movable2D.h"
 #include "Scene.h"
+#include "SkeletalModel.h"
 
 Scene::Scene(Graphics* graphics)
 {
@@ -36,9 +36,9 @@ void Scene::_free()
 	delete this;
 }
 
-pgn::SceneEntity* Scene::add(pgn::Entity* entity, bool useInstancedDrawing)
+pgn::SceneEntity* Scene::add(pgn::SkeletalModel* skeletalModel, bool useInstancedDrawing)
 {
-	sceneEntities.emplace_front((Entity*)entity, useInstancedDrawing);
+	sceneEntities.emplace_front((SkeletalModel*)skeletalModel, useInstancedDrawing);
 	SceneEntity* sceneEntity = &sceneEntities.front();
 	sceneEntity->it = sceneEntities.begin();
 	return sceneEntity;
@@ -114,8 +114,8 @@ void Scene::commit(pgn::Camera* _camera)
 	CBufAllocator* cbufAllocator = frameContext->cbufAllocator;
 	pgn::Heap* tmpBuf = graphics->tmpBuf;
 
-	typedef pgn::HeapAllocator<std::pair<Entity*, SceneEntityList>> SceneEntityGroupAllocator;
-	typedef std::map<Entity*, SceneEntityList, std::less<Entity*>, SceneEntityGroupAllocator> SceneEntityGroupMap;
+	typedef pgn::HeapAllocator<std::pair<SkeletalModel*, SceneEntityList>> SceneEntityGroupAllocator;
+	typedef std::map<SkeletalModel*, SceneEntityList, std::less<SkeletalModel*>, SceneEntityGroupAllocator> SceneEntityGroupMap;
 	SceneEntityGroupMap* _sceneEntityGroupMap = new(tmpBuf->alloc(sizeof(SceneEntityGroupMap))) SceneEntityGroupMap(tmpBuf);
 	SceneEntityGroupMap& sceneEntityGroupMap = *_sceneEntityGroupMap;
 
@@ -130,7 +130,7 @@ void Scene::commit(pgn::Camera* _camera)
 		}
 		else
 		{
-			SceneEntityList* sceneEntityList = &sceneEntityGroupMap[sceneEntity->entity];
+			SceneEntityList* sceneEntityList = &sceneEntityGroupMap[sceneEntity->skeletalModel];
 			SceneEntityListItem* item = (SceneEntityListItem*)tmpBuf->alloc(sizeof(SceneEntityListItem));
 			item->sceneEntity = sceneEntity;
 			item->next = sceneEntityList->first;
@@ -329,8 +329,8 @@ void Scene::submitEntities(SceneEntityListItem* first, int count, CBufAllocator*
 {
 	assert(count <= maxInstanceCount);
 
-	Entity* entity = first->sceneEntity->entity;
-	Model* model = entity->model;
+	SkeletalModel* skeletalModel = first->sceneEntity->skeletalModel;
+	Model* model = skeletalModel->model;
 
 	if (!model->complete())
 		return;
@@ -349,16 +349,16 @@ void Scene::submitEntities(SceneEntityListItem* first, int count, CBufAllocator*
 		tech = SKINNED_MESH_TECH;
 
 		int numBones = skelTempl->getNumBones();
-		pgn::Float4x3* boneMats = (pgn::Float4x3*)cbufAllocator->alloc(sizeof(entity->boneMats[0]) * numBones, &batch.boneMatBuf);
+		pgn::Float4x3* boneMats = (pgn::Float4x3*)cbufAllocator->alloc(sizeof(skeletalModel->boneMats[0]) * numBones, &batch.boneMatBuf);
 
-		if (entity->boneMats)
+		if (skeletalModel->boneMats)
 		{
 			for (int j = 0; j < numBones; j++)
-				boneMats[j] = entity->boneMats[j];
+				boneMats[j] = skeletalModel->boneMats[j];
 		}
 		else
 		{
-			entity->skel->updatePose(0, skelTempl, boneMats);
+			skeletalModel->skel->updatePose(0, skelTempl, boneMats);
 		}
 	}
 	else

@@ -17,7 +17,7 @@ public:
 	pgn::Pool* modelPool;
 	pgn::Pool* editableModelPool;
 	TextureSetAllocator texSetAllocator;
-	pgn::Pool* entityPool;
+	pgn::Pool* skeletalModelPool;
 	pgn::Pool* pointLightPool;
 	pgn::Pool* dirLightPool;
 	pgn::Heap* tmpBuf;
@@ -32,7 +32,7 @@ public:
 	virtual pgn::Model* createModel();
 	virtual pgn::EditableModel* createEditableModel();
 	virtual pgn::NavModel* createNavModel();
-	virtual pgn::Entity* createEntity();
+	virtual pgn::SkeletalModel* createSkeletalModel();
 	virtual pgn::PointLight* createPointLight();
 	virtual pgn::DirectionalLight* createDirectionalLight();
 	virtual void beginDraw(pgn::Window* wnd);

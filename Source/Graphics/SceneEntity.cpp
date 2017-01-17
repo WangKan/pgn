@@ -1,8 +1,8 @@
 #include "SceneEntity.h"
 
-SceneEntity::SceneEntity(Entity* entity, bool useInstancedDrawing)
+SceneEntity::SceneEntity(SkeletalModel* skeletalModel, bool useInstancedDrawing)
 {
-	this->entity = entity;
+	this->skeletalModel = skeletalModel;
 	this->useInstancedDrawing = useInstancedDrawing;
 }
 

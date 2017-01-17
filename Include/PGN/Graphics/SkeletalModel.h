@@ -6,7 +6,7 @@ struct Float4x3;
 class Model;
 class Skeleton;
 
-class Entity : public Interface
+class SkeletalModel : public Interface
 {
 public:
 	virtual void setModel(Model* model) = 0;

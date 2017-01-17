@@ -3,11 +3,11 @@
 #include <PGN/Utilities/Heap.h>
 #include "DirectionalLight.h"
 #include "EditableModel.h"
-#include "Entity.h"
 #include "Graphics.h"
 #include "NavModel.h"
 #include "Model.h"
 #include "PointLight.h"
+#include "SkeletalModel.h"
 
 Graphics::Graphics(pgn::Display displayPrototype, pgn::FileStream* assetStream, pgn::FileStream* cacheStream)
 	: renderer(displayPrototype, assetStream, cacheStream)
@@ -15,7 +15,7 @@ Graphics::Graphics(pgn::Display displayPrototype, pgn::FileStream* assetStream, 
 	navModelPool = pgn::Pool::create(sizeof(NavModel));
 	modelPool = pgn::Pool::create(sizeof(Model));
 	editableModelPool = pgn::Pool::create(sizeof(EditableModel));
-	entityPool = pgn::Pool::create(sizeof(Entity));
+	skeletalModelPool = pgn::Pool::create(sizeof(SkeletalModel));
 	pointLightPool = pgn::Pool::create(sizeof(PointLight));
 	dirLightPool = pgn::Pool::create(sizeof(DirectionalLight));
 	tmpBuf = pgn::Heap::create();
@@ -26,7 +26,7 @@ void Graphics::dispose()
 	navModelPool->destroy();
 	modelPool->destroy();
 	editableModelPool->destroy();
-	entityPool->destroy();
+	skeletalModelPool->destroy();
 	pointLightPool->destroy();
 	dirLightPool->destroy();
 	tmpBuf->destroy();

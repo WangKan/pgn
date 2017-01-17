@@ -2,11 +2,11 @@
 #include <PGN/Graphics/Camera.h>
 #include <PGN/Graphics/DirectionalLight.h>
 #include <PGN/Graphics/EditableModel.h>
-#include <PGN/Graphics/Entity.h>
 #include <PGN/Graphics/Graphics.h>
 #include <PGN/Graphics/Scene.h>
 #include <PGN/Graphics/SceneDirectionalLight.h>
 #include <PGN/Graphics/SceneEntity.h>
+#include <PGN/Graphics/SkeletalModel.h>
 #include <PGN/Math/Math.h>
 #include <PGN/Platform/DebugHeap.h>
 #include <PGN/Platform/UI/Gesture/DraggingGestureRecognizer.h>
@@ -49,16 +49,16 @@ EntityView::EntityView(IntPtr^ hWnd, Options^ options)
 	dirLight = graphics->createDirectionalLight();
 	sceneDirLight = scene->add(dirLight);
 
-	entity = graphics->createEntity();
+	skeletalModel = graphics->createSkeletalModel();
 
 	model = graphics->createEditableModel();
-	entity->setModel(model);
+	skeletalModel->setModel(model);
 
 	skelFactory = pgn::SkeletonFactory::create();
 	skel = skelFactory->createSkeleton();
-	entity->setSkeleton(skel);
+	skeletalModel->setSkeleton(skel);
 
-	sceneEntity = scene->add(entity, true);
+	sceneEntity = scene->add(skeletalModel, true);
 	sceneEntity->setScale(1.0f, 1.0f);
 
 	animFactory = pgn::AnimationFactory::create(assetStream2);
@@ -82,7 +82,7 @@ EntityView::~EntityView()
 	camera->destroy();
 	dirLight->destroy();
 
-	entity->destroy();
+	skeletalModel->destroy();
 	model->destroy();
 	skel->destroy();
 	skelFactory->destroy();

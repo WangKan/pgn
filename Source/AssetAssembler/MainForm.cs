@@ -139,7 +139,7 @@ namespace EntityEditor
 
         private void save(ProgressIndicator progressIndicator)
         {
-            string entityFileName = options.tempDir + "entity.xml";
+            string entityFileName = options.tempDir + "skeletalModel.xml";
             string mesh = props.mesh;
             string diffuseMapTga = props.diffuseMap;
             string diffuseMapDxtPnt = props.getDiffuseMap_dxt_pnt();
@@ -202,7 +202,7 @@ namespace EntityEditor
 
             {
                 System.Xml.Serialization.XmlSerializer ser = new System.Xml.Serialization.XmlSerializer(typeof(EntityProperties));
-                System.IO.StreamReader fs = new System.IO.StreamReader(options.tempDir + "entity.xml");
+                System.IO.StreamReader fs = new System.IO.StreamReader(options.tempDir + "skeletalModel.xml");
                 EntityProperties _props = (EntityProperties)ser.Deserialize(fs);
                 fs.Close();
                 props.copy(_props);

@@ -33,7 +33,7 @@
     <ClInclude Include="..\..\Include\PGN\Graphics\Graphics.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\PointLight.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\Model.h" />
-    <ClInclude Include="..\..\Include\PGN\Graphics\Entity.h" />
+    <ClInclude Include="..\..\Include\PGN\Graphics\SkeletalModel.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\Scene.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\SceneDirectionalLight.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\SceneEntity.h" />
@@ -47,7 +47,7 @@
     <ClInclude Include="NavModel.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="Entity.h" />
+    <ClInclude Include="SkeletalModel.h" />
     <ClInclude Include="Renderer\assets\Asset.h" />
     <ClInclude Include="Renderer\assets\EditablePNM.h" />
     <ClInclude Include="Renderer\assets\EditablePNMFactory.h" />
@@ -122,7 +122,7 @@
     <ClCompile Include="NavModel.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="SkeletalModel.cpp" />
     <ClCompile Include="Renderer\assets\EditablePNM.cpp" />
     <ClCompile Include="Renderer\assets\EditablePNMFactory.cpp" />
     <ClCompile Include="Renderer\assets\PNM.cpp" />
