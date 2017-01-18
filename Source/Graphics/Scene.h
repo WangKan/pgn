@@ -14,7 +14,8 @@ class Scene : public pgn::Scene
 public:
 	Graphics* graphics;
 
-	SceneEntity::StdList sceneEntities;
+	SceneEntity::StdList sceneModels;
+	SceneEntity::StdList sceneSkeletalModels;
 	ScenePointLight::StdList scenePointLights;
 	SceneDirectionalLight::StdList sceneDirLights;
 
@@ -25,8 +26,11 @@ public:
 	virtual void dispose();
 	virtual void _free();
 
-	virtual pgn::SceneEntity* add(pgn::SkeletalModel* skeletalModel, bool useInstancedDrawing);
-	virtual void remove(pgn::SceneEntity* sceneEntity);
+	virtual pgn::SceneEntity* addModel(pgn::Model* model, bool useInstancedDrawing);
+	virtual void removeModel(pgn::SceneEntity* sceneEntity);
+
+	virtual pgn::SceneEntity* addSkeletalModel(pgn::SkeletalModel* model, bool useInstancedDrawing);
+	virtual void removeSkeletalModel(pgn::SceneEntity* sceneEntity);
 
 	virtual pgn::ScenePointLight* add(pgn::PointLight* light);
 	virtual void remove(pgn::ScenePointLight* scenePointLight);
@@ -36,5 +40,6 @@ public:
 
 	virtual void commit(pgn::Camera* camera);
 
-	void submitEntities(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator);
+	void submitModels(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator);
+	void submitSkeletalModels(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator);
 };

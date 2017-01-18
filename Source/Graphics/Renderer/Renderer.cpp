@@ -1182,7 +1182,7 @@ void Renderer::render(FrameContext* frameContext)
 
 					rs->setConstantBuffers(instanceCBlockBindingPoint, 1, &batch.instanceCBlockBuf.buf, &batch.instanceCBlockBuf.offset, &batch.instanceCBlockBuf.size);
 
-					if (geom->skeletonTemplate)
+					if (batch.boneMatBuf.buf)
 						rs->setConstantBuffers(boneMatBlockBindingPoint, 1, &batch.boneMatBuf.buf, &batch.boneMatBuf.offset, &batch.boneMatBuf.size);
 
 					if (geom->brdfCoeffBuf.buf)

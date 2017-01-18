@@ -36,18 +36,32 @@ void Scene::_free()
 	delete this;
 }
 
-pgn::SceneEntity* Scene::add(pgn::SkeletalModel* skeletalModel, bool useInstancedDrawing)
+pgn::SceneEntity* Scene::addModel(pgn::Model* model, bool useInstancedDrawing)
 {
-	sceneEntities.emplace_front((SkeletalModel*)skeletalModel, useInstancedDrawing);
-	SceneEntity* sceneEntity = &sceneEntities.front();
-	sceneEntity->it = sceneEntities.begin();
+	sceneModels.emplace_front(dynamic_cast<Model*>(model), useInstancedDrawing);
+	SceneEntity* sceneEntity = &sceneModels.front();
+	sceneEntity->it = sceneModels.begin();
 	return sceneEntity;
 }
 
-void Scene::remove(pgn::SceneEntity* _sceneEntity)
+void Scene::removeModel(pgn::SceneEntity* _sceneEntity)
 {
 	SceneEntity* sceneEntity = (SceneEntity*)_sceneEntity;
-	sceneEntities.erase(sceneEntity->it);
+	sceneModels.erase(sceneEntity->it);
+}
+
+pgn::SceneEntity* Scene::addSkeletalModel(pgn::SkeletalModel* model, bool useInstancedDrawing)
+{
+	sceneSkeletalModels.emplace_front((SkeletalModel*)model, useInstancedDrawing);
+	SceneEntity* sceneEntity = &sceneSkeletalModels.front();
+	sceneEntity->it = sceneSkeletalModels.begin();
+	return sceneEntity;
+}
+
+void Scene::removeSkeletalModel(pgn::SceneEntity* _sceneEntity)
+{
+	SceneEntity* sceneEntity = (SceneEntity*)_sceneEntity;
+	sceneSkeletalModels.erase(sceneEntity->it);
 }
 
 pgn::ScenePointLight* Scene::add(pgn::PointLight* light)
@@ -114,23 +128,24 @@ void Scene::commit(pgn::Camera* _camera)
 	CBufAllocator* cbufAllocator = frameContext->cbufAllocator;
 	pgn::Heap* tmpBuf = graphics->tmpBuf;
 
-	typedef pgn::HeapAllocator<std::pair<SkeletalModel*, SceneEntityList>> SceneEntityGroupAllocator;
-	typedef std::map<SkeletalModel*, SceneEntityList, std::less<SkeletalModel*>, SceneEntityGroupAllocator> SceneEntityGroupMap;
-	SceneEntityGroupMap* _sceneEntityGroupMap = new(tmpBuf->alloc(sizeof(SceneEntityGroupMap))) SceneEntityGroupMap(tmpBuf);
-	SceneEntityGroupMap& sceneEntityGroupMap = *_sceneEntityGroupMap;
+	typedef pgn::HeapAllocator<std::pair<void*, SceneEntityList>> SceneEntityGroupAllocator;
+	typedef std::map<void*, SceneEntityList, std::less<void*>, SceneEntityGroupAllocator> SceneEntityGroupMap;
 
-	for (auto& _sceneEntity : sceneEntities)
+	SceneEntityGroupMap* _sceneModelGroupMap = new(tmpBuf->alloc(sizeof(SceneEntityGroupMap))) SceneEntityGroupMap(tmpBuf);
+	SceneEntityGroupMap& sceneModelGroupMap = *_sceneModelGroupMap;
+
+	for (auto& _sceneEntity : sceneModels)
 	{
 		SceneEntity* sceneEntity = (SceneEntity*)&_sceneEntity;
 		if (!sceneEntity->useInstancedDrawing)
 		{
 			SceneEntityListItem item;
 			item.sceneEntity = sceneEntity;
-			submitEntities(&item, 1, cbufAllocator);
+			submitModels(&item, 1, cbufAllocator);
 		}
 		else
 		{
-			SceneEntityList* sceneEntityList = &sceneEntityGroupMap[sceneEntity->skeletalModel];
+			SceneEntityList* sceneEntityList = &sceneModelGroupMap[sceneEntity->skeletalModel];
 			SceneEntityListItem* item = (SceneEntityListItem*)tmpBuf->alloc(sizeof(SceneEntityListItem));
 			item->sceneEntity = sceneEntity;
 			item->next = sceneEntityList->first;
@@ -139,10 +154,39 @@ void Scene::commit(pgn::Camera* _camera)
 		}
 	}
 
-	for (auto& entry : sceneEntityGroupMap)
+	for (auto& entry : sceneModelGroupMap)
 	{
 		SceneEntityList sceneEntityList = entry.second;
-		submitEntities(sceneEntityList.first, sceneEntityList.size, cbufAllocator);
+		submitModels(sceneEntityList.first, sceneEntityList.size, cbufAllocator);
+	}
+
+	SceneEntityGroupMap* _sceneSkeletalModelGroupMap = new(tmpBuf->alloc(sizeof(SceneEntityGroupMap))) SceneEntityGroupMap(tmpBuf);
+	SceneEntityGroupMap& sceneSkeletalModelGroupMap = *_sceneSkeletalModelGroupMap;
+
+	for (auto& _sceneEntity : sceneSkeletalModels)
+	{
+		SceneEntity* sceneEntity = (SceneEntity*)&_sceneEntity;
+		if (!sceneEntity->useInstancedDrawing)
+		{
+			SceneEntityListItem item;
+			item.sceneEntity = sceneEntity;
+			submitSkeletalModels(&item, 1, cbufAllocator);
+		}
+		else
+		{
+			SceneEntityList* sceneEntityList = &sceneSkeletalModelGroupMap[sceneEntity->skeletalModel];
+			SceneEntityListItem* item = (SceneEntityListItem*)tmpBuf->alloc(sizeof(SceneEntityListItem));
+			item->sceneEntity = sceneEntity;
+			item->next = sceneEntityList->first;
+			sceneEntityList->first = item;
+			sceneEntityList->size++;
+		}
+	}
+
+	for (auto& entry : sceneSkeletalModelGroupMap)
+	{
+		SceneEntityList sceneEntityList = entry.second;
+		submitSkeletalModels(sceneEntityList.first, sceneEntityList.size, cbufAllocator);
 	}
 
 	tmpBuf->clear();
@@ -325,7 +369,46 @@ void Scene::commit(pgn::Camera* _camera)
 	graphics->renderer.endSubmit();
 }
 
-void Scene::submitEntities(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
+void Scene::submitModels(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
+{
+	assert(count <= maxInstanceCount);
+
+	Model* model = first->sceneEntity->model;
+
+	if (!model->complete())
+		return;
+
+	model->submittingStamp = graphics->renderer.submittingCount;
+
+	Batch batch;
+	batch.geom = (Geometry*)model->geomHandle->core();
+	batch.textureInfo = &model->textureInfo;
+	batch.boneMatBuf.buf = 0;
+
+	SceneEntityListItem* item = first;
+	int n = count;
+
+	while (n)
+	{
+		batch.instanceCount = min(n, maxInstanceCount);
+		Movable* instances = (Movable*)cbufAllocator->alloc(sizeof(Movable) * batch.instanceCount, &batch.instanceCBlockBuf);
+
+		for (int i = 0; i < batch.instanceCount; i++)
+		{
+			instances[i] = item->sceneEntity->movable;
+			item = item->next;
+		}
+
+		for (int i = 0; i < graphics->renderer.cfg.numOpaqueEntityPasses; i++)
+		{
+			graphics->renderer.submit(graphics->renderer.cfg.opaqueEntityPasses[i], STATIC_MESH_TECH, &batch);
+		}
+
+		n -= batch.instanceCount;
+	}
+}
+
+void Scene::submitSkeletalModels(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
 {
 	assert(count <= maxInstanceCount);
 

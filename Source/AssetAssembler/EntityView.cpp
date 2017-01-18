@@ -58,7 +58,7 @@ EntityView::EntityView(IntPtr^ hWnd, Options^ options)
 	skel = skelFactory->createSkeleton();
 	skeletalModel->setSkeleton(skel);
 
-	sceneEntity = scene->add(skeletalModel, true);
+	sceneEntity = scene->addSkeletalModel(skeletalModel, true);
 	sceneEntity->setScale(1.0f, 1.0f);
 
 	animFactory = pgn::AnimationFactory::create(assetStream2);
@@ -76,7 +76,7 @@ EntityView::EntityView(IntPtr^ hWnd, Options^ options)
 EntityView::~EntityView()
 {
 	scene->remove(sceneDirLight);
-	scene->remove(sceneEntity);
+	scene->removeSkeletalModel(sceneEntity);
 	scene->destroy();
 
 	camera->destroy();
