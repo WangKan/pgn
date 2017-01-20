@@ -5,6 +5,7 @@ public:
 	bool mesh;
 	bool diffuseMap;
 	bool anims;
+	bool navMesh;
 
 	bool curAnim;
 
@@ -13,6 +14,7 @@ public:
 		mesh = true;
 		diffuseMap = true;
 		anims = true;
+		navMesh = true;
 
 		curAnim = true;
 	}
@@ -22,6 +24,7 @@ public:
 		mesh = false;
 		diffuseMap = false;
 		anims = false;
+		navMesh = false;
 
 		curAnim = false;
 	}

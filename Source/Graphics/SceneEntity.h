@@ -6,6 +6,7 @@
 #include "Renderer/Movable.h"
 
 class Model;
+class NavModel;
 class SkeletalModel;
 
 class SceneEntity : public pgn::SceneEntity
@@ -19,6 +20,7 @@ public:
 	union{
 		Model* model;
 		SkeletalModel* skeletalModel;
+		NavModel* navModel;
 	};
 
 	bool useInstancedDrawing;
@@ -26,6 +28,7 @@ public:
 
 	SceneEntity(Model* model, bool useInstancedDrawing);
 	SceneEntity(SkeletalModel* model, bool useInstancedDrawing);
+	SceneEntity(NavModel* model, bool useInstancedDrawing);
 	virtual void setScale(float xz, float y);
 	virtual void setWorldMat(pgn::Float4x3* mat);
 	virtual void getWorldPos(pgn::Float3& pos);

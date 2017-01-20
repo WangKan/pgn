@@ -45,6 +45,14 @@ static RasterizerStateDesc _backFaceRasterizerStateDesc =
 RasterizerStateDesc* backFaceRasterizerStateDesc = &_backFaceRasterizerStateDesc;
 
 
+static RasterizerStateDesc _doubleSidedRasterizerStateDesc =
+{
+	CCW,					// FrontFace
+	NONE					// CullFace
+};
+RasterizerStateDesc* doubleSidedRasterizerStateDesc = &_doubleSidedRasterizerStateDesc;
+
+
 static DepthStencilStateDesc _commonDepthStencilStateDesc =
 {
 	true,					// depthEnable

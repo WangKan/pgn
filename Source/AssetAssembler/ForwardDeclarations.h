@@ -9,6 +9,7 @@ class DraggingGestureRecognizer;
 class FileStream;
 class Graphics;
 class Model;
+class NavModel;
 class Scene;
 class SceneDirectionalLight;
 class SceneEntity;

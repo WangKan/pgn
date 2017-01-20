@@ -12,6 +12,12 @@ SceneEntity::SceneEntity(SkeletalModel* model, bool useInstancedDrawing)
 	this->useInstancedDrawing = useInstancedDrawing;
 }
 
+SceneEntity::SceneEntity(NavModel* model, bool useInstancedDrawing)
+{
+	this->navModel = model;
+	this->useInstancedDrawing = useInstancedDrawing;
+}
+
 void SceneEntity::setScale(float xz, float y)
 {
 	movable.scaleXZ = xz;

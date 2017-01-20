@@ -1,19 +1,24 @@
-#include <PGN/Assets/NAV.h>
-#include <PGN/Common/debug_new.h>
-#include <PGN/FileStream/FileStream.h>
+#include <PGN/Utilities/ResourceManager/ResourceHandle.h>
+#include <PGN/Utilities/ResourceManager/ResourceManager.h>
 #include "Graphics.h"
 #include "NavModel.h"
+#include "Renderer/NavGeometry.h"
 
 NavModel::NavModel(Graphics* graphics)
 {
 	this->graphics = graphics;
-	this->fileStream = graphics->renderer.cacheStream;
+	_complete = false;
 }
 
-NavModel::~NavModel()
+void NavModel::init()
 {
-	if (buf != NULL)
-		delete[] buf;
+	if (geomHandle)
+		graphics->renderer.navGeomMgr->releaseResource(geomHandle);
+}
+
+void NavModel::dispose()
+{
+	init();
 }
 
 pgn::NavModel* Graphics::createNavModel()
@@ -21,35 +26,29 @@ pgn::NavModel* Graphics::createNavModel()
 	return new(navModelPool->alloc()) NavModel(this);
 }
 
-void NavModel::dispose()
-{
-}
-
 void NavModel::_free()
 {
-	graphics->navModelPool->_free(this);
+	graphics->pendingNavModelRemovals.push_back(this);
 }
 
 void NavModel::setMesh(char fileName[])
 {
-	if (fileStream == NULL)
-		return;
-	fileStream->open(fileName, pgn::FileStream::in);
-	if (fileStream->isOpen())
-	{
-		long long bufSize = fileStream->getSize();
-		buf = debug_new char[bufSize];
-		fileStream->read(buf, bufSize);
-
-		pgn::NAVHeader* header = (pgn::NAVHeader*)buf;
-		numVertices = header->numVertices;
-		numIndices = header->numIndices;
-		vertexBuffer = buf + header->verticesChunkOffset;
-		indexBuffer = buf + header->indicesChunkOffset;
-		adjacentNodes = buf + header->adjacentNodesChunkOffset;
-
-		fileStream->close();
-	}
+	init();
+	geomHandle = fileName ? graphics->renderer.navGeomMgr->getResource(fileName) : 0;
+	_complete = false;
 }
 
+bool NavModel::complete()
+{
+	if (!_complete)
+		_complete = geomHandle ? geomHandle->core() != 0 : false;
 
+	return _complete;
+}
+
+void NavModel::getAabb(pgn::Float3* min, pgn::Float3* max)
+{
+	NavGeometry* geom = (NavGeometry*)geomHandle->core();
+	*min = geom->aabb.min;
+	*max = geom->aabb.max;
+}

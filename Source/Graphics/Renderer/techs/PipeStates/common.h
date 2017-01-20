@@ -9,6 +9,7 @@ extern pgn::SamplerDesc* diffuseMapSamplerDesc;
 extern pgn::SamplerDesc* pointSamplerDesc;
 extern pgn::RasterizerStateDesc* commonRasterizerStateDesc;
 extern pgn::RasterizerStateDesc* backFaceRasterizerStateDesc;
+extern pgn::RasterizerStateDesc* doubleSidedRasterizerStateDesc;
 extern pgn::DepthStencilStateDesc* commonDepthStencilStateDesc;
 extern pgn::DepthStencilStateDesc* depthStencilTestingDisabledStateDesc;
 extern pgn::OutputMergerStateDesc* blendingDisabledStateDesc;

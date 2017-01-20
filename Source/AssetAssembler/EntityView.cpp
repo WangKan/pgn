@@ -3,6 +3,7 @@
 #include <PGN/Graphics/DirectionalLight.h>
 #include <PGN/Graphics/EditableModel.h>
 #include <PGN/Graphics/Graphics.h>
+#include <PGN/Graphics/NavModel.h>
 #include <PGN/Graphics/Scene.h>
 #include <PGN/Graphics/SceneDirectionalLight.h>
 #include <PGN/Graphics/SceneEntity.h>
@@ -64,19 +65,24 @@ EntityView::EntityView(IntPtr^ hWnd, Options^ options)
 	animFactory = pgn::AnimationFactory::create(assetStream2);
 	anims = new std::map<std::string, pgn::Animation*>;
 
+	navModel = graphics->createNavModel();
+	navModelSceneEntity = scene->addNavModel(navModel, true);
+	navModelSceneEntity->setScale(1.0f, 1.0f);
+
 	clock = pgn::Clock::create(1, 4800);
 	t = (int)clock->getTickCount();
 
 	draggingGestureRecognizer = pgn::DraggingGestureRecognizer::create();
 	wnd->addGestureRecognizer(draggingGestureRecognizer);
 
-	viewMatDirty = true;
+	viewMatDirty = false;
 }
 
 EntityView::~EntityView()
 {
 	scene->remove(sceneDirLight);
 	scene->removeSkeletalModel(sceneEntity);
+	scene->removeNavModel(navModelSceneEntity);
 	scene->destroy();
 
 	camera->destroy();
@@ -89,6 +95,7 @@ EntityView::~EntityView()
 	for (auto& entry : *anims) entry.second->destroy();
 	delete anims;
 	animFactory->destroy();
+	navModel->destroy();
 	destroyStdFileStream(assetStream2);
 
 	graphics->endDraw();
@@ -113,10 +120,32 @@ pgn::Float4x3 worldMat =
 	0, 0, 1, 0,
 };
 
-struct{
+class Aabb
+{
+public:
 	pgn::Float3 min;
 	pgn::Float3 max;
-}aabb;
+
+	void init()
+	{
+		Aabb empty = { { FLT_MAX, FLT_MAX, FLT_MAX }, { FLT_MIN, FLT_MIN, FLT_MIN } };
+		min = empty.min;
+		max = empty.max;
+	}
+
+	void add(pgn::Float3* v)
+	{
+		for (int i = 0; i < 3; i++)
+			if (v->v[i] < min[i])
+				min[i] = v->v[i];
+
+		for (int i = 0; i < 3; i++)
+			if (v->v[i] > max[i])
+				max[i] = v->v[i];
+	}
+};
+
+Aabb aabb;
 
 pgn::Float3 center;
 
@@ -231,15 +260,6 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 		viewMatDirty = true;
 	}
 
-	if (viewMatDirty && model->complete())
-	{
-		model->getAabb(0, &aabb.min, &aabb.max);
-		float hFov = vFov * aspectRatio;
-		initViewMat(min(vFov, hFov));
-
-		viewMatDirty = false;
-	}
-
 	if (dirtyFlags->diffuseMap)
 	{
 		if (props->diffuseMap == "")
@@ -276,6 +296,60 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 		*anims = tmp;
 	}
 
+	if (dirtyFlags->navMesh)
+	{
+		char* str;
+
+		str = (char*)(void*)Marshal::StringToHGlobalAnsi(props->navMesh);
+		navModel->setMesh(str);
+		Marshal::FreeHGlobal(System::IntPtr((void*)str));
+
+		viewMatDirty = true;
+	}
+
+	if (viewMatDirty)
+	{
+		viewMatDirty = false;
+
+		aabb.init();
+		pgn::Float3* min = new pgn::Float3;
+		pgn::Float3* max = new pgn::Float3;
+
+		if (props->mesh != "")
+		{
+			if (model->complete())
+			{
+				model->getAabb(0, min, max);
+				aabb.add(min);
+				aabb.add(max);
+			}
+			else
+			{
+				viewMatDirty = true;
+			}
+		}
+
+		if (props->navMesh != "")
+		{
+			if (navModel->complete())
+			{
+				navModel->getAabb(min, max);
+				aabb.add(min);
+				aabb.add(max);
+			}
+			else
+			{
+				viewMatDirty = true;
+			}
+		}
+
+		float hFov = vFov * aspectRatio;
+		initViewMat(min(vFov, hFov));
+
+		delete min;
+		delete max;
+	}
+
 	if (dirtyFlags->curAnim)
 	{
 		for each (Object^ o in options->curAnims)
@@ -296,6 +370,7 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 	skel->updatePose(animDt);
 
 	sceneEntity->setWorldMat(&worldMat);
+	navModelSceneEntity->setWorldMat(&worldMat);
 
 	draggingGestureRecognizer->update();
 

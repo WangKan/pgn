@@ -5,6 +5,7 @@ namespace pgn {
 class Camera;
 class DirectionalLight;
 class Model;
+class NavModel;
 class PointLight;
 class SceneDirectionalLight;
 class SceneEntity;
@@ -19,6 +20,9 @@ public:
 
 	virtual SceneEntity* addSkeletalModel(SkeletalModel* model, bool useInstancedDrawing) = 0;
 	virtual void removeSkeletalModel(SceneEntity* sceneEntity) = 0;
+
+	virtual SceneEntity* addNavModel(NavModel* model, bool useInstancedDrawing) = 0;
+	virtual void removeNavModel(SceneEntity* sceneEntity) = 0;
 
 	virtual ScenePointLight* add(PointLight* light) = 0;
 	virtual void remove(ScenePointLight* scenePointLight) = 0;

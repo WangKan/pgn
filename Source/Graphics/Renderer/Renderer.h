@@ -38,6 +38,7 @@ namespace pgn {
 class CBufAllocator;
 struct CBufRange;
 class EditablePNMFactory;
+class NAVFactory;
 class PNMFactory;
 class PNTFactory;
 class RenderingStage;
@@ -185,6 +186,7 @@ public:
 
 	PNMFactory* pnmFactory;
 	EditablePNMFactory* editablePnmFactory;
+	NAVFactory* navFactory;
 	PNTFactory* pntFactory;
 
 	pgn::Heap* heap;
@@ -198,6 +200,7 @@ public:
 	pgn::AssetLoader* resLoader;
 	pgn::ResourceManager* geomMgr;
 	pgn::ResourceManager* editableGeomMgr;
+	pgn::ResourceManager* navGeomMgr;
 	pgn::ResourceManager* texMgr;
 
 	pgn::FileStream* cacheStream;

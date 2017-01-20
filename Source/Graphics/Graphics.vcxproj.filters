@@ -288,6 +288,33 @@
     <ClInclude Include="SkeletalModel.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\NavGeometry.h">
+      <Filter>Source Files\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\NAV.h">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\assets\NAVFactory.h">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Graphics\NavModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\techs\NavMeshTechDesc.h">
+      <Filter>Source Files\Renderer\techs</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\techs\PipeStates\navMeshShadingPassPipeStateDesc.h">
+      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\techs\PipeStates\shaders\MovableBlock.h">
+      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\techs\PipeStates\shaders\BoneMatBlock.h">
+      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\techs\PipeStates\shaders\MaterialBlock.h">
+      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Model.cpp">
@@ -437,6 +464,18 @@
     <ClCompile Include="SkeletalModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\assets\NAV.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\assets\NAVFactory.cpp">
+      <Filter>Source Files\Renderer\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\techs\NavMeshTechDesc.cpp">
+      <Filter>Source Files\Renderer\techs</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\techs\PipeStates\navMeshShadingPassPipeStateDesc.cpp">
+      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshGeometryPassVS.glsl">
@@ -491,6 +530,12 @@
       <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
     </GLSLCompile>
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightVolumePassesPS.glsl">
+      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshShadingPassPS.glsl">
+      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshShadingPassVS.glsl">
       <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
     </GLSLCompile>
   </ItemGroup>

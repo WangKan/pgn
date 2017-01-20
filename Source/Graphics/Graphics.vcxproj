@@ -31,6 +31,7 @@
     <ClInclude Include="..\..\Include\PGN\Graphics\DirectionalLight.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\EditableModel.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\Graphics.h" />
+    <ClInclude Include="..\..\Include\PGN\Graphics\NavModel.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\PointLight.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\Model.h" />
     <ClInclude Include="..\..\Include\PGN\Graphics\SkeletalModel.h" />
@@ -47,6 +48,14 @@
     <ClInclude Include="NavModel.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Renderer\assets\NAV.h" />
+    <ClInclude Include="Renderer\assets\NAVFactory.h" />
+    <ClInclude Include="Renderer\NavGeometry.h" />
+    <ClInclude Include="Renderer\techs\NavMeshTechDesc.h" />
+    <ClInclude Include="Renderer\techs\PipeStates\navMeshShadingPassPipeStateDesc.h" />
+    <ClInclude Include="Renderer\techs\PipeStates\shaders\BoneMatBlock.h" />
+    <ClInclude Include="Renderer\techs\PipeStates\shaders\MaterialBlock.h" />
+    <ClInclude Include="Renderer\techs\PipeStates\shaders\MovableBlock.h" />
     <ClInclude Include="SkeletalModel.h" />
     <ClInclude Include="Renderer\assets\Asset.h" />
     <ClInclude Include="Renderer\assets\EditablePNM.h" />
@@ -122,6 +131,10 @@
     <ClCompile Include="NavModel.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Renderer\assets\NAV.cpp" />
+    <ClCompile Include="Renderer\assets\NAVFactory.cpp" />
+    <ClCompile Include="Renderer\techs\NavMeshTechDesc.cpp" />
+    <ClCompile Include="Renderer\techs\PipeStates\navMeshShadingPassPipeStateDesc.cpp" />
     <ClCompile Include="SkeletalModel.cpp" />
     <ClCompile Include="Renderer\assets\EditablePNM.cpp" />
     <ClCompile Include="Renderer\assets\EditablePNMFactory.cpp" />
@@ -362,6 +375,8 @@
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightingPassVS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightVolumePassesPS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightVolumePassesVS.glsl" />
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshShadingPassPS.glsl" />
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshShadingPassVS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshGeometryPassPS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshGeometryPassVS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshShadingPassPS.glsl" />

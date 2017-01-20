@@ -28,6 +28,8 @@ public ref class EntityView
 	pgn::SceneEntity* sceneEntity;
 	pgn::AnimationFactory* animFactory;
 	std::map<std::string, pgn::Animation*>* anims;
+	pgn::NavModel* navModel;
+	pgn::SceneEntity* navModelSceneEntity;
 
 	pgn::Clock* clock;
 	int t;

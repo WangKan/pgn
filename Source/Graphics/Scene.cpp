@@ -8,6 +8,7 @@
 #include "DirectionalLight.h"
 #include "Graphics.h"
 #include "Model.h"
+#include "NavModel.h"
 #include "PointLight.h"
 #include "Renderer/CBufAllocator.h"
 #include "Renderer/Movable2D.h"
@@ -64,6 +65,20 @@ void Scene::removeSkeletalModel(pgn::SceneEntity* _sceneEntity)
 	sceneSkeletalModels.erase(sceneEntity->it);
 }
 
+pgn::SceneEntity* Scene::addNavModel(pgn::NavModel* model, bool useInstancedDrawing)
+{
+	sceneNavModels.emplace_front(dynamic_cast<NavModel*>(model), useInstancedDrawing);
+	SceneEntity* sceneEntity = &sceneNavModels.front();
+	sceneEntity->it = sceneNavModels.begin();
+	return sceneEntity;
+}
+
+void Scene::removeNavModel(pgn::SceneEntity* _sceneEntity)
+{
+	SceneEntity* sceneEntity = (SceneEntity*)_sceneEntity;
+	sceneNavModels.erase(sceneEntity->it);
+}
+
 pgn::ScenePointLight* Scene::add(pgn::PointLight* light)
 {
 	scenePointLights.emplace_front((PointLight*)light);
@@ -112,6 +127,146 @@ public:
 
 const int maxInstanceCount = 256;
 
+void submitModels(Graphics* graphics, SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
+{
+	assert(count <= maxInstanceCount);
+
+	Model* model = first->sceneEntity->model;
+
+	if (!model->complete())
+		return;
+
+	model->submittingStamp = graphics->renderer.submittingCount;
+
+	Batch batch;
+	batch.geom = (Geometry*)model->geomHandle->core();
+	batch.textureInfo = &model->textureInfo;
+	batch.boneMatBuf.buf = 0;
+
+	SceneEntityListItem* item = first;
+	int n = count;
+
+	while (n)
+	{
+		batch.instanceCount = min(n, maxInstanceCount);
+		Movable* instances = (Movable*)cbufAllocator->alloc(sizeof(Movable) * batch.instanceCount, &batch.instanceCBlockBuf);
+
+		for (int i = 0; i < batch.instanceCount; i++)
+		{
+			instances[i] = item->sceneEntity->movable;
+			item = item->next;
+		}
+
+		for (int i = 0; i < graphics->renderer.cfg.numOpaqueEntityPasses; i++)
+		{
+			graphics->renderer.submit(graphics->renderer.cfg.opaqueEntityPasses[i], STATIC_MESH_TECH, &batch);
+		}
+
+		n -= batch.instanceCount;
+	}
+}
+
+void submitSkeletalModels(Graphics* graphics, SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
+{
+	assert(count <= maxInstanceCount);
+
+	SkeletalModel* skeletalModel = first->sceneEntity->skeletalModel;
+	Model* model = skeletalModel->model;
+
+	if (!model->complete())
+		return;
+
+	model->submittingStamp = graphics->renderer.submittingCount;
+
+	Batch batch;
+	batch.geom = (Geometry*)model->geomHandle->core();
+	batch.textureInfo = &model->textureInfo;
+
+	TechEnum tech;
+
+	pgn::SkeletonTemplate* skelTempl = batch.geom->skeletonTemplate;
+	if (skelTempl)
+	{
+		tech = SKINNED_MESH_TECH;
+
+		int numBones = skelTempl->getNumBones();
+		pgn::Float4x3* boneMats = (pgn::Float4x3*)cbufAllocator->alloc(sizeof(skeletalModel->boneMats[0]) * numBones, &batch.boneMatBuf);
+
+		if (skeletalModel->boneMats)
+		{
+			for (int j = 0; j < numBones; j++)
+				boneMats[j] = skeletalModel->boneMats[j];
+		}
+		else
+		{
+			skeletalModel->skel->updatePose(0, skelTempl, boneMats);
+		}
+	}
+	else
+	{
+		tech = STATIC_MESH_TECH;
+		batch.boneMatBuf.buf = 0;
+	}
+
+	SceneEntityListItem* item = first;
+	int n = count;
+
+	while (n)
+	{
+		batch.instanceCount = min(n, maxInstanceCount);
+		Movable* instances = (Movable*)cbufAllocator->alloc(sizeof(Movable) * batch.instanceCount, &batch.instanceCBlockBuf);
+
+		for (int i = 0; i < batch.instanceCount; i++)
+		{
+			instances[i] = item->sceneEntity->movable;
+			item = item->next;
+		}
+
+		for (int i = 0; i < graphics->renderer.cfg.numOpaqueEntityPasses; i++)
+		{
+			graphics->renderer.submit(graphics->renderer.cfg.opaqueEntityPasses[i], tech, &batch);
+		}
+
+		n -= batch.instanceCount;
+	}
+}
+
+void submitNavModels(Graphics* graphics, SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
+{
+	assert(count <= maxInstanceCount);
+
+	NavModel* model = first->sceneEntity->navModel;
+
+	if (!model->complete())
+		return;
+
+	model->submittingStamp = graphics->renderer.submittingCount;
+
+	Batch batch;
+	batch.geom = (Geometry*)model->geomHandle->core();
+	batch.textureInfo = 0;
+	batch.boneMatBuf.buf = 0;
+
+	SceneEntityListItem* item = first;
+	int n = count;
+
+	while (n)
+	{
+		batch.instanceCount = min(n, maxInstanceCount);
+		Movable* instances = (Movable*)cbufAllocator->alloc(sizeof(Movable) * batch.instanceCount, &batch.instanceCBlockBuf);
+
+		for (int i = 0; i < batch.instanceCount; i++)
+		{
+			instances[i] = item->sceneEntity->movable;
+			item = item->next;
+		}
+
+		graphics->renderer.submit(FORWARD_SHADING_PASS, NAV_MESH_TECH, &batch);
+
+		n -= batch.instanceCount;
+	}
+}
+
 #ifndef min
 #define min(a,b) (a < b ? a : b)
 #endif
@@ -128,66 +283,46 @@ void Scene::commit(pgn::Camera* _camera)
 	CBufAllocator* cbufAllocator = frameContext->cbufAllocator;
 	pgn::Heap* tmpBuf = graphics->tmpBuf;
 
-	typedef pgn::HeapAllocator<std::pair<void*, SceneEntityList>> SceneEntityGroupAllocator;
-	typedef std::map<void*, SceneEntityList, std::less<void*>, SceneEntityGroupAllocator> SceneEntityGroupMap;
+	typedef void Submit(Graphics* graphics, SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator);
 
-	SceneEntityGroupMap* _sceneModelGroupMap = new(tmpBuf->alloc(sizeof(SceneEntityGroupMap))) SceneEntityGroupMap(tmpBuf);
-	SceneEntityGroupMap& sceneModelGroupMap = *_sceneModelGroupMap;
-
-	for (auto& _sceneEntity : sceneModels)
+	auto groupSubmit = [=](SceneEntity::StdList& list, Submit submit)
 	{
-		SceneEntity* sceneEntity = (SceneEntity*)&_sceneEntity;
-		if (!sceneEntity->useInstancedDrawing)
-		{
-			SceneEntityListItem item;
-			item.sceneEntity = sceneEntity;
-			submitModels(&item, 1, cbufAllocator);
-		}
-		else
-		{
-			SceneEntityList* sceneEntityList = &sceneModelGroupMap[sceneEntity->skeletalModel];
-			SceneEntityListItem* item = (SceneEntityListItem*)tmpBuf->alloc(sizeof(SceneEntityListItem));
-			item->sceneEntity = sceneEntity;
-			item->next = sceneEntityList->first;
-			sceneEntityList->first = item;
-			sceneEntityList->size++;
-		}
-	}
+		typedef pgn::HeapAllocator<std::pair<void*, SceneEntityList>> SceneEntityGroupAllocator;
+		typedef std::map<void*, SceneEntityList, std::less<void*>, SceneEntityGroupAllocator> SceneEntityGroupMap;
 
-	for (auto& entry : sceneModelGroupMap)
-	{
-		SceneEntityList sceneEntityList = entry.second;
-		submitModels(sceneEntityList.first, sceneEntityList.size, cbufAllocator);
-	}
+		SceneEntityGroupMap* _sceneEntityGroupMap = new(tmpBuf->alloc(sizeof(SceneEntityGroupMap))) SceneEntityGroupMap(tmpBuf);
+		SceneEntityGroupMap& sceneEntityGroupMap = *_sceneEntityGroupMap;
 
-	SceneEntityGroupMap* _sceneSkeletalModelGroupMap = new(tmpBuf->alloc(sizeof(SceneEntityGroupMap))) SceneEntityGroupMap(tmpBuf);
-	SceneEntityGroupMap& sceneSkeletalModelGroupMap = *_sceneSkeletalModelGroupMap;
-
-	for (auto& _sceneEntity : sceneSkeletalModels)
-	{
-		SceneEntity* sceneEntity = (SceneEntity*)&_sceneEntity;
-		if (!sceneEntity->useInstancedDrawing)
+		for (auto& _sceneEntity : list)
 		{
-			SceneEntityListItem item;
-			item.sceneEntity = sceneEntity;
-			submitSkeletalModels(&item, 1, cbufAllocator);
+			SceneEntity* sceneEntity = (SceneEntity*)&_sceneEntity;
+			if (!sceneEntity->useInstancedDrawing)
+			{
+				SceneEntityListItem item;
+				item.sceneEntity = sceneEntity;
+				submit(graphics, &item, 1, cbufAllocator);
+			}
+			else
+			{
+				SceneEntityList* sceneEntityList = &sceneEntityGroupMap[sceneEntity->skeletalModel];
+				SceneEntityListItem* item = (SceneEntityListItem*)tmpBuf->alloc(sizeof(SceneEntityListItem));
+				item->sceneEntity = sceneEntity;
+				item->next = sceneEntityList->first;
+				sceneEntityList->first = item;
+				sceneEntityList->size++;
+			}
 		}
-		else
-		{
-			SceneEntityList* sceneEntityList = &sceneSkeletalModelGroupMap[sceneEntity->skeletalModel];
-			SceneEntityListItem* item = (SceneEntityListItem*)tmpBuf->alloc(sizeof(SceneEntityListItem));
-			item->sceneEntity = sceneEntity;
-			item->next = sceneEntityList->first;
-			sceneEntityList->first = item;
-			sceneEntityList->size++;
-		}
-	}
 
-	for (auto& entry : sceneSkeletalModelGroupMap)
-	{
-		SceneEntityList sceneEntityList = entry.second;
-		submitSkeletalModels(sceneEntityList.first, sceneEntityList.size, cbufAllocator);
-	}
+		for (auto& entry : sceneEntityGroupMap)
+		{
+			SceneEntityList sceneEntityList = entry.second;
+			submit(graphics, sceneEntityList.first, sceneEntityList.size, cbufAllocator);
+		}
+	};
+
+	groupSubmit(sceneModels, submitModels);
+	groupSubmit(sceneSkeletalModels, submitSkeletalModels);
+	groupSubmit(sceneNavModels, submitNavModels);
 
 	tmpBuf->clear();
 
@@ -367,107 +502,4 @@ void Scene::commit(pgn::Camera* _camera)
 	frameContext->viewport = camera->viewport;
 
 	graphics->renderer.endSubmit();
-}
-
-void Scene::submitModels(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
-{
-	assert(count <= maxInstanceCount);
-
-	Model* model = first->sceneEntity->model;
-
-	if (!model->complete())
-		return;
-
-	model->submittingStamp = graphics->renderer.submittingCount;
-
-	Batch batch;
-	batch.geom = (Geometry*)model->geomHandle->core();
-	batch.textureInfo = &model->textureInfo;
-	batch.boneMatBuf.buf = 0;
-
-	SceneEntityListItem* item = first;
-	int n = count;
-
-	while (n)
-	{
-		batch.instanceCount = min(n, maxInstanceCount);
-		Movable* instances = (Movable*)cbufAllocator->alloc(sizeof(Movable) * batch.instanceCount, &batch.instanceCBlockBuf);
-
-		for (int i = 0; i < batch.instanceCount; i++)
-		{
-			instances[i] = item->sceneEntity->movable;
-			item = item->next;
-		}
-
-		for (int i = 0; i < graphics->renderer.cfg.numOpaqueEntityPasses; i++)
-		{
-			graphics->renderer.submit(graphics->renderer.cfg.opaqueEntityPasses[i], STATIC_MESH_TECH, &batch);
-		}
-
-		n -= batch.instanceCount;
-	}
-}
-
-void Scene::submitSkeletalModels(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
-{
-	assert(count <= maxInstanceCount);
-
-	SkeletalModel* skeletalModel = first->sceneEntity->skeletalModel;
-	Model* model = skeletalModel->model;
-
-	if (!model->complete())
-		return;
-
-	model->submittingStamp = graphics->renderer.submittingCount;
-
-	Batch batch;
-	batch.geom = (Geometry*)model->geomHandle->core();
-	batch.textureInfo = &model->textureInfo;
-
-	TechEnum tech;
-
-	pgn::SkeletonTemplate* skelTempl = batch.geom->skeletonTemplate;
-	if (skelTempl)
-	{
-		tech = SKINNED_MESH_TECH;
-
-		int numBones = skelTempl->getNumBones();
-		pgn::Float4x3* boneMats = (pgn::Float4x3*)cbufAllocator->alloc(sizeof(skeletalModel->boneMats[0]) * numBones, &batch.boneMatBuf);
-
-		if (skeletalModel->boneMats)
-		{
-			for (int j = 0; j < numBones; j++)
-				boneMats[j] = skeletalModel->boneMats[j];
-		}
-		else
-		{
-			skeletalModel->skel->updatePose(0, skelTempl, boneMats);
-		}
-	}
-	else
-	{
-		tech = STATIC_MESH_TECH;
-	}
-
-	SceneEntityListItem* item = first;
-	int n = count;
-
-	while (n)
-	{
-		batch.instanceCount = min(n, maxInstanceCount);
-		Movable* instances = (Movable*)cbufAllocator->alloc(sizeof(Movable) * batch.instanceCount, &batch.instanceCBlockBuf);
-
-		for (int i = 0; i < batch.instanceCount; i++)
-		{
-			instances[i] = item->sceneEntity->movable;
-			item = item->next;
-		}
-
-		for (int i = 0; i < graphics->renderer.cfg.numOpaqueEntityPasses; i++)
-		{
-			graphics->renderer.submit(graphics->renderer.cfg.opaqueEntityPasses[i], tech, &batch);
-		}
-
-		n -= batch.instanceCount;
-	}
 }

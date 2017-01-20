@@ -1,29 +1,5 @@
+#include "BoneMatBlock.h"
 #include "CommonVS3DInput.h"
 #include "CommonVSOutput.h"
-
-struct Movable
-{
-	mat3x4 world;
-	vec2 scale;
-};
-
-uniform MovableBlock@1				// enum BindingPoint
-{
-	Movable instances[256];
-};
-
-uniform BoneMatBlock@2				// enum BindingPoint
-{
-	mat3x4 model[128];
-};
-
-struct Material
-{
-	highp float Ks;
-	highp float shininess;
-};
-
-uniform MaterialBlock@3				// enum BindingPoint
-{
-	Material materials[256];
-};
+#include "MaterialBlock.h"
+#include "MovableBlock.h"

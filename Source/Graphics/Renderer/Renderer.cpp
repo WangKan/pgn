@@ -31,6 +31,7 @@
 #include <PGN/Utilities/ResourceManager/ResourceHandle.h>
 #include <PGN/Utilities/ResourceManager/ResourceManager.h>
 #include "assets/EditablePNMFactory.h"
+#include "assets/NAVFactory.h"
 #include "assets/PNMFactory.h"
 #include "assets/PNTFactory.h"
 #include "CBufAllocator.h"
@@ -67,7 +68,8 @@ PassEnum lightIndexedDeferredRenderingActivePasses[] =
 	LIGHT_VOLUME_BACK_FACE_PASS_4,
 	LIGHT_VOLUME_FRONT_FACE_PASS_4,
 	LIGHT_INDEXING_PASS_4,
-	LIGHTING_PASS
+	LIGHTING_PASS,
+	FORWARD_SHADING_PASS
 };
 
 PassEnum lightIndexedDeferredRenderingOpaqueEntityPasses[] =
@@ -193,6 +195,7 @@ Renderer::Renderer(pgn::Display displayPrototype, pgn::FileStream* assetStream, 
 
 	pnmFactory = debug_new PNMFactory(subsetAllocator);
 	editablePnmFactory = debug_new EditablePNMFactory(subsetAllocator);
+	navFactory = debug_new NAVFactory(subsetAllocator);
 	pntFactory = debug_new PNTFactory;
 
 	heap = pgn::Heap::create();
@@ -218,6 +221,7 @@ Renderer::~Renderer()
 
 	delete pnmFactory;
 	delete editablePnmFactory;
+	delete navFactory;
 	delete pntFactory;
 
 	heap->destroy();
@@ -397,6 +401,7 @@ void Renderer::beginDraw(pgn::Window* wnd, RendererConfig* _cfg)
 	resLoader = pgn::createAsyncLoader(rc, rs, display);
 	geomMgr = pgn::ResourceManager::create(pnmFactory, assetStream, resLoader);
 	editableGeomMgr = pgn::ResourceManager::create(editablePnmFactory, assetStream, resLoader);
+	navGeomMgr = pgn::ResourceManager::create(navFactory, assetStream, resLoader);
 	texMgr = pgn::ResourceManager::create(pntFactory, assetStream, resLoader);
 
 	// 创建灰色纹理
@@ -927,6 +932,7 @@ void Renderer::endDraw()
 
 	geomMgr->destroy();
 	editableGeomMgr->destroy();
+	navGeomMgr->destroy();
 	texMgr->destroy();
 	pgn::destroyAsyncLoader(resLoader);
 
@@ -1149,6 +1155,8 @@ void Renderer::render(FrameContext* frameContext)
 		{
 			TechEnum techEnum = techBatches.first;
 			PipeState* pipe = techs[techEnum].pipeSet[pass];
+
+			if (!pipe) continue;
 
 			rs->setProgram(pipe->program);
 

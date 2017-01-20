@@ -62,6 +62,7 @@ public ref class EntityProperties
 	String^ _mesh;
 	String^ _diffuseMap;
 	BindingList<Anim^>^ _anims;
+	String^ _navMesh;
 
 	void OnAddingNew(System::Object ^sender, System::ComponentModel::AddingNewEventArgs ^e)
 	{
@@ -80,6 +81,7 @@ public:
 		_mesh = "";
 		_diffuseMap = "";
 		_anims = gcnew BindingList<Anim^>;
+		_navMesh = "";
 	}
 
 	EntityProperties(Options^ options, DirtyFlags^ dirtyFlags)
@@ -99,6 +101,8 @@ public:
 
 		for each(Anim^ anim in props->anims)
 			anims->Add(anim);
+
+		navMesh = props->navMesh;
 	}
 
 	EntityProperties^ getPortable()
@@ -110,6 +114,8 @@ public:
 
 		for each(Anim^ anim in _anims)
 			portable->_anims->Add(gcnew Anim(Utilities::getFileName(anim->fileName, "")));
+
+		portable->_navMesh = Utilities::getFileName(_navMesh, "");
 
 		return portable;
 	}
@@ -176,6 +182,24 @@ public:
 		BindingList<Anim^>^ get()
 		{
 			return _anims;
+		}
+	}
+
+	[CategoryAttribute("导航模型"), DisplayNameAttribute("导航模型")]
+	[EditorAttribute(FileNameEditor::typeid, UITypeEditor::typeid)]
+	property String^ navMesh
+	{
+		String^ get()
+		{
+			return _navMesh;
+		}
+
+		void set(String^ mesh)
+		{
+			_navMesh = mesh;
+
+			if (dirtyFlags)
+				dirtyFlags->navMesh = true;
 		}
 	}
 };

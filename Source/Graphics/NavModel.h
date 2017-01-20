@@ -1,30 +1,26 @@
 #include <PGN/Graphics/NavModel.h>
 
 namespace pgn {
-	class FileStream;
+
+class ResourceHandle;
+
 }
+
 class Graphics;
 
-class NavModel : public pgn::NavModel
+class NavModel : public virtual pgn::NavModel
 {
 public:
 	Graphics* graphics;
-	pgn::FileStream* fileStream;
-	char* buf;
-	int numVertices;
-	int numIndices;
-	void* vertexBuffer;
-	void* indexBuffer;
-	void* adjacentNodes;
+	pgn::ResourceHandle* geomHandle;
+	bool _complete;
+	long long submittingStamp;
 
 	NavModel(Graphics* graphics);
-	virtual ~NavModel();
+	void init();
 	virtual void dispose();
 	virtual void _free();
 	virtual void setMesh(char fileName[]);
-	virtual void* getVertexBuffer()  { return vertexBuffer; }
-	virtual void* getIndexBuffer()   { return indexBuffer; }
-	virtual void* getAdjacentNodes() { return adjacentNodes; }
-	virtual int getVertexCount()     { return numVertices; }
-	virtual int getIndexCount()		 { return numIndices; }
+	virtual bool complete();
+	virtual void getAabb(pgn::Float3* min, pgn::Float3* max);
 };

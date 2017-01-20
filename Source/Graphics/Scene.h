@@ -16,6 +16,7 @@ public:
 
 	SceneEntity::StdList sceneModels;
 	SceneEntity::StdList sceneSkeletalModels;
+	SceneEntity::StdList sceneNavModels;
 	ScenePointLight::StdList scenePointLights;
 	SceneDirectionalLight::StdList sceneDirLights;
 
@@ -32,6 +33,9 @@ public:
 	virtual pgn::SceneEntity* addSkeletalModel(pgn::SkeletalModel* model, bool useInstancedDrawing);
 	virtual void removeSkeletalModel(pgn::SceneEntity* sceneEntity);
 
+	virtual pgn::SceneEntity* addNavModel(pgn::NavModel* model, bool useInstancedDrawing);
+	virtual void removeNavModel(pgn::SceneEntity* sceneEntity);
+
 	virtual pgn::ScenePointLight* add(pgn::PointLight* light);
 	virtual void remove(pgn::ScenePointLight* scenePointLight);
 
@@ -39,7 +43,4 @@ public:
 	virtual void remove(pgn::SceneDirectionalLight* sceneDirLight);
 
 	virtual void commit(pgn::Camera* camera);
-
-	void submitModels(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator);
-	void submitSkeletalModels(SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator);
 };
