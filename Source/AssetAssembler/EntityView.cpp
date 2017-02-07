@@ -201,7 +201,7 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 	using namespace System::Runtime::InteropServices;
 
 	float aspectRatio = (float)wnd->getClientWidth() / (float)wnd->getClientHeight();
-	bool vFov = options->verticalFovFixed ? options->fov : options->fov / aspectRatio;
+	float vFov = options->verticalFovFixed ? options->fov : options->fov / aspectRatio;
 
 	camera->setFrustumFovLH(vFov, aspectRatio, 0.01f, 1024);
 	camera->setViewport(0, 0, wnd->getClientWidth(), wnd->getClientHeight(), wnd->getClientHeight());
