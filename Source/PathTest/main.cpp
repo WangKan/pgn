@@ -32,7 +32,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
 	sm->setCamera(&eye, &lookAt);
 
 	pgn::Float3 groundPos = { 0, 0, 0 };
-	sm->addModel("res/ground.pnm", "gray", &groundPos, 1.0f);
+	sm->addNavModel("res/ground.nav", &groundPos, 1.0f);
 
 	pgn::PathFinder* pathFinder = sm->getPathFinder();
 	pathFinder->setNavigationMesh("res/ground.nav");

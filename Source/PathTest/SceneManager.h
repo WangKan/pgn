@@ -9,6 +9,7 @@ namespace pgn{
 	class Scene;
 	class Camera;
 	class Model;
+	class NavModel;
 	class SkeletalModel;
 	class PointLight;
 	class SceneEntity;
@@ -43,6 +44,7 @@ public:
 
 	void addPointLight(pgn::Float4 intensity, float radius, pgn::Float3* pos);
 	pgn::Model* addModel(char* pnm, char* tex, pgn::Float3* pos, float scale);
+	pgn::NavModel* addNavModel(char* nav, pgn::Float3* pos, float scale);
 	pgn::SceneEntity* addCharacter(char* pnm, char* tex, pgn::Float3* pos, float scale);
 	pgn::Physics* addPhysics(char* phy);
 	pgn::PathFinder* getPathFinder();
@@ -50,8 +52,10 @@ public:
 private:
 	std::list<pgn::SceneEntity* > sceneModels;
 	std::list<pgn::SceneEntity* > sceneSkeletalModels;
+	std::list<pgn::SceneEntity* > sceneNavModels;
 	std::list<pgn::ScenePointLight* > scenePointLights;
 	std::list<pgn::Model* > models;
+	std::list<pgn::NavModel* > navModels;
 	std::list<pgn::Skeleton* > skeletons;
 	std::list<pgn::Animation* > animations;
 	std::list<pgn::SkeletalModel* > skeletalModels;

@@ -3,6 +3,7 @@
 #include <PGN/Graphics/SkeletalModel.h>
 #include <PGN/Graphics/Graphics.h>
 #include <PGN/Graphics/Model.h>
+#include <PGN/Graphics/NavModel.h>
 #include <PGN/Graphics/PointLight.h>
 #include <PGN/Graphics/Scene.h>
 #include <PGN/Graphics/SceneEntity.h>
@@ -93,6 +94,10 @@ void SceneManager::destroy()
 	{
 		scene->removeSkeletalModel(entity);
 	}
+	for (auto& entity : sceneNavModels)
+	{
+		scene->removeNavModel(entity);
+	}
 
 	scene->destroy();
 	camera->destroy();
@@ -106,6 +111,10 @@ void SceneManager::destroy()
 		entity->destroy();
 	}
 	for (auto& model : models)
+	{
+		model->destroy();
+	}
+	for (auto& model : navModels)
 	{
 		model->destroy();
 	}
@@ -209,6 +218,26 @@ pgn::Model* SceneManager::addModel(char* pnm, char* tex, pgn::Float3* pos, float
 
 	models.push_back(model);
 	sceneModels.push_back(sceneEntity);
+	return model;
+}
+
+pgn::NavModel* SceneManager::addNavModel(char* nav, pgn::Float3* pos, float scale)
+{
+	pgn::NavModel* model = graphics->createNavModel();
+	model->setMesh(nav);
+
+	pgn::SceneEntity* sceneEntity = scene->addNavModel(model, false);
+	sceneEntity->setScale(scale, scale);
+	pgn::Float4x3 worldMat =
+	{
+		1, 0, 0, pos->v[0],
+		0, 1, 0, pos->v[1],
+		0, 0, 1, pos->v[2],
+	};
+	sceneEntity->setWorldMat(&worldMat);
+
+	navModels.push_back(model);
+	sceneNavModels.push_back(sceneEntity);
 	return model;
 }
 
