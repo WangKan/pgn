@@ -1,6 +1,6 @@
 #include <PGN/FileStream/StdFileStream.h>
 #include <PGN/Graphics/Camera.h>
-#include <PGN/Graphics/Entity.h>
+#include <PGN/Graphics/SkeletalModel.h>
 #include <PGN/Graphics/Graphics.h>
 #include <PGN/Graphics/Model.h>
 #include <PGN/Graphics/PointLight.h>
@@ -85,9 +85,13 @@ void SceneManager::destroy()
 	{
 		scene->remove(light);
 	}
-	for (auto& entity : sceneEntities)
+	for (auto& entity : sceneModels)
 	{
-		scene->remove(entity);
+		scene->removeModel(entity);
+	}
+	for (auto& entity : sceneSkeletalModels)
+	{
+		scene->removeSkeletalModel(entity);
 	}
 
 	scene->destroy();
@@ -97,7 +101,7 @@ void SceneManager::destroy()
 	{
 		light->destroy();
 	}
-	for (auto& entity : entities)
+	for (auto& entity : skeletalModels)
 	{
 		entity->destroy();
 	}
@@ -192,10 +196,8 @@ pgn::Model* SceneManager::addModel(char* pnm, char* tex, pgn::Float3* pos, float
 	pgn::Model* model = graphics->createModel();
 	model->setMesh(pnm);
 	model->setDiffuseMap(0, tex);
-	pgn::Entity* entity = graphics->createEntity();
-	entity->setModel(model);
 
-	pgn::SceneEntity* sceneEntity = scene->add(entity, false);
+	pgn::SceneEntity* sceneEntity = scene->addModel(model, false);
 	sceneEntity->setScale(scale, scale);
 	pgn::Float4x3 worldMat =
 	{
@@ -206,14 +208,13 @@ pgn::Model* SceneManager::addModel(char* pnm, char* tex, pgn::Float3* pos, float
 	sceneEntity->setWorldMat(&worldMat);
 
 	models.push_back(model);
-	entities.push_back(entity);
-	sceneEntities.push_back(sceneEntity);
+	sceneModels.push_back(sceneEntity);
 	return model;
 }
 
 pgn::SceneEntity* SceneManager::addCharacter(char* pnm, char* tex, pgn::Float3* pos, float scale)
 {
-	pgn::Entity* entity = graphics->createEntity();
+	pgn::SkeletalModel* entity = graphics->createSkeletalModel();
 	pgn::Model* model = graphics->createModel();
 	model->setMesh(pnm);
 	model->setDiffuseMap(0, tex);
@@ -224,7 +225,7 @@ pgn::SceneEntity* SceneManager::addCharacter(char* pnm, char* tex, pgn::Float3* 
 	anim->set("res/idle1_f.pna");
 	skel->playAnimation(anim);
 	entity->setSkeleton(skel);
-	pgn::SceneEntity* sceneEntity = scene->add(entity, false);
+	pgn::SceneEntity* sceneEntity = scene->addSkeletalModel(entity, false);
 	sceneEntity->setScale(scale, scale);
 	pgn::Float4x3 worldMat =
 	{
@@ -237,8 +238,8 @@ pgn::SceneEntity* SceneManager::addCharacter(char* pnm, char* tex, pgn::Float3* 
 	models.push_back(model);
 	skeletons.push_back(skel);
 	animations.push_back(anim);
-	entities.push_back(entity);
-	sceneEntities.push_back(sceneEntity);
+	skeletalModels.push_back(entity);
+	sceneSkeletalModels.push_back(sceneEntity);
 	return sceneEntity;
 }
 

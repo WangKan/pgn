@@ -9,7 +9,7 @@ namespace pgn{
 	class Scene;
 	class Camera;
 	class Model;
-	class Entity;
+	class SkeletalModel;
 	class PointLight;
 	class SceneEntity;
 	class Skeleton;
@@ -48,12 +48,13 @@ public:
 	pgn::PathFinder* getPathFinder();
 
 private:
-	std::list<pgn::SceneEntity* > sceneEntities;
+	std::list<pgn::SceneEntity* > sceneModels;
+	std::list<pgn::SceneEntity* > sceneSkeletalModels;
 	std::list<pgn::ScenePointLight* > scenePointLights;
 	std::list<pgn::Model* > models;
 	std::list<pgn::Skeleton* > skeletons;
 	std::list<pgn::Animation* > animations;
-	std::list<pgn::Entity* > entities;
+	std::list<pgn::SkeletalModel* > skeletalModels;
 	std::list<pgn::PointLight* > pointLights;
 	std::list<pgn::Physics* > physicsModels;
 	
