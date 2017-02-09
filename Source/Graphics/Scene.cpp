@@ -428,6 +428,7 @@ void Scene::commit(pgn::Camera* _camera)
 
 	batch.geom = (Geometry*)graphics->renderer.geomMgr->peekResource("sphere");
 	batch.textureInfo = 0;
+	batch.boneMatBuf.buf = 0;
 
 	{
 		int i = 0;
