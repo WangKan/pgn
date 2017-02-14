@@ -45,12 +45,12 @@ static RasterizerStateDesc _backFaceRasterizerStateDesc =
 RasterizerStateDesc* backFaceRasterizerStateDesc = &_backFaceRasterizerStateDesc;
 
 
-static RasterizerStateDesc _doubleSidedRasterizerStateDesc =
+static RasterizerStateDesc _twoSidedRasterizerStateDesc =
 {
 	CCW,					// FrontFace
 	NONE					// CullFace
 };
-RasterizerStateDesc* doubleSidedRasterizerStateDesc = &_doubleSidedRasterizerStateDesc;
+RasterizerStateDesc* twoSidedRasterizerStateDesc = &_twoSidedRasterizerStateDesc;
 
 
 static DepthStencilStateDesc _commonDepthStencilStateDesc =

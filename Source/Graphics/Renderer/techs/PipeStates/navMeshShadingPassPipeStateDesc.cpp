@@ -12,7 +12,7 @@ static PipeStateDesc pipeStateDesc =
 	navMeshShadingPassPS,
 	0,
 	0,
-	doubleSidedRasterizerStateDesc,
+	twoSidedRasterizerStateDesc,
 	commonDepthStencilStateDesc,
 	blendingDisabledStateDesc
 };
