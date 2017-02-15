@@ -1,6 +1,0 @@
-struct PipeStateDesc;
-
-extern PipeStateDesc* lightIndexingPass1PipeStateDesc;
-extern PipeStateDesc* lightIndexingPass2PipeStateDesc;
-extern PipeStateDesc* lightIndexingPass3PipeStateDesc;
-extern PipeStateDesc* lightIndexingPass4PipeStateDesc;

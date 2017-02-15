@@ -16,24 +16,6 @@
     <Filter Include="Source Files\Renderer">
       <UniqueIdentifier>{fe95ead3-8404-4db1-bbd4-80f0ee5ecd8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Renderer\passes">
-      <UniqueIdentifier>{64d3add6-490b-4eb0-9ff5-8b0fa6c0190d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Renderer\passes\RTs">
-      <UniqueIdentifier>{e69b8363-544b-4be2-924d-62f72a01c275}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Renderer\techs">
-      <UniqueIdentifier>{1c6689b4-7a90-4b42-9315-d254b5a63404}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Renderer\techs\PipeStates">
-      <UniqueIdentifier>{f4ffeb17-6a5a-48e6-bbe3-93abe0de52a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Renderer\assets">
-      <UniqueIdentifier>{2acc9c2c-8127-4abc-b81b-e03026dbf707}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Renderer\techs\PipeStates\shaders">
-      <UniqueIdentifier>{d5ece92f-0d9b-44f4-8315-2be2f12b2a35}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Include\PGN\Graphics\Model.h">
@@ -117,129 +99,6 @@
     <ClInclude Include="..\..\Include\PGN\Graphics\ScenePointLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\passes\RTs\DepthStencilMap.h">
-      <Filter>Source Files\Renderer\passes\RTs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\RTs\GBufs.h">
-      <Filter>Source Files\Renderer\passes\RTs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\RTs\LightIndexMap.h">
-      <Filter>Source Files\Renderer\passes\RTs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\RTs\ResourceViewDesc.h">
-      <Filter>Source Files\Renderer\passes\RTs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\RTs\RTs.h">
-      <Filter>Source Files\Renderer\passes\RTs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\EnvConstEnum.h">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\EnvDesc.h">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\GeometryPassEnvDesc.h">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\LightIndexingPassesEnvDescs.h">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\LightingPassEnvDesc.h">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\passes.h">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\PipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\SkinnedMeshTechDesc.h">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\StaticMeshTechDesc.h">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\TechDesc.h">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\techs.h">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\LightVolumePassesEnvDescs.h">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\Asset.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\LightIndexingTechDesc.h">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\ForwardShadingPassEnvDesc.h">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\passes\ZPrePassEnvDesc.h">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PostProcessingTechDesc.h">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\common.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\lightIndexingPassesPipeStateDescs.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\lightingPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\lightVolumePassesPipeStateDescs.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\skinnedMeshGeometryPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\skinnedMeshShadingPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\skinnedMeshZOnlyPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\staticMeshGeometryPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\staticMeshShadingPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\staticMeshZOnlyPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\PointLight.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\ForwardShadingPassEnvCBlock.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\PointLightVolumnInstanceCBlock.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\CommonPS.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\CommonVS2D.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\CommonVS3D.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\CommonVS3DInput.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\CommonVSOutput.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\DirectionalLight.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Include\PGN\Graphics\DirectionalLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -264,24 +123,6 @@
     <ClInclude Include="EditableModel.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\assets\PNM.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\PNMFactory.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\EditablePNM.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\EditablePNMFactory.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\PNT.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\PNTFactory.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Include\PGN\Graphics\SkeletalModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -291,35 +132,8 @@
     <ClInclude Include="Renderer\NavGeometry.h">
       <Filter>Source Files\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\assets\NAV.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\assets\NAVFactory.h">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Include\PGN\Graphics\NavModel.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\NavMeshTechDesc.h">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\navMeshShadingPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\MovableBlock.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\BoneMatBlock.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\MaterialBlock.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\shaders\ZOnlyPassEnvCBlock.h">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\techs\PipeStates\navMeshZOnlyPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -359,84 +173,6 @@
     <ClCompile Include="ScenePointLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\passes\RTs\DepthStencilMap.cpp">
-      <Filter>Source Files\Renderer\passes\RTs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\RTs\GBufs.cpp">
-      <Filter>Source Files\Renderer\passes\RTs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\RTs\LightIndexMap.cpp">
-      <Filter>Source Files\Renderer\passes\RTs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\RTs\RTs.cpp">
-      <Filter>Source Files\Renderer\passes\RTs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\GeometryPassEnvDesc.cpp">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\LightIndexingPassesEnvDescs.cpp">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\LightingPassEnvDesc.cpp">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\passes.cpp">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\SkinnedMeshTechDesc.cpp">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\StaticMeshTechDesc.cpp">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\techs.cpp">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\LightVolumePassesEnvDescs.cpp">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\LightIndexingTechDesc.cpp">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\ForwardShadingPassEnvDesc.cpp">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\passes\ZPrePassEnvDesc.cpp">
-      <Filter>Source Files\Renderer\passes</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PostProcessingTechDesc.cpp">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\common.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\lightIndexingPassesPipeStateDescs.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\lightingPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\lightVolumePassesPipeStateDescs.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\skinnedMeshGeometryPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\skinnedMeshShadingPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\skinnedMeshZOnlyPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\staticMeshGeometryPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\staticMeshShadingPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\staticMeshZOnlyPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
     <ClCompile Include="SceneDirectionalLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -449,109 +185,8 @@
     <ClCompile Include="EditableModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\assets\PNM.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\PNMFactory.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\EditablePNM.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\EditablePNMFactory.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\PNT.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\PNTFactory.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
     <ClCompile Include="SkeletalModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\assets\NAV.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\assets\NAVFactory.cpp">
-      <Filter>Source Files\Renderer\assets</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\NavMeshTechDesc.cpp">
-      <Filter>Source Files\Renderer\techs</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\navMeshShadingPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\techs\PipeStates\navMeshZOnlyPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\techs\PipeStates</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshGeometryPassVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshGeometryPassPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshShadingPassVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshShadingPassPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshZOnlyPassVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshZOnlyPassPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\staticMeshGeometryPassVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\staticMeshGeometryPassPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\staticMeshShadingPassVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\staticMeshShadingPassPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\staticMeshZOnlyPassVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\staticMeshZOnlyPassPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightIndexingPassesVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightIndexingPassesPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightingPassVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightingPassPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightVolumePassesVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightVolumePassesPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshShadingPassPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshShadingPassVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshZOnlyPassPS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshZOnlyPassVS.glsl">
-      <Filter>Source Files\Renderer\techs\PipeStates\shaders</Filter>
-    </GLSLCompile>
   </ItemGroup>
 </Project>
