@@ -8,11 +8,11 @@
 #include "../Viewport.h"
 #include "Batch.h"
 #include "Geometry.h"
-#include "passes/EnvConstEnum.h"
-#include "passes/passes.h"
-#include "passes/RTs/ResourceViewDesc.h"
-#include "passes/RTs/RTs.h"
-#include "techs/techs.h"
+#include "Passes/EnvConstEnum.h"
+#include "Passes/Passes.h"
+#include "Passes/RTs/ResourceViewDesc.h"
+#include "Passes/RTs/RTs.h"
+#include "Techs/Techs.h"
 
 namespace pgn {
 	class AssetLoader;

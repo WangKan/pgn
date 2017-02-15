@@ -1,0 +1,4 @@
+struct PipeStateDesc;
+
+extern PipeStateDesc* lightVolumeBackFacePassPipeStateDesc;
+extern PipeStateDesc* lightVolumeFrontFacePassPipeStateDesc;

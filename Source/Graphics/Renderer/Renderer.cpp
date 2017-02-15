@@ -30,16 +30,16 @@
 #include <PGN/Utilities/ResourceManager/AsyncLoader.h>
 #include <PGN/Utilities/ResourceManager/ResourceHandle.h>
 #include <PGN/Utilities/ResourceManager/ResourceManager.h>
-#include "assets/EditablePNMFactory.h"
-#include "assets/NAVFactory.h"
-#include "assets/PNMFactory.h"
-#include "assets/PNTFactory.h"
+#include "Assets/EditablePNMFactory.h"
+#include "Assets/NAVFactory.h"
+#include "Assets/PNMFactory.h"
+#include "Assets/PNTFactory.h"
 #include "CBufAllocator.h"
 #include "GeometryHelper.h"
-#include "passes/EnvDesc.h"
+#include "Passes/EnvDesc.h"
 #include "Renderer.h"
-#include "techs/PipeStates/PipeStateDesc.h"
-#include "techs/TechDesc.h"
+#include "Techs/PipeStates/PipeStateDesc.h"
+#include "Techs/TechDesc.h"
 #include "TextureInfo.h"
 
 struct ResourceView
