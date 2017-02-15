@@ -110,8 +110,8 @@ static OutputMergerStateDesc _blendingDisabled =
 	//renderTargets[0]
 	false,					// blendEnable
 	ADD,					// opRGB
-	INV_DEST_ALPHA,			// factorSrcRGB
-	DEST_ALPHA,				// factorDestRGB
+	SRC_ALPHA,				// factorSrcRGB
+	INV_SRC_ALPHA,			// factorDestRGB
 	ADD,					// opAlpha
 	ZERO,					// factorSrcAlpha
 	ONE,					// factorDestAlpha
@@ -128,8 +128,8 @@ static OutputMergerStateDesc _alphaBlending =
 	//renderTargets[0]
 	true,					// blendEnable
 	ADD,					// opRGB
-	INV_DEST_ALPHA,			// factorSrcRGB
-	DEST_ALPHA,				// factorDestRGB
+	SRC_ALPHA,				// factorSrcRGB
+	INV_SRC_ALPHA,			// factorDestRGB
 	ADD,					// opAlpha
 	ZERO,					// factorSrcAlpha
 	ONE,					// factorDestAlpha

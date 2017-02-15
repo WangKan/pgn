@@ -20,3 +20,4 @@ static EnvDesc desc =
 };
 
 EnvDesc* forwardShadingPassEnvDesc = &desc;
+EnvDesc* transparencyForwardShadingPassEnvDesc = &desc;

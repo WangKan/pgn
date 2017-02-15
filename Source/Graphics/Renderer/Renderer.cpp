@@ -53,6 +53,12 @@ struct ResourceView
 	float autoSizeScale;
 };
 
+PassEnum transparentEntityPasses[] =
+{
+	TRANSPARENCY_Z_PRE_PASS,
+	TRANSPARENCY_FORWARD_SHADING_PASS
+};
+
 PassEnum lightIndexedDeferredRenderingActivePasses[] =
 {
 	GEOMETRY_PASS,
@@ -69,7 +75,9 @@ PassEnum lightIndexedDeferredRenderingActivePasses[] =
 	LIGHT_VOLUME_FRONT_FACE_PASS_4,
 	LIGHT_INDEXING_PASS_4,
 	LIGHTING_PASS,
-	FORWARD_SHADING_PASS
+	FORWARD_SHADING_PASS,
+	TRANSPARENCY_Z_PRE_PASS,
+	TRANSPARENCY_FORWARD_SHADING_PASS,
 };
 
 PassEnum lightIndexedDeferredRenderingOpaqueEntityPasses[] =
@@ -90,6 +98,9 @@ RendererConfig lightIndexedDeferredRendering =
 	lightIndexedDeferredRenderingOpaqueEntityPasses,
 	sizeof(lightIndexedDeferredRenderingOpaqueEntityPasses) / sizeof(lightIndexedDeferredRenderingOpaqueEntityPasses[0]),
 
+	transparentEntityPasses,
+	sizeof(transparentEntityPasses) / sizeof(transparentEntityPasses[0]),
+
 	lightIndexedDeferredRenderingPostProcessingPasses,
 	sizeof(lightIndexedDeferredRenderingPostProcessingPasses) / sizeof(lightIndexedDeferredRenderingPostProcessingPasses[0])
 };
@@ -109,7 +120,9 @@ PassEnum lightIndexedForwardRenderingActivePasses[] =
 	LIGHT_VOLUME_BACK_FACE_PASS_4,
 	LIGHT_VOLUME_FRONT_FACE_PASS_4,
 	LIGHT_INDEXING_PASS_4,
-	FORWARD_SHADING_PASS
+	FORWARD_SHADING_PASS,
+	TRANSPARENCY_Z_PRE_PASS,
+	TRANSPARENCY_FORWARD_SHADING_PASS,
 };
 
 PassEnum lightIndexedForwardRenderingOpaqueEntityPasses[] =
@@ -125,6 +138,9 @@ RendererConfig lightIndexedForwardRendering =
 
 	lightIndexedForwardRenderingOpaqueEntityPasses,
 	sizeof(lightIndexedForwardRenderingOpaqueEntityPasses) / sizeof(lightIndexedForwardRenderingOpaqueEntityPasses[0]),
+
+	transparentEntityPasses,
+	sizeof(transparentEntityPasses) / sizeof(transparentEntityPasses[0]),
 
 	0,
 	0

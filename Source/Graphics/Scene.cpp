@@ -261,7 +261,10 @@ void submitNavModels(Graphics* graphics, SceneEntityListItem* first, int count, 
 			item = item->next;
 		}
 
-		graphics->renderer.submit(FORWARD_SHADING_PASS, NAV_MESH_TECH, &batch);
+		for (int i = 0; i < graphics->renderer.cfg.numTransparentEntityPasses; i++)
+		{
+			graphics->renderer.submit(graphics->renderer.cfg.transparentEntityPasses[i], NAV_MESH_TECH, &batch);
+		}
 
 		n -= batch.instanceCount;
 	}

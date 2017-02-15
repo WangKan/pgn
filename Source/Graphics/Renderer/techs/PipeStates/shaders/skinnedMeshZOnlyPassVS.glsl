@@ -1,10 +1,5 @@
 #include "CommonVS3D.h"
-
-uniform EnvCBlock@0 // enum BindingPoint
-{
-	vec3 camPos;
-	mat4 viewProj;
-};
+#include "ZOnlyPassEnvCBlock.h"
 
 void main()
 {

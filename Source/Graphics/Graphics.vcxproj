@@ -53,9 +53,11 @@
     <ClInclude Include="Renderer\NavGeometry.h" />
     <ClInclude Include="Renderer\techs\NavMeshTechDesc.h" />
     <ClInclude Include="Renderer\techs\PipeStates\navMeshShadingPassPipeStateDesc.h" />
+    <ClInclude Include="Renderer\techs\PipeStates\navMeshZOnlyPassPipeStateDesc.h" />
     <ClInclude Include="Renderer\techs\PipeStates\shaders\BoneMatBlock.h" />
     <ClInclude Include="Renderer\techs\PipeStates\shaders\MaterialBlock.h" />
     <ClInclude Include="Renderer\techs\PipeStates\shaders\MovableBlock.h" />
+    <ClInclude Include="Renderer\techs\PipeStates\shaders\ZOnlyPassEnvCBlock.h" />
     <ClInclude Include="SkeletalModel.h" />
     <ClInclude Include="Renderer\assets\Asset.h" />
     <ClInclude Include="Renderer\assets\EditablePNM.h" />
@@ -135,6 +137,7 @@
     <ClCompile Include="Renderer\assets\NAVFactory.cpp" />
     <ClCompile Include="Renderer\techs\NavMeshTechDesc.cpp" />
     <ClCompile Include="Renderer\techs\PipeStates\navMeshShadingPassPipeStateDesc.cpp" />
+    <ClCompile Include="Renderer\techs\PipeStates\navMeshZOnlyPassPipeStateDesc.cpp" />
     <ClCompile Include="SkeletalModel.cpp" />
     <ClCompile Include="Renderer\assets\EditablePNM.cpp" />
     <ClCompile Include="Renderer\assets\EditablePNMFactory.cpp" />
@@ -377,6 +380,8 @@
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\lightVolumePassesVS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshShadingPassPS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshShadingPassVS.glsl" />
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshZOnlyPassPS.glsl" />
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\navMeshZOnlyPassVS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshGeometryPassPS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshGeometryPassVS.glsl" />
     <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skinnedMeshShadingPassPS.glsl" />

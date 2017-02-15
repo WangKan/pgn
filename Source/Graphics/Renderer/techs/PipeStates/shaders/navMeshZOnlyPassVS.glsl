@@ -1,5 +1,7 @@
-#include "CommonVS3D.h"
+#include "MovableBlock.h"
 #include "ZOnlyPassEnvCBlock.h"
+
+in vec3 position;
 
 void main()
 {

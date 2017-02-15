@@ -117,6 +117,9 @@ struct RendererConfig
 	PassEnum* opaqueEntityPasses;
 	int numOpaqueEntityPasses;
 
+	PassEnum* transparentEntityPasses;
+	int numTransparentEntityPasses;
+
 	PassEnum* postProcessingPasses;
 	int numPostProcessingPasses;
 };

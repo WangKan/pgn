@@ -29,3 +29,4 @@ static EnvDesc desc =
 };
 
 EnvDesc* zPrePassEnvDesc = &desc;
+EnvDesc* transparencyZPrePassEnvDesc = &desc;

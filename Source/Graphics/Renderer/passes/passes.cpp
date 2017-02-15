@@ -24,4 +24,6 @@ EnvDesc* envDescs[numPasses] =
 	lightIndexingPass4PipeStateEnvDesc,
 	lightingPassEnvDesc,
 	forwardShadingPassEnvDesc,
+	transparencyZPrePassEnvDesc,
+	transparencyForwardShadingPassEnvDesc,
 };
