@@ -6,17 +6,17 @@
 
 inline pgn::Float2 operator-(pgn::Float2& a, pgn::Float2& b)
 {
-	return pgn::Float2(a[0] - b[0], a[1] - b[1]);
+	return pgn::Float2(a.x - b.x, a.x - b.x);
 }
 
 inline pgn::Float2 operator*(pgn::Float2& v, float t)
 {
-	return pgn::Float2(v[0] * t, v[1] * t);
+	return pgn::Float2(v.x * t, v.x * t);
 }
 
 inline float dot(pgn::Float2& a, pgn::Float2& b)
 {
-	return a[0] * b[0] + a[1] * b[1];
+	return a.x * b.x + a.x * b.x;
 }
 
 inline bool testSphereSphere(pgn::Float2& c1, float r1, pgn::Float2& c2, float r2, pgn::Float2& sepVec)

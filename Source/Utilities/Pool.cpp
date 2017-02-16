@@ -4,7 +4,7 @@
 
 #include <cassert>
 #include <list>
-#include <PGN/Common/aligned.h>
+#include <PGN/Common/MemAlign.h>
 #include <PGN/Common/debug_new.h>
 #include <PGN/Platform/pageAlloc.h>
 #include <vector>

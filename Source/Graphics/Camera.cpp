@@ -75,9 +75,9 @@ void Camera::screenPointToRay(int x, int y, pgn::Float3* origin, pgn::Float3* di
 	float s = (float)(x - viewport.left) / viewport.width;
 	float t = (float)(y - viewport.top) / viewport.height;
 
-	vPos[0] = (1.0f - s) * frustum.l + s * frustum.r;
-	vPos[1] = (1.0f - t) * frustum.t + t * frustum.b;
-	vPos[2] = frustum.n;
+	vPos.x = (1.0f - s) * frustum.l + s * frustum.r;
+	vPos.y = (1.0f - t) * frustum.t + t * frustum.b;
+	vPos.z = frustum.n;
 
 	pgn::Float4x3 invViewMat;
 	pgn::calculateInverseViewMat(&viewMat, &invViewMat);

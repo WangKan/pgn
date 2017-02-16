@@ -1,11 +1,11 @@
 #pragma once
-#include "../Common/aligned.h"
+#include "../Common/MemAlign.h"
 #include "../Common/DllInterface.h"
 namespace pgn {
 
-struct Float2
+struct _align(8) Float2
 {
-	_aligned(8, float v[2]);
+    float x, y;
 
 	Float2()
 	{
@@ -14,31 +14,21 @@ struct Float2
 
 	Float2(float x, float y)
 	{
-		v[0] = x;
-		v[1] = y;
-	}
-
-	float& operator[](int i)
-	{
-		return v[i];
+		this->x = x;
+		this->y = y;
 	}
 };
 
-struct Float3
+struct _align(16) Float3
 {
-	_aligned(16, float v[3]);
-
-	float& operator[](int i)
-	{
-		return v[i];
-	}
+    float x, y, z;
 };
 
-struct Float4
+struct _align(16) Float4
 {
 	union
 	{
-		_aligned(16, float v[4]);
+		float v[4];
 		Float3 float3;
 	};
 

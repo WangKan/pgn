@@ -1077,9 +1077,9 @@ void Renderer::render(FrameContext* frameContext)
 	pgn::calculateInverseViewMat(&view, &invView);
 
 	pgn::Float3 camPos;
-	camPos[0] = invView[0][3];
-	camPos[1] = invView[1][3];
-	camPos[2] = invView[2][3];
+	camPos.x = invView[0][3];
+	camPos.y = invView[1][3];
+	camPos.z = invView[2][3];
 
 	for (int i = 0; i < frameContext->numPointLights; i++)
 	{

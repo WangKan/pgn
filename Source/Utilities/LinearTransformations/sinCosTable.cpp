@@ -1,5 +1,5 @@
 #include <math.h>
-#include <PGN/Common/aligned.h>
+#include <PGN/Common/MemAlign.h>
 #include "sinCosTable.h"
 
 _aligned(4096, pgn::Float2 sinCosTable[pgn::turnDiv]);
@@ -15,8 +15,8 @@ public:
 		for (int i = 0; i < pgn::turnDiv; i++)
 		{
 			double x = i * a;
-			sinCosTable[i][0] = (float)sin(x);
-			sinCosTable[i][1] = (float)cos(x);
+			sinCosTable[i].x = (float)sin(x);
+			sinCosTable[i].y = (float)cos(x);
 		}
 	}
 };

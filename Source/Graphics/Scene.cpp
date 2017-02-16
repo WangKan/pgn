@@ -125,6 +125,10 @@ public:
 	}
 };
 
+#ifndef min
+#define min(a,b) (a < b ? a : b)
+#endif
+
 const int maxInstanceCount = 256;
 
 void submitModels(Graphics* graphics, SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
@@ -270,10 +274,6 @@ void submitNavModels(Graphics* graphics, SceneEntityListItem* first, int count, 
 	}
 }
 
-#ifndef min
-#define min(a,b) (a < b ? a : b)
-#endif
-
 void Scene::commit(pgn::Camera* _camera)
 {
 	FrameContext* frameContext = graphics->renderer.beginSubmit();
@@ -367,9 +367,9 @@ void Scene::commit(pgn::Camera* _camera)
 				break;
 
 			scenePointLightArray[i] = &scenePointLight;
-			pos[0][i] = scenePointLight.pos[0];
-			pos[1][i] = scenePointLight.pos[1];
-			pos[2][i] = scenePointLight.pos[2];
+			pos[0][i] = scenePointLight.pos.x;
+			pos[1][i] = scenePointLight.pos.y;
+			pos[2][i] = scenePointLight.pos.z;
 			r[i] = scenePointLight.pointLight->radius;
 			i++;
 		}

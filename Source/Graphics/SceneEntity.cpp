@@ -31,7 +31,7 @@ void SceneEntity::setWorldMat(pgn::Float4x3* mat)
 
 void SceneEntity::getWorldPos(pgn::Float3& pos)
 {
-	pos[0] = movable.worldMat[0][3];
-	pos[1] = movable.worldMat[1][3];
-	pos[2] = movable.worldMat[2][3];
+	pos.x = movable.worldMat[0][3];
+	pos.y = movable.worldMat[1][3];
+	pos.z = movable.worldMat[2][3];
 }

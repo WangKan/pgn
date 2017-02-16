@@ -175,9 +175,9 @@ void Skeleton::updatePose(int dt, pgn::SkeletonTemplate* _templ, pgn::Float4x3* 
 
 			pgn::quatToMat(&quat[i], &localMat.float4x3);
 
-			localMat[0][3] = pos[i][0];
-			localMat[1][3] = pos[i][1];
-			localMat[2][3] = pos[i][2];
+			localMat[0][3] = pos[i].x;
+			localMat[1][3] = pos[i].y;
+			localMat[2][3] = pos[i].z;
 
 			localMat[3][0] = 0.0f;
 			localMat[3][1] = 0.0f;

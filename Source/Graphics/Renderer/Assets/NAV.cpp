@@ -1,3 +1,4 @@
+#include <float.h>
 #include <PGN/Assets/NAV.h>
 #include <PGN/FileStream/FileStream.h>
 #include <PGN/Math/Math.h>
@@ -26,19 +27,19 @@ bool NAV::cook(void* rawData)
 class Aabb
 {
 public:
-	pgn::Float3 min;
-	pgn::Float3 max;
-
-	void add(float* v)
-	{
-		for (int i = 0; i < 3; i++)
-			if (v[i] < min[i])
-				min[i] = v[i];
-
-		for (int i = 0; i < 3; i++)
-			if (v[i] > max[i])
-				max[i] = v[i];
-	}
+    pgn::Float3 min;
+    pgn::Float3 max;
+    
+    void add(float* v)
+    {
+        if(v[0] < min.x) min.x = v[0];
+        if(v[1] < min.y) min.y = v[1];
+        if(v[2] < min.z) min.z = v[2];
+        
+        if(v[0] > max.x) max.x = v[0];
+        if(v[1] > max.y) max.y = v[1];
+        if(v[2] > max.z) max.z = v[2];
+    }
 };
 
 bool NAV::submit(void* rawData, void* customArg)

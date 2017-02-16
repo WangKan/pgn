@@ -26,6 +26,7 @@
 		57EFEACD18DFD3D0005F0C59 /* libMathC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMathC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EFEAF818DFD428005F0C59 /* Math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Math.h; path = ../../Include/PGN/Math/Math.h; sourceTree = "<group>"; };
 		57EFEAF918DFD435005F0C59 /* Math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Math.cpp; sourceTree = "<group>"; };
+		C201AA061E553E4700ABC070 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = ../../Include/PGN/Math/Utilities.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +68,7 @@
 		57EFEAF718DFD418005F0C59 /* Include */ = {
 			isa = PBXGroup;
 			children = (
+				C201AA061E553E4700ABC070 /* Utilities.h */,
 				57EFEAF818DFD428005F0C59 /* Math.h */,
 			);
 			name = Include;

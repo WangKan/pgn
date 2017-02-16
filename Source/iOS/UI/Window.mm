@@ -34,7 +34,9 @@ public:
 	virtual int getClientWidth();
 	virtual int getClientHeight();
 	virtual void getClientSize(int* w, int* h);
-	virtual void present();
+    virtual void present();
+    virtual void addGestureRecognizer(pgn::DraggingGestureRecognizer* recognizer);
+    virtual void removeGestureRecognizer(pgn::GestureRecognizer* recognizer);
 };
 
 void Window::init(int redBits, int greenBits, int blueBits, int alphaBits, int depthBits, int stencilBits, int samples, CGRect rect)
@@ -128,4 +130,14 @@ void Window::present()
 {
     glBindRenderbuffer(GL_RENDERBUFFER, layer.colorBuf);
 	[[EAGLContext currentContext] presentRenderbuffer:GL_RENDERBUFFER];
+}
+
+void Window::addGestureRecognizer(pgn::DraggingGestureRecognizer* recognizer)
+{
+    
+}
+
+void Window::removeGestureRecognizer(pgn::GestureRecognizer* recognizer)
+{
+    
 }

@@ -45,9 +45,9 @@ void pgn::transformVertex(Float3* _v, Float4x3* _m, Float3* _result)
 	Float4x3& m = *_m;
 	Float3& r = *_result;
 
-	r[0] = v[0] * m[0][0] + v[1] * m[0][1] + v[2] * m[0][2] + m[0][3];
-	r[1] = v[0] * m[1][0] + v[1] * m[1][1] + v[2] * m[1][2] + m[1][3];
-	r[2] = v[0] * m[2][0] + v[1] * m[2][1] + v[2] * m[2][2] + m[2][3];
+	r.x = v.x * m[0][0] + v.y * m[0][1] + v.z * m[0][2] + m[0][3];
+	r.y = v.x * m[1][0] + v.y * m[1][1] + v.z * m[1][2] + m[1][3];
+	r.z = v.x * m[2][0] + v.y * m[2][1] + v.z * m[2][2] + m[2][3];
 }
 
 void pgn::transformVector(Float3* _v, Float4x3* _m, Float3* _result)
@@ -56,9 +56,9 @@ void pgn::transformVector(Float3* _v, Float4x3* _m, Float3* _result)
 	Float4x3& m = *_m;
 	Float3& r = *_result;
 
-	r[0] = v[0] * m[0][0] + v[1] * m[0][1] + v[2] * m[0][2];
-	r[1] = v[0] * m[1][0] + v[1] * m[1][1] + v[2] * m[1][2];
-	r[2] = v[0] * m[2][0] + v[1] * m[2][1] + v[2] * m[2][2];
+	r.x = v.x * m[0][0] + v.y * m[0][1] + v.z * m[0][2];
+	r.y = v.x * m[1][0] + v.y * m[1][1] + v.z * m[1][2];
+	r.z = v.x * m[2][0] + v.y * m[2][1] + v.z * m[2][2];
 }
 
 void pgn::inverse(Float4x3* _m, Float4x3* result)
@@ -92,9 +92,9 @@ void pgn::lerp(Float3* _a, Float3* _b, float t, Float3* _result)
 
 	float k0 = 1.0f - t;
 	float k1 = t;
-	r[0] = a[0] * k0 + b[0] * k1;
-	r[1] = a[1] * k0 + b[1] * k1;
-	r[2] = a[2] * k0 + b[2] * k1;
+	r.x = a.x * k0 + b.x * k1;
+	r.y = a.y * k0 + b.y * k1;
+	r.z = a.z * k0 + b.z * k1;
 }
 
 void pgn::slerp(Float4* _a, Float4* _b, float t, Float4* _result)
@@ -249,10 +249,10 @@ void pgn::precomputeYTriangle(Float2* _Axz, Float2* _Bxz, Float2* _Cxz, float Ay
 	Float2& Bxz = *_Bxz;
 	Float2& Cxz = *_Cxz;
 
-	float Bx_Ax = Bxz[0] - Axz[0];
-	float Bz_Az = Bxz[1] - Axz[1];
-	float Cx_Ax = Cxz[0] - Axz[0];
-	float Cz_Az = Cxz[1] - Axz[1];
+	float Bx_Ax = Bxz.x - Axz.x;
+	float Bz_Az = Bxz.y - Axz.y;
+	float Cx_Ax = Cxz.x - Axz.x;
+	float Cz_Az = Cxz.y - Axz.y;
 
 	float denom1 = Bx_Ax * Cz_Az - Bz_Az * Cx_Ax;
 	float denom2 = Cx_Ax * Bz_Az - Cz_Az * Bx_Ax;
@@ -265,8 +265,8 @@ void pgn::precomputeYTriangle(Float2* _Axz, Float2* _Bxz, Float2* _Cxz, float Ay
 
 	*intermediateVars1 = vars1;
 
-	(*intermediateVars2)[0] = By - Ay;
-	(*intermediateVars2)[1] = Cy - Ay;
+	intermediateVars2->x = By - Ay;
+	intermediateVars2->y = Cy - Ay;
 }
 
 float pgn::computeYTriangle(Float4* _intermediateVars1, Float2* _intermediateVars2, Float2* _xz)
@@ -275,17 +275,17 @@ float pgn::computeYTriangle(Float4* _intermediateVars1, Float2* _intermediateVar
 	Float2& vars2 = *_intermediateVars2;
 	Float2& xz = *_xz;
 
-	float s = vars1[0] * xz[0] + vars1[1] * xz[1];
-	float t = vars1[2] * xz[0] + vars1[3] * xz[1];
+	float s = vars1[0] * xz.x + vars1[1] * xz.y;
+	float t = vars1[2] * xz.x + vars1[3] * xz.y;
 
-	return s * vars2[0] + t * vars2[1];
+	return s * vars2.x + t * vars2.y;
 }
 
 bool pgn::pointInTriangle(Float3& p, Float3& a, Float3& b, Float3& c)
 {
-	pgn::Float3 v0 = { c[0] - a[0], c[1] - a[1], c[2] - a[2] };
-	pgn::Float3 v1 = { b[0] - a[0], b[1] - a[1], b[2] - a[2] };
-	pgn::Float3 v2 = { p[0] - a[0], p[1] - a[1], p[2] - a[2] };
+	pgn::Float3 v0 = { c.x - a.x, c.y - a.y, c.z - a.z };
+	pgn::Float3 v1 = { b.x - a.x, b.y - a.y, b.z - a.z };
+	pgn::Float3 v2 = { p.x - a.x, p.y - a.y, p.z - a.z };
 
 	float dot00 = dot(v0, v0);
 	float dot01 = dot(v0, v1);
