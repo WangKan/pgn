@@ -1,6 +1,5 @@
 #include <PGN/Graphics/Camera.h>
 #include <PGN/Math/Math.h>
-#include <PGN/Math/Plane.h>
 #include "Viewport.h"
 
 class Camera : public pgn::Camera
