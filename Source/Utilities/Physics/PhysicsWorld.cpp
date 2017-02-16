@@ -61,14 +61,14 @@ float PhysicsWorld::getGroundHeight(float x, float z)
 bool PhysicsWorld::rayIntersect(pgn::Float3* rayBegin, pgn::Float3* rayDir, pgn::Float3* contactPos)
 {
 	dGeomID ray = dCreateRay(space, 1000.f);
-	dGeomRaySet(ray, rayBegin->v[0], rayBegin->v[1], rayBegin->v[2], rayDir->v[0], rayDir->v[1], rayDir->v[2]);
+	dGeomRaySet(ray, rayBegin->x, rayBegin->y, rayBegin->z, rayDir->x, rayDir->y, rayDir->z);
 	dContactGeom c;
 	int result = dCollide(ray, ground, 1, &c, sizeof(dContactGeom));
 	if (result > 0)
 	{
-		contactPos->v[0] = c.pos[0];
-		contactPos->v[1] = c.pos[1];
-		contactPos->v[2] = c.pos[2];
+		contactPos->x = c.pos[0];
+		contactPos->y = c.pos[1];
+		contactPos->z = c.pos[2];
 		return true;
 	}
 	return false;

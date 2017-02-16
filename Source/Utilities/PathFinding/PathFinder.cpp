@@ -53,12 +53,12 @@ bool PathFinder::ready()
 int Line::classifyPoint(pgn::Float3& p)
 {
 	pgn::Float3 ab;
-	ab[0] = pointB[0] - pointA[0];
-	ab[2] = pointB[2] - pointA[2];
+	ab.x = pointB.x - pointA.x;
+	ab.z = pointB.z - pointA.z;
 	pgn::Float3 ap;
-	ap[0] = p[0] - pointA[0];
-	ap[2] = p[2] - pointA[2];
-	return (int)(ab[0] * ap[2] - ap[0] * ab[2]);
+	ap.x = p.x - pointA.x;
+	ap.z = p.z - pointA.z;
+	return (int)(ab.x * ap.z - ap.x * ab.z);
 }
 
 int PathNode::getAdjacentSide(unsigned short a, unsigned short b)
@@ -143,14 +143,14 @@ void PathFinder::build()
 		node->sides[1] = Line(v[1], v[2]);
 		node->sides[2] = Line(v[2], v[0]);
 
-		node->center[0] = (v[0][0] + v[1][0] + v[2][0]) / 3.0f;
-		node->center[1] = (v[0][1] + v[1][1] + v[2][1]) / 3.0f;
-		node->center[2] = (v[0][2] + v[1][2] + v[2][2]) / 3.0f;
+		node->center.x = (v[0].x + v[1].x + v[2].x) / 3.0f;
+		node->center.x = (v[0].y + v[1].y + v[2].y) / 3.0f;
+		node->center.x = (v[0].z + v[1].z + v[2].z) / 3.0f;
 
 		pgn::Float3 m[3];
-		m[0] = { 0.5f*(v[0][0] + v[1][0]), 0.5f*(v[0][1] + v[1][1]), 0.5f*(v[0][2] + v[1][2]) };
-		m[1] = { 0.5f*(v[1][0] + v[2][0]), 0.5f*(v[1][1] + v[2][1]), 0.5f*(v[1][2] + v[2][2]) };
-		m[2] = { 0.5f*(v[2][0] + v[0][0]), 0.5f*(v[2][1] + v[0][1]), 0.5f*(v[2][2] + v[0][2]) };
+		m[0] = { 0.5f*(v[0].x + v[1].x), 0.5f*(v[0].y + v[1].y), 0.5f*(v[0].z + v[1].z) };
+		m[1] = { 0.5f*(v[1].x + v[2].x), 0.5f*(v[1].y + v[2].y), 0.5f*(v[1].z + v[2].z) };
+		m[2] = { 0.5f*(v[2].x + v[0].x), 0.5f*(v[2].y + v[0].y), 0.5f*(v[2].z + v[0].z) };
 
 		node->sideDistance[0] = length(m[0] - m[1]);
 		node->sideDistance[1] = length(m[1] - m[2]);

@@ -135,13 +135,13 @@ public:
 
 	void add(pgn::Float3* v)
 	{
-		for (int i = 0; i < 3; i++)
-			if (v->v[i] < min[i])
-				min[i] = v->v[i];
+		if (v->x < min.x) min.x = v->x;
+		if (v->y < min.y) min.y = v->y;
+		if (v->z < min.z) min.z = v->z;
 
-		for (int i = 0; i < 3; i++)
-			if (v->v[i] > max[i])
-				max[i] = v->v[i];
+		if (v->x > max.x) max.x = v->x;
+		if (v->y > max.y) max.y = v->y;
+		if (v->z > max.z) max.z = v->z;
 	}
 };
 
@@ -166,9 +166,9 @@ pgn::Float3 dir1 =
 pgn::Float3 operator+(const pgn::Float3& a, const pgn::Float3& b)
 {
 	pgn::Float3 r;
-	r[0] = a.v[0] + b.v[0];
-	r[1] = a.v[1] + b.v[1];
-	r[2] = a.v[2] + b.v[2];
+	r.x = a.x + b.x;
+	r.y = a.y + b.y;
+	r.z = a.z + b.z;
 
 	return r;
 }
@@ -176,9 +176,9 @@ pgn::Float3 operator+(const pgn::Float3& a, const pgn::Float3& b)
 pgn::Float3 operator-(const pgn::Float3& a, const pgn::Float3& b)
 {
 	pgn::Float3 r;
-	r[0] = a.v[0] - b.v[0];
-	r[1] = a.v[1] - b.v[1];
-	r[2] = a.v[2] - b.v[2];
+	r.x = a.x - b.x;
+	r.y = a.y - b.y;
+	r.z = a.z - b.z;
 
 	return r;
 }
@@ -186,16 +186,16 @@ pgn::Float3 operator-(const pgn::Float3& a, const pgn::Float3& b)
 pgn::Float3 operator/(pgn::Float3& v, float t)
 {
 	pgn::Float3 r;
-	r[0] = v[0] / t;
-	r[1] = v[1] / t;
-	r[2] = v[2] / t;
+	r.x = v.x / t;
+	r.y = v.y / t;
+	r.z = v.z / t;
 
 	return r;
 }
 
 float dot(pgn::Float3& a, pgn::Float3& b)
 {
-	return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+	return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
 float len(pgn::Float3& v)
@@ -214,7 +214,7 @@ void initViewMat(float minFov)
 	viewMat[0][0] = 1.0f;		viewMat[1][0] = 0.0f;		viewMat[2][0] = 0.0f;
 	viewMat[0][1] = 0.0f;		viewMat[1][1] = 1.0f;		viewMat[2][1] = 0.0f;
 	viewMat[0][2] = 0.0f;		viewMat[1][2] = 0.0f;		viewMat[2][2] = 1.0f;
-	viewMat[0][3] = -center[0];	viewMat[1][3] = -center[1];	viewMat[2][3] = -center[2] + dist;
+	viewMat[0][3] = -center.x;	viewMat[1][3] = -center.y;	viewMat[2][3] = -center.z + dist;
 }
 #pragma managed(pop)
 

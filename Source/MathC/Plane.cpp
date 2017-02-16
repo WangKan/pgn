@@ -21,17 +21,18 @@ namespace pgn
 			return false;
 
 		float t = -(dot(normal, linePoint) + distance) / t2;
-		for (int i = 0; i < 3; ++i)
-			outIntersection[i] = linePoint[i] + t*lineVect[i];
+		outIntersection.x = linePoint.x + t*lineVect.x;
+		outIntersection.y = linePoint.y + t*lineVect.y;
+		outIntersection.z = linePoint.z + t*lineVect.z;
 
 		return true;
 	}
 
 	bool Plane::getIntersectionWithPlane(Plane& other, Float3& outLinePoint, Float3& outLineVect)
 	{
-		float fn00 = sqrt(normal[0] * normal[0] + normal[1] * normal[1] + normal[2] * normal[2]);
+		float fn00 = sqrt(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
 		float fn01 = dot(normal, other.normal);
-		float fn11 = sqrt(other.normal[0] * other.normal[0] + other.normal[1] * other.normal[1] + other.normal[2] * other.normal[2]);
+		float fn11 = sqrt(other.normal.x * other.normal.x + other.normal.y * other.normal.y + other.normal.z * other.normal.z);
 		float det = fn00*fn11 - fn01*fn01;
 
 		if (fabs(det) < 1e-6)
@@ -42,8 +43,9 @@ namespace pgn
 		float fc1 = (fn00*-other.distance + fn01*distance) * invdet;
 
 		outLineVect = cross(normal, other.normal);
-		for (int i = 0; i < 3; ++i)
-			outLinePoint[i] = fc0*normal[i] + fc1*other.normal[i];
+		outLinePoint.x = fc0*normal.x + fc1*other.normal.x;
+		outLinePoint.y = fc0*normal.y + fc1*other.normal.y;
+		outLinePoint.z = fc0*normal.z + fc1*other.normal.z;
 		
 		return true;
 	}
