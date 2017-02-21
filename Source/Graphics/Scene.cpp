@@ -107,16 +107,16 @@ void Scene::remove(pgn::SceneDirectionalLight* _sceneDirLight)
 	sceneDirLights.erase(sceneDirLight->it);
 }
 
-struct SceneEntityListItem
+struct SceneEntityListEntry
 {
 	SceneEntity* sceneEntity;
-	SceneEntityListItem* next;
+	SceneEntityListEntry* next;
 };
 
 class SceneEntityList
 {
 public:
-	SceneEntityListItem* first;
+	SceneEntityListEntry* first;
 	int size;
 
 	SceneEntityList()
@@ -131,7 +131,7 @@ public:
 
 const int maxInstanceCount = 256;
 
-void submitModels(Graphics* graphics, SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
+void submitModels(Graphics* graphics, SceneEntityListEntry* first, int count, CBufAllocator* cbufAllocator)
 {
 	assert(count <= maxInstanceCount);
 
@@ -147,7 +147,7 @@ void submitModels(Graphics* graphics, SceneEntityListItem* first, int count, CBu
 	batch.textureInfo = &model->textureInfo;
 	batch.boneMatBuf.buf = 0;
 
-	SceneEntityListItem* item = first;
+	SceneEntityListEntry* entry = first;
 	int n = count;
 
 	while (n)
@@ -157,8 +157,8 @@ void submitModels(Graphics* graphics, SceneEntityListItem* first, int count, CBu
 
 		for (int i = 0; i < batch.instanceCount; i++)
 		{
-			instances[i] = item->sceneEntity->movable;
-			item = item->next;
+			instances[i] = entry->sceneEntity->movable;
+			entry = entry->next;
 		}
 
 		for (int i = 0; i < graphics->renderer.cfg.numOpaqueEntityPasses; i++)
@@ -170,7 +170,7 @@ void submitModels(Graphics* graphics, SceneEntityListItem* first, int count, CBu
 	}
 }
 
-void submitSkeletalModels(Graphics* graphics, SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
+void submitSkeletalModels(Graphics* graphics, SceneEntityListEntry* first, int count, CBufAllocator* cbufAllocator)
 {
 	assert(count <= maxInstanceCount);
 
@@ -212,7 +212,7 @@ void submitSkeletalModels(Graphics* graphics, SceneEntityListItem* first, int co
 		batch.boneMatBuf.buf = 0;
 	}
 
-	SceneEntityListItem* item = first;
+	SceneEntityListEntry* entry = first;
 	int n = count;
 
 	while (n)
@@ -222,8 +222,8 @@ void submitSkeletalModels(Graphics* graphics, SceneEntityListItem* first, int co
 
 		for (int i = 0; i < batch.instanceCount; i++)
 		{
-			instances[i] = item->sceneEntity->movable;
-			item = item->next;
+			instances[i] = entry->sceneEntity->movable;
+			entry = entry->next;
 		}
 
 		for (int i = 0; i < graphics->renderer.cfg.numOpaqueEntityPasses; i++)
@@ -235,7 +235,7 @@ void submitSkeletalModels(Graphics* graphics, SceneEntityListItem* first, int co
 	}
 }
 
-void submitNavModels(Graphics* graphics, SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator)
+void submitNavModels(Graphics* graphics, SceneEntityListEntry* first, int count, CBufAllocator* cbufAllocator)
 {
 	assert(count <= maxInstanceCount);
 
@@ -251,7 +251,7 @@ void submitNavModels(Graphics* graphics, SceneEntityListItem* first, int count, 
 	batch.textureInfo = 0;
 	batch.boneMatBuf.buf = 0;
 
-	SceneEntityListItem* item = first;
+	SceneEntityListEntry* entry = first;
 	int n = count;
 
 	while (n)
@@ -261,8 +261,8 @@ void submitNavModels(Graphics* graphics, SceneEntityListItem* first, int count, 
 
 		for (int i = 0; i < batch.instanceCount; i++)
 		{
-			instances[i] = item->sceneEntity->movable;
-			item = item->next;
+			instances[i] = entry->sceneEntity->movable;
+			entry = entry->next;
 		}
 
 		for (int i = 0; i < graphics->renderer.cfg.numTransparentEntityPasses; i++)
@@ -286,7 +286,7 @@ void Scene::commit(pgn::Camera* _camera)
 	CBufAllocator* cbufAllocator = frameContext->cbufAllocator;
 	pgn::Heap* tmpBuf = graphics->tmpBuf;
 
-	typedef void Submit(Graphics* graphics, SceneEntityListItem* first, int count, CBufAllocator* cbufAllocator);
+	typedef void Submit(Graphics* graphics, SceneEntityListEntry* first, int count, CBufAllocator* cbufAllocator);
 
 	auto groupSubmit = [=](SceneEntity::StdList& list, Submit submit)
 	{
@@ -301,17 +301,17 @@ void Scene::commit(pgn::Camera* _camera)
 			SceneEntity* sceneEntity = (SceneEntity*)&_sceneEntity;
 			if (!sceneEntity->useInstancedDrawing)
 			{
-				SceneEntityListItem item;
-				item.sceneEntity = sceneEntity;
-				submit(graphics, &item, 1, cbufAllocator);
+				SceneEntityListEntry entry;
+				entry.sceneEntity = sceneEntity;
+				submit(graphics, &entry, 1, cbufAllocator);
 			}
 			else
 			{
 				SceneEntityList* sceneEntityList = &sceneEntityGroupMap[sceneEntity->skeletalModel];
-				SceneEntityListItem* item = (SceneEntityListItem*)tmpBuf->alloc(sizeof(SceneEntityListItem));
-				item->sceneEntity = sceneEntity;
-				item->next = sceneEntityList->first;
-				sceneEntityList->first = item;
+				SceneEntityListEntry* entry = (SceneEntityListEntry*)tmpBuf->alloc(sizeof(SceneEntityListEntry));
+				entry->sceneEntity = sceneEntity;
+				entry->next = sceneEntityList->first;
+				sceneEntityList->first = entry;
 				sceneEntityList->size++;
 			}
 		}

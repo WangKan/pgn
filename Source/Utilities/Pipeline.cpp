@@ -23,15 +23,15 @@
 class ProducerConsumer
 {
 public:
-	int entrySize;
+	int itemSize;
 	char *buf, *bufEnd;
 	ProducerConsumer* source;
 	volatile char* p;
 	pgn::Signal* newProductsSignal;
 
-	void init(int entrySize, char* buf, char* bufEnd, ProducerConsumer* source)
+	void init(int itemSize, char* buf, char* bufEnd, ProducerConsumer* source)
 	{
-		this->entrySize = entrySize;
+		this->itemSize = itemSize;
 		this->buf = buf;
 		this->bufEnd = bufEnd;
 		this->source = source;
@@ -64,7 +64,7 @@ public:
 			while (_p != source->p)
 			{
 				callbacks->process(_p);
-				_p += entrySize;
+				_p += itemSize;
 
 				if (_p == bufEnd)
 					_p = buf;
@@ -77,9 +77,9 @@ public:
 		callbacks->onEnd();
 	}
 
-	void init(int entrySize, char* buf, char* bufEnd, ProducerConsumer* source, pgn::PipelineStage* callbacks)
+	void init(int itemSize, char* buf, char* bufEnd, ProducerConsumer* source, pgn::PipelineStage* callbacks)
 	{
-		ProducerConsumer::init(entrySize, buf, bufEnd, source);
+		ProducerConsumer::init(itemSize, buf, bufEnd, source);
 		this->callbacks = callbacks;
 		cancellationPending = false;
 		thread = debug_new std::thread(&Stage::threadFunc, this);
@@ -98,7 +98,7 @@ public:
 class Pipeline : public pgn::Pipeline
 {
 public:
-	int entrySize;
+	int itemSize;
 	int sizeBuf;
 	char *buf, *bufEnd;
 	bool autoGet;
@@ -106,29 +106,29 @@ public:
 	ProducerConsumer end;
 	std::vector<Stage> stages;
 
-	Pipeline(int entrySize, int maxNumInFlightProducts, int numStages, pgn::PipelineStage* stageCallbacks[], bool autoGet)
+	Pipeline(int itemSize, int maxNumInFlightProducts, int numStages, pgn::PipelineStage* stageCallbacks[], bool autoGet)
 	{
-		this->entrySize = entrySize;
-		sizeBuf = entrySize * (maxNumInFlightProducts + 1);
+		this->itemSize = itemSize;
+		sizeBuf = itemSize * (maxNumInFlightProducts + 1);
 		buf = debug_new char[sizeBuf];
 		bufEnd = buf + sizeBuf;
 		this->autoGet = autoGet;
 
 		ProducerConsumer* producer;
 
-		beginning.init(entrySize, buf, bufEnd, 0);
+		beginning.init(itemSize, buf, bufEnd, 0);
 		producer = &beginning;
 
 		stages.resize(numStages);
 		for(int i = 0; i < numStages; i++)
 		{
-			stages[i].init(entrySize, buf, bufEnd, producer, stageCallbacks[i]);
+			stages[i].init(itemSize, buf, bufEnd, producer, stageCallbacks[i]);
 			producer = &stages[i];
 		}
 
 		if(!autoGet)
 		{
-			end.init(entrySize, buf, bufEnd, producer);
+			end.init(itemSize, buf, bufEnd, producer);
 			producer = &end;
 		}
 
@@ -153,7 +153,7 @@ public:
 		delete this;
 	}
 
-	virtual bool put(void* entry)
+	virtual bool put(void* item)
 	{
 		char* p = (char*)beginning.p;
 
@@ -162,12 +162,12 @@ public:
 		if (d < 0)
 			d += sizeBuf;
 
-		if (d == entrySize)
+		if (d == itemSize)
 			return false;
 
-		memcpy(p, entry, entrySize);
+		memcpy(p, item, itemSize);
 
-		p += entrySize;
+		p += itemSize;
 
 		if(p == bufEnd)
 			p = buf;
@@ -185,7 +185,7 @@ public:
 			return 0;
 
 		char* _p = p;
-		p += entrySize;
+		p += itemSize;
 
 		if(p == bufEnd)
 			p = buf;
@@ -203,7 +203,7 @@ public:
 	}
 };
 
-pgn::Pipeline* pgn::Pipeline::create(int entrySize, int maxNumInFlightProducts, int numStages, pgn::PipelineStage* stages[], bool autoGet)
+pgn::Pipeline* pgn::Pipeline::create(int itemSize, int maxNumInFlightProducts, int numStages, pgn::PipelineStage* stages[], bool autoGet)
 {
-	return debug_new ::Pipeline(entrySize, maxNumInFlightProducts, numStages, stages, autoGet);
+	return debug_new ::Pipeline(itemSize, maxNumInFlightProducts, numStages, stages, autoGet);
 }

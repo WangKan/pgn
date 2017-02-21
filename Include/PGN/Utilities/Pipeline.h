@@ -14,9 +14,9 @@ public:
 class Pipeline : public Interface
 {
 public:
-	static PGN_DLL_INTERFACE Pipeline* create(int entrySize, int maxNumInFlightProducts, int numStages, PipelineStage* stages[], bool autoGet);
+	static PGN_DLL_INTERFACE Pipeline* create(int itemSize, int maxNumInFlightProducts, int numStages, PipelineStage* stages[], bool autoGet);
 
-	virtual bool put(void* entry) = 0;
+	virtual bool put(void* item) = 0;
 	virtual void* get() = 0;
 	virtual void finish() = 0;
 };

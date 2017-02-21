@@ -30,7 +30,7 @@ enum LoadingStatus
 	loading, ready, failed, unloading
 };
 
-struct Entry
+struct Item
 {
 	pgn::FileStream* f;
 	char name[256];
@@ -60,23 +60,23 @@ public:
 
 	virtual void process(void* p)
 	{
-		Entry* entry = (Entry*)p;
+		Item* item = (Item*)p;
 
-		if (entry->status == loading)
+		if (item->status == loading)
 		{
-			pgn::FileStream* f = entry->f;
-			f->open(entry->name, pgn::FileStream::in);
+			pgn::FileStream* f = item->f;
+			f->open(item->name, pgn::FileStream::in);
 
 			if (f->isOpen())
 			{
-				entry->sizeRawData = (int)f->getSize();
-				entry->rawData = rawDataBuf->alloc(entry->sizeRawData);
-				f->read(entry->rawData, entry->sizeRawData);
+				item->sizeRawData = (int)f->getSize();
+				item->rawData = rawDataBuf->alloc(item->sizeRawData);
+				f->read(item->rawData, item->sizeRawData);
 				f->close();
 			}
 			else
 			{
-				entry->status = failed;
+				item->status = failed;
 			}
 		}
 	}
@@ -94,11 +94,11 @@ class CookingStage : public pgn::PipelineStage
 
 	virtual void process(void* p)
 	{
-		Entry* entry = (Entry*)p;
+		Item* item = (Item*)p;
 
-		if (entry->status == loading)
-			if (!entry->asset->cook(entry->rawData))
-				entry->status = failed;
+		if (item->status == loading)
+			if (!item->asset->cook(item->rawData))
+				item->status = failed;
 	}
 };
 
@@ -131,16 +131,16 @@ public:
 
 	virtual void process(void* p)
 	{
-		Entry* entry = (Entry*)p;
+		Item* item = (Item*)p;
 
-		if (entry->status == loading)
+		if (item->status == loading)
 		{
-			entry->status = entry->asset->submit(entry->rawData, rs) ? ready : failed;
-			rawDataBuf->_free(entry->sizeRawData);
+			item->status = item->asset->submit(item->rawData, rs) ? ready : failed;
+			rawDataBuf->_free(item->sizeRawData);
 		}
-		else if (entry->status == unloading)
+		else if (item->status == unloading)
 		{
-			entry->asset->unload(rs);
+			item->asset->unload(rs);
 		}
 	}
 };
@@ -178,7 +178,7 @@ AsyncLoader::AsyncLoader(pgn::RenderingContext* rc, pgn::RenderingSystem* rs, pg
 		readingStage, cookingStage, submittingStage
 	};
 
-	pipeline = pgn::Pipeline::create(sizeof(Entry), 128, sizeof(stages) / sizeof(pgn::PipelineStage*), stages, false);
+	pipeline = pgn::Pipeline::create(sizeof(Item), 128, sizeof(stages) / sizeof(pgn::PipelineStage*), stages, false);
 }
 
 AsyncLoader::~AsyncLoader()
@@ -192,7 +192,7 @@ AsyncLoader::~AsyncLoader()
 
 bool AsyncLoader::load(pgn::FileStream* f, char name[], pgn::Asset* asset)
 {
-	if (strlen(name) >= sizeof(((Entry*)0)->name))
+	if (strlen(name) >= sizeof(((Item*)0)->name))
 	{
 		char buf[512];
 		sprintf(buf, "文件路径过长%s\n", name);
@@ -200,20 +200,20 @@ bool AsyncLoader::load(pgn::FileStream* f, char name[], pgn::Asset* asset)
 		return true;
 	}
 
-	Entry entry;
-	entry.f = f;
-	strcpy(entry.name, name);
-	entry.asset = asset;
-	entry.status = loading;
-	return pipeline->put(&entry);
+	Item item;
+	item.f = f;
+	strcpy(item.name, name);
+	item.asset = asset;
+	item.status = loading;
+	return pipeline->put(&item);
 }
 
 bool AsyncLoader::unload(pgn::Asset* asset)
 {
-	Entry entry;
-	entry.asset = asset;
-	entry.status = unloading;
-	return pipeline->put(&entry);
+	Item item;
+	item.asset = asset;
+	item.status = unloading;
+	return pipeline->put(&item);
 }
 
 pgn::Asset* AsyncLoader::getGarbage(int maxTry)
@@ -222,13 +222,13 @@ pgn::Asset* AsyncLoader::getGarbage(int maxTry)
 
 	for (int i = 0; i < maxTry && !garbage; i++)
 	{
-		Entry* entry = (Entry*)pipeline->get();
+		Item* item = (Item*)pipeline->get();
 
-		if (!entry)
+		if (!item)
 			break;
 
-		if (entry->status == unloading)
-			garbage = entry->asset;
+		if (item->status == unloading)
+			garbage = item->asset;
 	}
 
 	return garbage;

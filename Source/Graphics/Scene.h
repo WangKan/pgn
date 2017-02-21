@@ -7,7 +7,7 @@
 
 class CBufAllocator;
 class Graphics;
-struct SceneEntityListItem;
+struct SceneEntityListEntry;
 
 class Scene : public pgn::Scene
 {

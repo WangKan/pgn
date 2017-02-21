@@ -859,7 +859,7 @@ void Renderer::beginDraw(pgn::Window* wnd, RendererConfig* _cfg)
 
 	renderingStage = debug_new RenderingStage(this, wnd);
 	pgn::PipelineStage* stage = renderingStage;
-	backEnd = pgn::Pipeline::create(sizeof(FrameContext*), maxNumPrerenderedFrames, 1, &stage, false);
+	frameQueue = pgn::Pipeline::create(sizeof(FrameContext*), maxNumPrerenderedFrames, 1, &stage, false);
 
 	submittingCount = 0;
 	finishCount = 0;
@@ -867,7 +867,7 @@ void Renderer::beginDraw(pgn::Window* wnd, RendererConfig* _cfg)
 
 void Renderer::endDraw()
 {
-	backEnd->destroy();
+	frameQueue->destroy();
 	delete renderingStage;
 
 	for (auto frameContext : freeList)
@@ -958,7 +958,7 @@ void Renderer::endDraw()
 
 FrameContext* Renderer::beginSubmit()
 {
-	FrameContext** ppFrameContext = (FrameContext**)backEnd->get();
+	FrameContext** ppFrameContext = (FrameContext**)frameQueue->get();
 
 	if (ppFrameContext)
 		retired.push(*ppFrameContext);
@@ -1007,7 +1007,7 @@ void Renderer::endSubmit()
 	frameContext->cbufAllocator->commit();
 	rs->flush();
 
-	backEnd->put(&frameContext);
+	frameQueue->put(&frameContext);
 	submittingCount++;
 }
 
@@ -1264,9 +1264,9 @@ void Renderer::render(FrameContext* frameContext)
 
 void Renderer::finish()
 {
-	backEnd->finish();
+	frameQueue->finish();
 
-	while (FrameContext** ppFrameContext = (FrameContext**)backEnd->get())
+	while (FrameContext** ppFrameContext = (FrameContext**)frameQueue->get())
 	{
 		retired.push(*ppFrameContext);
 	}

@@ -225,7 +225,7 @@ public:
 	FrameContext* frameContext;
 
 	RenderingStage* renderingStage;
-	pgn::Pipeline* backEnd;
+	pgn::Pipeline* frameQueue;
 
 	long long submittingCount;
 	long long finishCount;
