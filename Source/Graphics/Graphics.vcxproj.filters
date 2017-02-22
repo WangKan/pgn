@@ -321,6 +321,9 @@
     <ClInclude Include="Renderer\Techs\Techs.h">
       <Filter>Source Files\Renderer\Techs</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Model.cpp">
@@ -484,6 +487,9 @@
     </ClCompile>
     <ClCompile Include="Renderer\Techs\Techs.cpp">
       <Filter>Source Files\Renderer\Techs</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

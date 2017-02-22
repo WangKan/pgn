@@ -1,5 +1,8 @@
 #pragma once
+#include <PGN/Graphics/SceneManager.h>
 #include <list>
+#include <map>
+#include <string>
 
 namespace pgn{
 	struct Float3;
@@ -18,8 +21,6 @@ namespace pgn{
 	class FileStream;
 	class SkeletonFactory;
 	class AnimationFactory;
-	class PathFinder;
-	class PathFinderFactory;
 	class Physics;
 	class PhysicsFactory;
 	class PhysicsWorld;
@@ -27,31 +28,35 @@ namespace pgn{
 	class ScenePointLight;
 }
 
-class SceneManager
+class SceneManager : public pgn::SceneManager
 {
 public:
 	SceneManager();
 	virtual ~SceneManager();
-	void init(pgn::Window* wnd);
-	void destroy();
-	void tick(int dt);
-	
-	void setCamera(pgn::Float3* eye, pgn::Float3* lookAt);
-	void screenPointToRay(int x, int y, pgn::Float3* origin, pgn::Float3* dir);
-	void addGroundToPhysicsWorld(pgn::Physics* physics);
-	bool rayIntersect(pgn::Float3* rayBegin, pgn::Float3* rayDir, pgn::Float3* contactPos);
-	float getGroundHeight(float x, float z);
+	virtual void init(pgn::Window* wnd);
+	virtual void tick(int dt);
+	virtual void dispose();
+	virtual void _free();
+	virtual void clear();
 
-	void addPointLight(pgn::Float4 intensity, float radius, pgn::Float3* pos);
-	pgn::Model* addModel(char* pnm, char* tex, pgn::Float3* pos, float scale);
-	pgn::NavModel* addNavModel(char* nav, pgn::Float3* pos, float scale);
-	pgn::SceneEntity* addCharacter(char* pnm, char* tex, pgn::Float3* pos, float scale);
-	pgn::Physics* addPhysics(char* phy);
-	pgn::PathFinder* getPathFinder();
+	virtual void setCamera(pgn::Float3* eye, pgn::Float3* lookAt);
+	virtual void setViewMat(pgn::Float4x3* viewMat);
+	virtual void screenPointToRay(int x, int y, pgn::Float3* origin, pgn::Float3* dir);
+	virtual void addGroundToPhysicsWorld(pgn::Physics* physics);
+	virtual bool rayIntersect(pgn::Float3* rayBegin, pgn::Float3* rayDir, pgn::Float3* contactPos);
+	virtual float getGroundHeight(float x, float z);
+
+	virtual void addPointLight(pgn::Float4* intensity, float radius, pgn::Float3* pos);
+	virtual pgn::NavModel* addNavModel(char* nav, pgn::Float3* pos, float scale);
+	virtual pgn::SceneEntity* addModel(char* name, char* pnm, char* tex, pgn::Float3* pos, float scale);
+	virtual pgn::SceneEntity* addCharacter(char* name, char* mesh, char* tex, pgn::Float3* pos, float scale);
+	virtual pgn::SceneEntity* getCharacter(char* name);
+	virtual void delCharacter(char* name);
+	virtual pgn::Physics* addPhysics(char* phy);
 
 private:
-	std::list<pgn::SceneEntity* > sceneModels;
-	std::list<pgn::SceneEntity* > sceneSkeletalModels;
+	std::map<std::string, pgn::SceneEntity* > sceneModels;
+	std::map<std::string, pgn::SceneEntity* > sceneSkeletalModels;
 	std::list<pgn::SceneEntity* > sceneNavModels;
 	std::list<pgn::ScenePointLight* > scenePointLights;
 	std::list<pgn::Model* > models;
@@ -72,10 +77,6 @@ private:
 	pgn::Camera* camera;
 	pgn::SkeletonFactory* skelFactory;
 	pgn::AnimationFactory* animFactory;
-
-	pgn::FileStream* pathFinderStream;
-	pgn::PathFinder* pathFinder;
-	pgn::PathFinderFactory* pathFinderFactory;
 
 	pgn::FileStream* physicsStream;
 	pgn::PhysicsFactory* physicsFactory;

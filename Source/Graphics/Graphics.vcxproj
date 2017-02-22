@@ -105,6 +105,7 @@
     <ClInclude Include="Renderer\Techs\StaticMeshTechDesc.h" />
     <ClInclude Include="Renderer\Techs\TechDesc.h" />
     <ClInclude Include="Renderer\Techs\Techs.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SkeletalModel.h" />
     <ClInclude Include="Renderer\CBufRange.h" />
     <ClInclude Include="Renderer\EditableGeometry.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Renderer\Techs\SkinnedMeshTechDesc.cpp" />
     <ClCompile Include="Renderer\Techs\StaticMeshTechDesc.cpp" />
     <ClCompile Include="Renderer\Techs\Techs.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SkeletalModel.cpp" />
     <ClCompile Include="Renderer\GeometryHelper.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
