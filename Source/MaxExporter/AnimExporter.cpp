@@ -51,50 +51,53 @@ int  AnimExporter::callback(INode *node)
 	if (!isBone(node))
 		return TREE_IGNORECHILDREN;
 
-	BoneAnimation boneAnim;
 	Tab<TimeValue> rotKeyTimes, posKeyTimes;
 
-	Control* tmc = node->GetTMController();
-	Class_ID cid = tmc->ClassID();
-	INode* parent = node->GetParentNode();
+	std::vector<Control*> controlStack;
+	controlStack.push_back(node->GetTMController());
 
-	if (cid == Class_ID(PRS_CONTROL_CLASS_ID, 0))
+	while (!controlStack.empty())
 	{
-		Control* rc = tmc->GetRotationController();
-		if (rc->ClassID() == Class_ID(EULER_CONTROL_CLASS_ID, 0))
+		Control* c = controlStack.back();
+		controlStack.pop_back();
+
+		c->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
+		c->GetKeyTimes(posKeyTimes, FOREVER, KEYAT_POSITION);
+
+		std::vector<Animatable*> animatableStack;
+
+		for (int i = 0; i < c->NumSubs(); i++)
+			animatableStack.push_back(c->SubAnim(i));
+
+		while (!animatableStack.empty())
 		{
-			Control* xc = rc->GetXController();
-			Control* yc = rc->GetYController();
-			Control* zc = rc->GetZController();
-			xc->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
-			yc->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
-			zc->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
-		}
-		else
-		{
-			tmc->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
+			Animatable* a = animatableStack.back();
+			animatableStack.pop_back();
+
+			a->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
+			a->GetKeyTimes(posKeyTimes, FOREVER, KEYAT_POSITION);
+
+			for (int i = 0; i < a->NumSubs(); i++)
+				animatableStack.push_back(a->SubAnim(i));
 		}
 
-		tmc->GetKeyTimes(posKeyTimes, FOREVER, KEYAT_POSITION);
+		Control* rc = c->GetRotationController();
+		if (rc && rc != c) controlStack.push_back(rc);
+
+		Control* pc = c->GetPositionController();
+		if (pc && pc != c) controlStack.push_back(pc);
+
+		Control* xc = c->GetXController();
+		if (xc && xc != c) controlStack.push_back(xc);
+
+		Control* yc = c->GetYController();
+		if (yc && yc != c) controlStack.push_back(yc);
+
+		Control* zc = c->GetZController();
+		if (zc && zc != c) controlStack.push_back(zc);
 	}
-	else if (cid == BIPBODY_CONTROL_CLASS_ID/* || cid == FOOTPRINT_CLASS_ID*/)
-	{
-		IBipMaster *bip = (IBipMaster*)tmc->GetInterface(I_BIPMASTER);
-		Control *biph = bip->GetHorizontalControl();
-		Control *bipv = bip->GetVerticalControl();
-		Control *bipr = bip->GetTurnControl();
-		biph->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
-		bipv->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
-		bipr->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
-		biph->GetKeyTimes(posKeyTimes, FOREVER, KEYAT_POSITION);
-		bipv->GetKeyTimes(posKeyTimes, FOREVER, KEYAT_POSITION);
-		bipr->GetKeyTimes(posKeyTimes, FOREVER, KEYAT_POSITION);
-	}
-	else if (cid == BIPSLAVE_CONTROL_CLASS_ID)
-	{
-		tmc->GetKeyTimes(rotKeyTimes, FOREVER, KEYAT_ROTATION);
-		tmc->GetKeyTimes(posKeyTimes, FOREVER, KEYAT_POSITION);
-	}
+
+	BoneAnimation boneAnim;
 
 	for (int i = 0; i < rotKeyTimes.Count(); i++)
 	{
