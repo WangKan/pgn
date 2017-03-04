@@ -1,0 +1,8 @@
+用C#调试器调试本地代码
+*勾选C#工程属性->Debug->Enable native code debugging。
+
+用C#调试器调试CLR工程中的托管代码
+*勾选Tools->Options->Debugging->General->Use managed compatibility mode。
+
+在CLR工程中同时调试托管和本地代码
+*将工程属性->Debugging->Debugger Type设置为Mixed。
