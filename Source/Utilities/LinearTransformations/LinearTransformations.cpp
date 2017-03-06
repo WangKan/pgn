@@ -105,6 +105,7 @@ void pgn::buildViewMat(Float4x3* baseViewMat, Float3* pivotInWorldSpace, float y
 	upVecInBaseViewSpace.x = (*baseViewMat)[0][1];
 	upVecInBaseViewSpace.y = (*baseViewMat)[1][1];
 	upVecInBaseViewSpace.z = (*baseViewMat)[2][1];
+	upVecInBaseViewSpace = normalize(upVecInBaseViewSpace);
 
 	Float4x3 R1;
 	buildRotationMat(upVecInBaseViewSpace, yaw, R1);
