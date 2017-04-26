@@ -1,6 +1,6 @@
 #include "../Passes/Passes.h"
+#include "PipeStates/StaticMeshForwardShadingPassPipeStateDesc.h"
 #include "PipeStates/StaticMeshGeometryPassPipeStateDesc.h"
-#include "PipeStates/StaticMeshShadingPassPipeStateDesc.h"
 #include "PipeStates/StaticMeshZOnlyPassPipeStateDesc.h"
 #include "TechDesc.h"
 
@@ -14,7 +14,7 @@ namespace {
 		{
 			pipeStateDescs[Z_PRE_PASS] = staticMeshZOnlyPassPipeStateDesc;
 			pipeStateDescs[GEOMETRY_PASS] = staticMeshGeometryPassPipeStateDesc;
-			pipeStateDescs[FORWARD_SHADING_PASS] = staticMeshShadingPassPipeStateDesc;
+			pipeStateDescs[FORWARD_SHADING_PASS] = staticMeshForwardShadingPassPipeStateDesc;
 		}
 	};
 

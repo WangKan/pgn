@@ -3,8 +3,8 @@
 
 using namespace pgn;
 
-extern "C" char staticMeshShadingPassVS[];
-extern "C" char staticMeshShadingPassPS[];
+extern "C" char staticMeshForwardShadingPassVS[];
+extern "C" char staticMeshForwardShadingPassPS[];
 
 static SamplerDesc* samplerDescs[] =
 {
@@ -14,8 +14,8 @@ static SamplerDesc* samplerDescs[] =
 
 static PipeStateDesc pipeStateDesc =
 {
-	staticMeshShadingPassVS,
-	staticMeshShadingPassPS,
+	staticMeshForwardShadingPassVS,
+	staticMeshForwardShadingPassPS,
 	samplerDescs,
 	sizeof(samplerDescs) / sizeof(samplerDescs[0]),
 	commonRasterizerStateDesc,
@@ -23,4 +23,4 @@ static PipeStateDesc pipeStateDesc =
 	blendingDisabledStateDesc
 };
 
-PipeStateDesc* staticMeshShadingPassPipeStateDesc = &pipeStateDesc;
+PipeStateDesc* staticMeshForwardShadingPassPipeStateDesc = &pipeStateDesc;

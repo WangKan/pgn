@@ -273,9 +273,6 @@
     <ClInclude Include="Renderer\Techs\PipeStates\LightVolumePassesPipeStateDescs.h">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Techs\PipeStates\NavMeshShadingPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer\Techs\PipeStates\NavMeshZOnlyPassPipeStateDesc.h">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClInclude>
@@ -285,16 +282,10 @@
     <ClInclude Include="Renderer\Techs\PipeStates\SkinnedMeshGeometryPassPipeStateDesc.h">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\Techs\PipeStates\SkinnedMeshShadingPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer\Techs\PipeStates\SkinnedMeshZOnlyPassPipeStateDesc.h">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Techs\PipeStates\StaticMeshGeometryPassPipeStateDesc.h">
-      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer\Techs\PipeStates\StaticMeshShadingPassPipeStateDesc.h">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\Techs\PipeStates\StaticMeshZOnlyPassPipeStateDesc.h">
@@ -323,6 +314,15 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Techs\PipeStates\NavMeshForwardShadingPassPipeStateDesc.h">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Techs\PipeStates\SkinnedMeshForwardShadingPassPipeStateDesc.h">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Techs\PipeStates\StaticMeshForwardShadingPassPipeStateDesc.h">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -446,25 +446,16 @@
     <ClCompile Include="Renderer\Techs\PipeStates\LightVolumePassesPipeStateDescs.cpp">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Techs\PipeStates\NavMeshShadingPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Techs\PipeStates\NavMeshZOnlyPassPipeStateDesc.cpp">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\Techs\PipeStates\SkinnedMeshGeometryPassPipeStateDesc.cpp">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer\Techs\PipeStates\SkinnedMeshShadingPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer\Techs\PipeStates\SkinnedMeshZOnlyPassPipeStateDesc.cpp">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\Techs\PipeStates\StaticMeshGeometryPassPipeStateDesc.cpp">
-      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\Techs\PipeStates\StaticMeshShadingPassPipeStateDesc.cpp">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClCompile>
     <ClCompile Include="Renderer\Techs\PipeStates\StaticMeshZOnlyPassPipeStateDesc.cpp">
@@ -491,6 +482,15 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Techs\PipeStates\NavMeshForwardShadingPassPipeStateDesc.cpp">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Techs\PipeStates\SkinnedMeshForwardShadingPassPipeStateDesc.cpp">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Techs\PipeStates\StaticMeshForwardShadingPassPipeStateDesc.cpp">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\lightIndexingPassesPS.glsl">
@@ -511,12 +511,6 @@
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\lightVolumePassesVS.glsl">
       <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
     </GLSLCompile>
-    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\navMeshShadingPassPS.glsl">
-      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\navMeshShadingPassVS.glsl">
-      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
-    </GLSLCompile>
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\navMeshZOnlyPassPS.glsl">
       <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
     </GLSLCompile>
@@ -527,12 +521,6 @@
       <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
     </GLSLCompile>
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\skinnedMeshGeometryPassVS.glsl">
-      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\skinnedMeshShadingPassPS.glsl">
-      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\skinnedMeshShadingPassVS.glsl">
       <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
     </GLSLCompile>
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\skinnedMeshZOnlyPassPS.glsl">
@@ -547,16 +535,28 @@
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshGeometryPassVS.glsl">
       <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
     </GLSLCompile>
-    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshShadingPassPS.glsl">
-      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
-    </GLSLCompile>
-    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshShadingPassVS.glsl">
-      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
-    </GLSLCompile>
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshZOnlyPassPS.glsl">
       <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
     </GLSLCompile>
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshZOnlyPassVS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\navMeshForwardShadingPassVS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\navMeshForwardShadingPassPS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\skinnedMeshForwardShadingPassPS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\skinnedMeshForwardShadingPassVS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshForwardShadingPassPS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshForwardShadingPassVS.glsl">
       <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
     </GLSLCompile>
   </ItemGroup>

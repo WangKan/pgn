@@ -1,5 +1,5 @@
 #include "../Passes/Passes.h"
-#include "PipeStates/NavMeshShadingPassPipeStateDesc.h"
+#include "PipeStates/NavMeshForwardShadingPassPipeStateDesc.h"
 #include "PipeStates/NavMeshZOnlyPassPipeStateDesc.h"
 #include "TechDesc.h"
 
@@ -12,7 +12,7 @@ namespace {
 		Constructor()
 		{
 			pipeStateDescs[TRANSPARENCY_Z_PRE_PASS] = navMeshZOnlyPassPipeStateDesc;
-			pipeStateDescs[TRANSPARENCY_FORWARD_SHADING_PASS] = navMeshShadingPassPipeStateDesc;
+			pipeStateDescs[TRANSPARENCY_SHADING_PASS] = navMeshForwardShadingPassPipeStateDesc;
 		}
 	};
 

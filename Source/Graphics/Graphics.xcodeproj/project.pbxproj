@@ -48,13 +48,10 @@
 		C201AAE11E5543A200ABC070 /* LightIndexingPassesPipeStateDescs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AA6E1E5543A200ABC070 /* LightIndexingPassesPipeStateDescs.cpp */; };
 		C201AAE21E5543A200ABC070 /* LightingPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AA701E5543A200ABC070 /* LightingPassPipeStateDesc.cpp */; };
 		C201AAE31E5543A200ABC070 /* LightVolumePassesPipeStateDescs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AA721E5543A200ABC070 /* LightVolumePassesPipeStateDescs.cpp */; };
-		C201AAE41E5543A200ABC070 /* NavMeshShadingPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AA741E5543A200ABC070 /* NavMeshShadingPassPipeStateDesc.cpp */; };
 		C201AAE51E5543A200ABC070 /* NavMeshZOnlyPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AA761E5543A200ABC070 /* NavMeshZOnlyPassPipeStateDesc.cpp */; };
 		C201AAE61E5543A200ABC070 /* SkinnedMeshGeometryPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AA9D1E5543A200ABC070 /* SkinnedMeshGeometryPassPipeStateDesc.cpp */; };
-		C201AAE71E5543A200ABC070 /* SkinnedMeshShadingPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AA9F1E5543A200ABC070 /* SkinnedMeshShadingPassPipeStateDesc.cpp */; };
 		C201AAE81E5543A200ABC070 /* SkinnedMeshZOnlyPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AAA11E5543A200ABC070 /* SkinnedMeshZOnlyPassPipeStateDesc.cpp */; };
 		C201AAE91E5543A200ABC070 /* StaticMeshGeometryPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AAA31E5543A200ABC070 /* StaticMeshGeometryPassPipeStateDesc.cpp */; };
-		C201AAEA1E5543A200ABC070 /* StaticMeshShadingPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AAA51E5543A200ABC070 /* StaticMeshShadingPassPipeStateDesc.cpp */; };
 		C201AAEB1E5543A200ABC070 /* StaticMeshZOnlyPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AAA71E5543A200ABC070 /* StaticMeshZOnlyPassPipeStateDesc.cpp */; };
 		C201AAEC1E5543A200ABC070 /* PostProcessingTechDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AAA91E5543A200ABC070 /* PostProcessingTechDesc.cpp */; };
 		C201AAED1E5543A200ABC070 /* SkinnedMeshTechDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C201AAAB1E5543A200ABC070 /* SkinnedMeshTechDesc.cpp */; };
@@ -72,24 +69,27 @@
 		C201AB4C1E55911600ABC070 /* lightingPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA851E5543A200ABC070 /* lightingPassVS.glsl */; };
 		C201AB4D1E55911600ABC070 /* lightVolumePassesPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA861E5543A200ABC070 /* lightVolumePassesPS.glsl */; };
 		C201AB4E1E55911600ABC070 /* lightVolumePassesVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA871E5543A200ABC070 /* lightVolumePassesVS.glsl */; };
-		C201AB4F1E55911600ABC070 /* navMeshShadingPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA8A1E5543A200ABC070 /* navMeshShadingPassPS.glsl */; };
-		C201AB501E55911600ABC070 /* navMeshShadingPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA8B1E5543A200ABC070 /* navMeshShadingPassVS.glsl */; };
 		C201AB511E55911600ABC070 /* navMeshZOnlyPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA8C1E5543A200ABC070 /* navMeshZOnlyPassPS.glsl */; };
 		C201AB521E55911600ABC070 /* navMeshZOnlyPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA8D1E5543A200ABC070 /* navMeshZOnlyPassVS.glsl */; };
 		C201AB531E55911600ABC070 /* skinnedMeshGeometryPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA901E5543A200ABC070 /* skinnedMeshGeometryPassPS.glsl */; };
 		C201AB541E55911600ABC070 /* skinnedMeshGeometryPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA911E5543A200ABC070 /* skinnedMeshGeometryPassVS.glsl */; };
-		C201AB551E55911600ABC070 /* skinnedMeshShadingPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA921E5543A200ABC070 /* skinnedMeshShadingPassPS.glsl */; };
-		C201AB561E55911600ABC070 /* skinnedMeshShadingPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA931E5543A200ABC070 /* skinnedMeshShadingPassVS.glsl */; };
 		C201AB571E55911600ABC070 /* skinnedMeshZOnlyPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA941E5543A200ABC070 /* skinnedMeshZOnlyPassPS.glsl */; };
 		C201AB581E55911600ABC070 /* skinnedMeshZOnlyPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA951E5543A200ABC070 /* skinnedMeshZOnlyPassVS.glsl */; };
 		C201AB591E55911700ABC070 /* staticMeshGeometryPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA961E5543A200ABC070 /* staticMeshGeometryPassPS.glsl */; };
 		C201AB5A1E55911700ABC070 /* staticMeshGeometryPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA971E5543A200ABC070 /* staticMeshGeometryPassVS.glsl */; };
-		C201AB5B1E55911700ABC070 /* staticMeshShadingPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA981E5543A200ABC070 /* staticMeshShadingPassPS.glsl */; };
-		C201AB5C1E55911700ABC070 /* staticMeshShadingPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA991E5543A200ABC070 /* staticMeshShadingPassVS.glsl */; };
 		C201AB5D1E55911700ABC070 /* staticMeshZOnlyPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA9A1E5543A200ABC070 /* staticMeshZOnlyPassPS.glsl */; };
 		C201AB5E1E55911700ABC070 /* staticMeshZOnlyPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C201AA9B1E5543A200ABC070 /* staticMeshZOnlyPassVS.glsl */; };
 		C21EE1DA1DD88872000B7F1A /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C21EE1CF1DD87524000B7F1A /* libzlib.a */; };
 		C272984F1DD892F3003B1E25 /* libminiziplib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C272984C1DD892E5003B1E25 /* libminiziplib.a */; };
+		C2ABADC11EB87886000E7641 /* NavMeshForwardShadingPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2ABAD971EB87886000E7641 /* NavMeshForwardShadingPassPipeStateDesc.cpp */; };
+		C2ABADC21EB87886000E7641 /* SkinnedMeshForwardShadingPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2ABADBD1EB87886000E7641 /* SkinnedMeshForwardShadingPassPipeStateDesc.cpp */; };
+		C2ABADC31EB87886000E7641 /* StaticMeshForwardShadingPassPipeStateDesc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2ABADBF1EB87886000E7641 /* StaticMeshForwardShadingPassPipeStateDesc.cpp */; };
+		C2ABADC41EB87997000E7641 /* navMeshForwardShadingPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C2ABADAA1EB87886000E7641 /* navMeshForwardShadingPassPS.glsl */; };
+		C2ABADC51EB87997000E7641 /* navMeshForwardShadingPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C2ABADAB1EB87886000E7641 /* navMeshForwardShadingPassVS.glsl */; };
+		C2ABADC61EB87997000E7641 /* skinnedMeshForwardShadingPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C2ABADB01EB87886000E7641 /* skinnedMeshForwardShadingPassPS.glsl */; };
+		C2ABADC71EB87997000E7641 /* skinnedMeshForwardShadingPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C2ABADB11EB87886000E7641 /* skinnedMeshForwardShadingPassVS.glsl */; };
+		C2ABADC81EB87997000E7641 /* staticMeshForwardShadingPassPS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C2ABADB61EB87886000E7641 /* staticMeshForwardShadingPassPS.glsl */; };
+		C2ABADC91EB87997000E7641 /* staticMeshForwardShadingPassVS.glsl in Sources */ = {isa = PBXBuildFile; fileRef = C2ABADB71EB87886000E7641 /* staticMeshForwardShadingPassVS.glsl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -301,8 +301,6 @@
 		C201AA711E5543A200ABC070 /* LightingPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightingPassPipeStateDesc.h; sourceTree = "<group>"; };
 		C201AA721E5543A200ABC070 /* LightVolumePassesPipeStateDescs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightVolumePassesPipeStateDescs.cpp; sourceTree = "<group>"; };
 		C201AA731E5543A200ABC070 /* LightVolumePassesPipeStateDescs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightVolumePassesPipeStateDescs.h; sourceTree = "<group>"; };
-		C201AA741E5543A200ABC070 /* NavMeshShadingPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NavMeshShadingPassPipeStateDesc.cpp; sourceTree = "<group>"; };
-		C201AA751E5543A200ABC070 /* NavMeshShadingPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavMeshShadingPassPipeStateDesc.h; sourceTree = "<group>"; };
 		C201AA761E5543A200ABC070 /* NavMeshZOnlyPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NavMeshZOnlyPassPipeStateDesc.cpp; sourceTree = "<group>"; };
 		C201AA771E5543A200ABC070 /* NavMeshZOnlyPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavMeshZOnlyPassPipeStateDesc.h; sourceTree = "<group>"; };
 		C201AA781E5543A200ABC070 /* PipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PipeStateDesc.h; sourceTree = "<group>"; };
@@ -322,35 +320,25 @@
 		C201AA871E5543A200ABC070 /* lightVolumePassesVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lightVolumePassesVS.glsl; sourceTree = "<group>"; };
 		C201AA881E5543A200ABC070 /* MaterialBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialBlock.h; sourceTree = "<group>"; };
 		C201AA891E5543A200ABC070 /* MovableBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovableBlock.h; sourceTree = "<group>"; };
-		C201AA8A1E5543A200ABC070 /* navMeshShadingPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = navMeshShadingPassPS.glsl; sourceTree = "<group>"; };
-		C201AA8B1E5543A200ABC070 /* navMeshShadingPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = navMeshShadingPassVS.glsl; sourceTree = "<group>"; };
 		C201AA8C1E5543A200ABC070 /* navMeshZOnlyPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = navMeshZOnlyPassPS.glsl; sourceTree = "<group>"; };
 		C201AA8D1E5543A200ABC070 /* navMeshZOnlyPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = navMeshZOnlyPassVS.glsl; sourceTree = "<group>"; };
 		C201AA8E1E5543A200ABC070 /* PointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLight.h; sourceTree = "<group>"; };
 		C201AA8F1E5543A200ABC070 /* PointLightVolumnInstanceCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLightVolumnInstanceCBlock.h; sourceTree = "<group>"; };
 		C201AA901E5543A200ABC070 /* skinnedMeshGeometryPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshGeometryPassPS.glsl; sourceTree = "<group>"; };
 		C201AA911E5543A200ABC070 /* skinnedMeshGeometryPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshGeometryPassVS.glsl; sourceTree = "<group>"; };
-		C201AA921E5543A200ABC070 /* skinnedMeshShadingPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshShadingPassPS.glsl; sourceTree = "<group>"; };
-		C201AA931E5543A200ABC070 /* skinnedMeshShadingPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshShadingPassVS.glsl; sourceTree = "<group>"; };
 		C201AA941E5543A200ABC070 /* skinnedMeshZOnlyPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshZOnlyPassPS.glsl; sourceTree = "<group>"; };
 		C201AA951E5543A200ABC070 /* skinnedMeshZOnlyPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshZOnlyPassVS.glsl; sourceTree = "<group>"; };
 		C201AA961E5543A200ABC070 /* staticMeshGeometryPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshGeometryPassPS.glsl; sourceTree = "<group>"; };
 		C201AA971E5543A200ABC070 /* staticMeshGeometryPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshGeometryPassVS.glsl; sourceTree = "<group>"; };
-		C201AA981E5543A200ABC070 /* staticMeshShadingPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshShadingPassPS.glsl; sourceTree = "<group>"; };
-		C201AA991E5543A200ABC070 /* staticMeshShadingPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshShadingPassVS.glsl; sourceTree = "<group>"; };
 		C201AA9A1E5543A200ABC070 /* staticMeshZOnlyPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshZOnlyPassPS.glsl; sourceTree = "<group>"; };
 		C201AA9B1E5543A200ABC070 /* staticMeshZOnlyPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshZOnlyPassVS.glsl; sourceTree = "<group>"; };
 		C201AA9C1E5543A200ABC070 /* ZOnlyPassEnvCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZOnlyPassEnvCBlock.h; sourceTree = "<group>"; };
 		C201AA9D1E5543A200ABC070 /* SkinnedMeshGeometryPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkinnedMeshGeometryPassPipeStateDesc.cpp; sourceTree = "<group>"; };
 		C201AA9E1E5543A200ABC070 /* SkinnedMeshGeometryPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinnedMeshGeometryPassPipeStateDesc.h; sourceTree = "<group>"; };
-		C201AA9F1E5543A200ABC070 /* SkinnedMeshShadingPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkinnedMeshShadingPassPipeStateDesc.cpp; sourceTree = "<group>"; };
-		C201AAA01E5543A200ABC070 /* SkinnedMeshShadingPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinnedMeshShadingPassPipeStateDesc.h; sourceTree = "<group>"; };
 		C201AAA11E5543A200ABC070 /* SkinnedMeshZOnlyPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkinnedMeshZOnlyPassPipeStateDesc.cpp; sourceTree = "<group>"; };
 		C201AAA21E5543A200ABC070 /* SkinnedMeshZOnlyPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinnedMeshZOnlyPassPipeStateDesc.h; sourceTree = "<group>"; };
 		C201AAA31E5543A200ABC070 /* StaticMeshGeometryPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StaticMeshGeometryPassPipeStateDesc.cpp; sourceTree = "<group>"; };
 		C201AAA41E5543A200ABC070 /* StaticMeshGeometryPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticMeshGeometryPassPipeStateDesc.h; sourceTree = "<group>"; };
-		C201AAA51E5543A200ABC070 /* StaticMeshShadingPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StaticMeshShadingPassPipeStateDesc.cpp; sourceTree = "<group>"; };
-		C201AAA61E5543A200ABC070 /* StaticMeshShadingPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticMeshShadingPassPipeStateDesc.h; sourceTree = "<group>"; };
 		C201AAA71E5543A200ABC070 /* StaticMeshZOnlyPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StaticMeshZOnlyPassPipeStateDesc.cpp; sourceTree = "<group>"; };
 		C201AAA81E5543A200ABC070 /* StaticMeshZOnlyPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticMeshZOnlyPassPipeStateDesc.h; sourceTree = "<group>"; };
 		C201AAA91E5543A200ABC070 /* PostProcessingTechDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PostProcessingTechDesc.cpp; sourceTree = "<group>"; };
@@ -380,6 +368,47 @@
 		C204330B1CC3689E0083D29E /* Text2MachO.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Text2MachO.xcodeproj; path = ../Text2MachO/Text2MachO.xcodeproj; sourceTree = "<group>"; };
 		C21EE1C51DD87524000B7F1A /* zlib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = zlib.xcodeproj; path = ../../Extern/Source/zlib/zlib.xcodeproj; sourceTree = "<group>"; };
 		C27298431DD892E5003B1E25 /* miniziplib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = miniziplib.xcodeproj; path = ../../Extern/Source/miniziplib/miniziplib.xcodeproj; sourceTree = "<group>"; };
+		C2ABAD971EB87886000E7641 /* NavMeshForwardShadingPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NavMeshForwardShadingPassPipeStateDesc.cpp; sourceTree = "<group>"; };
+		C2ABAD981EB87886000E7641 /* NavMeshForwardShadingPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavMeshForwardShadingPassPipeStateDesc.h; sourceTree = "<group>"; };
+		C2ABAD9A1EB87886000E7641 /* BoneMatBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoneMatBlock.h; sourceTree = "<group>"; };
+		C2ABAD9B1EB87886000E7641 /* CommonPS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonPS.h; sourceTree = "<group>"; };
+		C2ABAD9C1EB87886000E7641 /* CommonVS2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonVS2D.h; sourceTree = "<group>"; };
+		C2ABAD9D1EB87886000E7641 /* CommonVS3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonVS3D.h; sourceTree = "<group>"; };
+		C2ABAD9E1EB87886000E7641 /* CommonVS3DInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonVS3DInput.h; sourceTree = "<group>"; };
+		C2ABAD9F1EB87886000E7641 /* CommonVSOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonVSOutput.h; sourceTree = "<group>"; };
+		C2ABADA01EB87886000E7641 /* DirectionalLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionalLight.h; sourceTree = "<group>"; };
+		C2ABADA11EB87886000E7641 /* ForwardShadingPassEnvCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForwardShadingPassEnvCBlock.h; sourceTree = "<group>"; };
+		C2ABADA21EB87886000E7641 /* lightIndexingPassesPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lightIndexingPassesPS.glsl; sourceTree = "<group>"; };
+		C2ABADA31EB87886000E7641 /* lightIndexingPassesVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lightIndexingPassesVS.glsl; sourceTree = "<group>"; };
+		C2ABADA41EB87886000E7641 /* lightingPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lightingPassPS.glsl; sourceTree = "<group>"; };
+		C2ABADA51EB87886000E7641 /* lightingPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lightingPassVS.glsl; sourceTree = "<group>"; };
+		C2ABADA61EB87886000E7641 /* lightVolumePassesPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lightVolumePassesPS.glsl; sourceTree = "<group>"; };
+		C2ABADA71EB87886000E7641 /* lightVolumePassesVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lightVolumePassesVS.glsl; sourceTree = "<group>"; };
+		C2ABADA81EB87886000E7641 /* MaterialBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaterialBlock.h; sourceTree = "<group>"; };
+		C2ABADA91EB87886000E7641 /* MovableBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovableBlock.h; sourceTree = "<group>"; };
+		C2ABADAA1EB87886000E7641 /* navMeshForwardShadingPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = navMeshForwardShadingPassPS.glsl; sourceTree = "<group>"; };
+		C2ABADAB1EB87886000E7641 /* navMeshForwardShadingPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = navMeshForwardShadingPassVS.glsl; sourceTree = "<group>"; };
+		C2ABADAC1EB87886000E7641 /* navMeshZOnlyPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = navMeshZOnlyPassPS.glsl; sourceTree = "<group>"; };
+		C2ABADAD1EB87886000E7641 /* navMeshZOnlyPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = navMeshZOnlyPassVS.glsl; sourceTree = "<group>"; };
+		C2ABADAE1EB87886000E7641 /* PointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLight.h; sourceTree = "<group>"; };
+		C2ABADAF1EB87886000E7641 /* PointLightVolumnInstanceCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLightVolumnInstanceCBlock.h; sourceTree = "<group>"; };
+		C2ABADB01EB87886000E7641 /* skinnedMeshForwardShadingPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshForwardShadingPassPS.glsl; sourceTree = "<group>"; };
+		C2ABADB11EB87886000E7641 /* skinnedMeshForwardShadingPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshForwardShadingPassVS.glsl; sourceTree = "<group>"; };
+		C2ABADB21EB87886000E7641 /* skinnedMeshGeometryPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshGeometryPassPS.glsl; sourceTree = "<group>"; };
+		C2ABADB31EB87886000E7641 /* skinnedMeshGeometryPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshGeometryPassVS.glsl; sourceTree = "<group>"; };
+		C2ABADB41EB87886000E7641 /* skinnedMeshZOnlyPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshZOnlyPassPS.glsl; sourceTree = "<group>"; };
+		C2ABADB51EB87886000E7641 /* skinnedMeshZOnlyPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skinnedMeshZOnlyPassVS.glsl; sourceTree = "<group>"; };
+		C2ABADB61EB87886000E7641 /* staticMeshForwardShadingPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshForwardShadingPassPS.glsl; sourceTree = "<group>"; };
+		C2ABADB71EB87886000E7641 /* staticMeshForwardShadingPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshForwardShadingPassVS.glsl; sourceTree = "<group>"; };
+		C2ABADB81EB87886000E7641 /* staticMeshGeometryPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshGeometryPassPS.glsl; sourceTree = "<group>"; };
+		C2ABADB91EB87886000E7641 /* staticMeshGeometryPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshGeometryPassVS.glsl; sourceTree = "<group>"; };
+		C2ABADBA1EB87886000E7641 /* staticMeshZOnlyPassPS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshZOnlyPassPS.glsl; sourceTree = "<group>"; };
+		C2ABADBB1EB87886000E7641 /* staticMeshZOnlyPassVS.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = staticMeshZOnlyPassVS.glsl; sourceTree = "<group>"; };
+		C2ABADBC1EB87886000E7641 /* ZOnlyPassEnvCBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZOnlyPassEnvCBlock.h; sourceTree = "<group>"; };
+		C2ABADBD1EB87886000E7641 /* SkinnedMeshForwardShadingPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkinnedMeshForwardShadingPassPipeStateDesc.cpp; sourceTree = "<group>"; };
+		C2ABADBE1EB87886000E7641 /* SkinnedMeshForwardShadingPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkinnedMeshForwardShadingPassPipeStateDesc.h; sourceTree = "<group>"; };
+		C2ABADBF1EB87886000E7641 /* StaticMeshForwardShadingPassPipeStateDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StaticMeshForwardShadingPassPipeStateDesc.cpp; sourceTree = "<group>"; };
+		C2ABADC01EB87886000E7641 /* StaticMeshForwardShadingPassPipeStateDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticMeshForwardShadingPassPipeStateDesc.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -643,6 +672,13 @@
 		C201AA6B1E5543A200ABC070 /* PipeStates */ = {
 			isa = PBXGroup;
 			children = (
+				C2ABAD971EB87886000E7641 /* NavMeshForwardShadingPassPipeStateDesc.cpp */,
+				C2ABAD981EB87886000E7641 /* NavMeshForwardShadingPassPipeStateDesc.h */,
+				C2ABAD991EB87886000E7641 /* shaders */,
+				C2ABADBD1EB87886000E7641 /* SkinnedMeshForwardShadingPassPipeStateDesc.cpp */,
+				C2ABADBE1EB87886000E7641 /* SkinnedMeshForwardShadingPassPipeStateDesc.h */,
+				C2ABADBF1EB87886000E7641 /* StaticMeshForwardShadingPassPipeStateDesc.cpp */,
+				C2ABADC01EB87886000E7641 /* StaticMeshForwardShadingPassPipeStateDesc.h */,
 				C201AA6C1E5543A200ABC070 /* Common.cpp */,
 				C201AA6D1E5543A200ABC070 /* Common.h */,
 				C201AA6E1E5543A200ABC070 /* LightIndexingPassesPipeStateDescs.cpp */,
@@ -651,22 +687,16 @@
 				C201AA711E5543A200ABC070 /* LightingPassPipeStateDesc.h */,
 				C201AA721E5543A200ABC070 /* LightVolumePassesPipeStateDescs.cpp */,
 				C201AA731E5543A200ABC070 /* LightVolumePassesPipeStateDescs.h */,
-				C201AA741E5543A200ABC070 /* NavMeshShadingPassPipeStateDesc.cpp */,
-				C201AA751E5543A200ABC070 /* NavMeshShadingPassPipeStateDesc.h */,
 				C201AA761E5543A200ABC070 /* NavMeshZOnlyPassPipeStateDesc.cpp */,
 				C201AA771E5543A200ABC070 /* NavMeshZOnlyPassPipeStateDesc.h */,
 				C201AA781E5543A200ABC070 /* PipeStateDesc.h */,
 				C201AA791E5543A200ABC070 /* shaders */,
 				C201AA9D1E5543A200ABC070 /* SkinnedMeshGeometryPassPipeStateDesc.cpp */,
 				C201AA9E1E5543A200ABC070 /* SkinnedMeshGeometryPassPipeStateDesc.h */,
-				C201AA9F1E5543A200ABC070 /* SkinnedMeshShadingPassPipeStateDesc.cpp */,
-				C201AAA01E5543A200ABC070 /* SkinnedMeshShadingPassPipeStateDesc.h */,
 				C201AAA11E5543A200ABC070 /* SkinnedMeshZOnlyPassPipeStateDesc.cpp */,
 				C201AAA21E5543A200ABC070 /* SkinnedMeshZOnlyPassPipeStateDesc.h */,
 				C201AAA31E5543A200ABC070 /* StaticMeshGeometryPassPipeStateDesc.cpp */,
 				C201AAA41E5543A200ABC070 /* StaticMeshGeometryPassPipeStateDesc.h */,
-				C201AAA51E5543A200ABC070 /* StaticMeshShadingPassPipeStateDesc.cpp */,
-				C201AAA61E5543A200ABC070 /* StaticMeshShadingPassPipeStateDesc.h */,
 				C201AAA71E5543A200ABC070 /* StaticMeshZOnlyPassPipeStateDesc.cpp */,
 				C201AAA81E5543A200ABC070 /* StaticMeshZOnlyPassPipeStateDesc.h */,
 			);
@@ -692,22 +722,16 @@
 				C201AA871E5543A200ABC070 /* lightVolumePassesVS.glsl */,
 				C201AA881E5543A200ABC070 /* MaterialBlock.h */,
 				C201AA891E5543A200ABC070 /* MovableBlock.h */,
-				C201AA8A1E5543A200ABC070 /* navMeshShadingPassPS.glsl */,
-				C201AA8B1E5543A200ABC070 /* navMeshShadingPassVS.glsl */,
 				C201AA8C1E5543A200ABC070 /* navMeshZOnlyPassPS.glsl */,
 				C201AA8D1E5543A200ABC070 /* navMeshZOnlyPassVS.glsl */,
 				C201AA8E1E5543A200ABC070 /* PointLight.h */,
 				C201AA8F1E5543A200ABC070 /* PointLightVolumnInstanceCBlock.h */,
 				C201AA901E5543A200ABC070 /* skinnedMeshGeometryPassPS.glsl */,
 				C201AA911E5543A200ABC070 /* skinnedMeshGeometryPassVS.glsl */,
-				C201AA921E5543A200ABC070 /* skinnedMeshShadingPassPS.glsl */,
-				C201AA931E5543A200ABC070 /* skinnedMeshShadingPassVS.glsl */,
 				C201AA941E5543A200ABC070 /* skinnedMeshZOnlyPassPS.glsl */,
 				C201AA951E5543A200ABC070 /* skinnedMeshZOnlyPassVS.glsl */,
 				C201AA961E5543A200ABC070 /* staticMeshGeometryPassPS.glsl */,
 				C201AA971E5543A200ABC070 /* staticMeshGeometryPassVS.glsl */,
-				C201AA981E5543A200ABC070 /* staticMeshShadingPassPS.glsl */,
-				C201AA991E5543A200ABC070 /* staticMeshShadingPassVS.glsl */,
 				C201AA9A1E5543A200ABC070 /* staticMeshZOnlyPassPS.glsl */,
 				C201AA9B1E5543A200ABC070 /* staticMeshZOnlyPassVS.glsl */,
 				C201AA9C1E5543A200ABC070 /* ZOnlyPassEnvCBlock.h */,
@@ -745,6 +769,48 @@
 				C272984C1DD892E5003B1E25 /* libminiziplib.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C2ABAD991EB87886000E7641 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				C2ABAD9A1EB87886000E7641 /* BoneMatBlock.h */,
+				C2ABAD9B1EB87886000E7641 /* CommonPS.h */,
+				C2ABAD9C1EB87886000E7641 /* CommonVS2D.h */,
+				C2ABAD9D1EB87886000E7641 /* CommonVS3D.h */,
+				C2ABAD9E1EB87886000E7641 /* CommonVS3DInput.h */,
+				C2ABAD9F1EB87886000E7641 /* CommonVSOutput.h */,
+				C2ABADA01EB87886000E7641 /* DirectionalLight.h */,
+				C2ABADA11EB87886000E7641 /* ForwardShadingPassEnvCBlock.h */,
+				C2ABADA21EB87886000E7641 /* lightIndexingPassesPS.glsl */,
+				C2ABADA31EB87886000E7641 /* lightIndexingPassesVS.glsl */,
+				C2ABADA41EB87886000E7641 /* lightingPassPS.glsl */,
+				C2ABADA51EB87886000E7641 /* lightingPassVS.glsl */,
+				C2ABADA61EB87886000E7641 /* lightVolumePassesPS.glsl */,
+				C2ABADA71EB87886000E7641 /* lightVolumePassesVS.glsl */,
+				C2ABADA81EB87886000E7641 /* MaterialBlock.h */,
+				C2ABADA91EB87886000E7641 /* MovableBlock.h */,
+				C2ABADAA1EB87886000E7641 /* navMeshForwardShadingPassPS.glsl */,
+				C2ABADAB1EB87886000E7641 /* navMeshForwardShadingPassVS.glsl */,
+				C2ABADAC1EB87886000E7641 /* navMeshZOnlyPassPS.glsl */,
+				C2ABADAD1EB87886000E7641 /* navMeshZOnlyPassVS.glsl */,
+				C2ABADAE1EB87886000E7641 /* PointLight.h */,
+				C2ABADAF1EB87886000E7641 /* PointLightVolumnInstanceCBlock.h */,
+				C2ABADB01EB87886000E7641 /* skinnedMeshForwardShadingPassPS.glsl */,
+				C2ABADB11EB87886000E7641 /* skinnedMeshForwardShadingPassVS.glsl */,
+				C2ABADB21EB87886000E7641 /* skinnedMeshGeometryPassPS.glsl */,
+				C2ABADB31EB87886000E7641 /* skinnedMeshGeometryPassVS.glsl */,
+				C2ABADB41EB87886000E7641 /* skinnedMeshZOnlyPassPS.glsl */,
+				C2ABADB51EB87886000E7641 /* skinnedMeshZOnlyPassVS.glsl */,
+				C2ABADB61EB87886000E7641 /* staticMeshForwardShadingPassPS.glsl */,
+				C2ABADB71EB87886000E7641 /* staticMeshForwardShadingPassVS.glsl */,
+				C2ABADB81EB87886000E7641 /* staticMeshGeometryPassPS.glsl */,
+				C2ABADB91EB87886000E7641 /* staticMeshGeometryPassVS.glsl */,
+				C2ABADBA1EB87886000E7641 /* staticMeshZOnlyPassPS.glsl */,
+				C2ABADBB1EB87886000E7641 /* staticMeshZOnlyPassVS.glsl */,
+				C2ABADBC1EB87886000E7641 /* ZOnlyPassEnvCBlock.h */,
+			);
+			path = shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -905,33 +971,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2ABADC41EB87997000E7641 /* navMeshForwardShadingPassPS.glsl in Sources */,
+				C2ABADC51EB87997000E7641 /* navMeshForwardShadingPassVS.glsl in Sources */,
+				C2ABADC61EB87997000E7641 /* skinnedMeshForwardShadingPassPS.glsl in Sources */,
+				C2ABADC71EB87997000E7641 /* skinnedMeshForwardShadingPassVS.glsl in Sources */,
+				C2ABADC81EB87997000E7641 /* staticMeshForwardShadingPassPS.glsl in Sources */,
+				C2ABADC91EB87997000E7641 /* staticMeshForwardShadingPassVS.glsl in Sources */,
 				C201AB491E55911600ABC070 /* lightIndexingPassesPS.glsl in Sources */,
 				C201AB4A1E55911600ABC070 /* lightIndexingPassesVS.glsl in Sources */,
 				C201AB4B1E55911600ABC070 /* lightingPassPS.glsl in Sources */,
 				C201AB4C1E55911600ABC070 /* lightingPassVS.glsl in Sources */,
 				C201AB4D1E55911600ABC070 /* lightVolumePassesPS.glsl in Sources */,
 				C201AB4E1E55911600ABC070 /* lightVolumePassesVS.glsl in Sources */,
-				C201AB4F1E55911600ABC070 /* navMeshShadingPassPS.glsl in Sources */,
-				C201AB501E55911600ABC070 /* navMeshShadingPassVS.glsl in Sources */,
 				C201AB511E55911600ABC070 /* navMeshZOnlyPassPS.glsl in Sources */,
 				C201AB521E55911600ABC070 /* navMeshZOnlyPassVS.glsl in Sources */,
 				C201AB531E55911600ABC070 /* skinnedMeshGeometryPassPS.glsl in Sources */,
 				C201AB541E55911600ABC070 /* skinnedMeshGeometryPassVS.glsl in Sources */,
-				C201AB551E55911600ABC070 /* skinnedMeshShadingPassPS.glsl in Sources */,
-				C201AB561E55911600ABC070 /* skinnedMeshShadingPassVS.glsl in Sources */,
 				C201AB571E55911600ABC070 /* skinnedMeshZOnlyPassPS.glsl in Sources */,
 				C201AB581E55911600ABC070 /* skinnedMeshZOnlyPassVS.glsl in Sources */,
 				C201AB591E55911700ABC070 /* staticMeshGeometryPassPS.glsl in Sources */,
 				C201AB5A1E55911700ABC070 /* staticMeshGeometryPassVS.glsl in Sources */,
-				C201AB5B1E55911700ABC070 /* staticMeshShadingPassPS.glsl in Sources */,
-				C201AB5C1E55911700ABC070 /* staticMeshShadingPassVS.glsl in Sources */,
 				C201AB5D1E55911700ABC070 /* staticMeshZOnlyPassPS.glsl in Sources */,
 				C201AB5E1E55911700ABC070 /* staticMeshZOnlyPassVS.glsl in Sources */,
 				C201AAC51E5543A200ABC070 /* Matrix.cpp in Sources */,
 				C201AAC91E5543A200ABC070 /* EditablePNM.cpp in Sources */,
 				C201AAC41E5543A200ABC070 /* Light.cpp in Sources */,
 				C201AAD21E5543A200ABC070 /* ForwardShadingPassEnvDesc.cpp in Sources */,
-				C201AAE71E5543A200ABC070 /* SkinnedMeshShadingPassPipeStateDesc.cpp in Sources */,
+				C2ABADC21EB87886000E7641 /* SkinnedMeshForwardShadingPassPipeStateDesc.cpp in Sources */,
 				C201AACE1E5543A200ABC070 /* PNMFactory.cpp in Sources */,
 				C201AADE1E5543A200ABC070 /* LightIndexingTechDesc.cpp in Sources */,
 				C201AAE11E5543A200ABC070 /* LightIndexingPassesPipeStateDescs.cpp in Sources */,
@@ -949,13 +1015,13 @@
 				C201AADC1E5543A200ABC070 /* ZPrePassEnvDesc.cpp in Sources */,
 				C201AAC11E5543A200ABC070 /* DirectionalLight.cpp in Sources */,
 				C201AAE31E5543A200ABC070 /* LightVolumePassesPipeStateDescs.cpp in Sources */,
+				C2ABADC11EB87886000E7641 /* NavMeshForwardShadingPassPipeStateDesc.cpp in Sources */,
 				C201AAC61E5543A200ABC070 /* Model.cpp in Sources */,
 				C201AAF31E5543A200ABC070 /* SceneEntity.cpp in Sources */,
 				C201AAE21E5543A200ABC070 /* LightingPassPipeStateDesc.cpp in Sources */,
 				C201AAC81E5543A200ABC070 /* PointLight.cpp in Sources */,
 				C201AACA1E5543A200ABC070 /* EditablePNMFactory.cpp in Sources */,
 				C201AAEE1E5543A200ABC070 /* StaticMeshTechDesc.cpp in Sources */,
-				C201AAEA1E5543A200ABC070 /* StaticMeshShadingPassPipeStateDesc.cpp in Sources */,
 				C201AACF1E5543A200ABC070 /* PNT.cpp in Sources */,
 				C201AAF51E5543A200ABC070 /* SkeletalModel.cpp in Sources */,
 				C201AACB1E5543A200ABC070 /* NAV.cpp in Sources */,
@@ -974,11 +1040,11 @@
 				C201AACC1E5543A200ABC070 /* NAVFactory.cpp in Sources */,
 				C201AAD51E5543A200ABC070 /* LightingPassEnvDesc.cpp in Sources */,
 				C201AAEC1E5543A200ABC070 /* PostProcessingTechDesc.cpp in Sources */,
-				C201AAE41E5543A200ABC070 /* NavMeshShadingPassPipeStateDesc.cpp in Sources */,
 				C201AAE91E5543A200ABC070 /* StaticMeshGeometryPassPipeStateDesc.cpp in Sources */,
 				C201AAD11E5543A200ABC070 /* GeometryHelper.cpp in Sources */,
 				C201AAD31E5543A200ABC070 /* GeometryPassEnvDesc.cpp in Sources */,
 				C201AAF41E5543A200ABC070 /* ScenePointLight.cpp in Sources */,
+				C2ABADC31EB87886000E7641 /* StaticMeshForwardShadingPassPipeStateDesc.cpp in Sources */,
 				C201AAF11E5543A200ABC070 /* Scene.cpp in Sources */,
 				C201AAE01E5543A200ABC070 /* Common.cpp in Sources */,
 			);

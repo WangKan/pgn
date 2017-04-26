@@ -56,7 +56,7 @@ struct ResourceView
 PassEnum transparentEntityPasses[] =
 {
 	TRANSPARENCY_Z_PRE_PASS,
-	TRANSPARENCY_FORWARD_SHADING_PASS
+	TRANSPARENCY_SHADING_PASS
 };
 
 PassEnum lightIndexedDeferredRenderingActivePasses[] =
@@ -77,7 +77,7 @@ PassEnum lightIndexedDeferredRenderingActivePasses[] =
 	LIGHTING_PASS,
 	FORWARD_SHADING_PASS,
 	TRANSPARENCY_Z_PRE_PASS,
-	TRANSPARENCY_FORWARD_SHADING_PASS,
+	TRANSPARENCY_SHADING_PASS,
 };
 
 PassEnum lightIndexedDeferredRenderingOpaqueEntityPasses[] =
@@ -122,7 +122,7 @@ PassEnum lightIndexedForwardRenderingActivePasses[] =
 	LIGHT_INDEXING_PASS_4,
 	FORWARD_SHADING_PASS,
 	TRANSPARENCY_Z_PRE_PASS,
-	TRANSPARENCY_FORWARD_SHADING_PASS,
+	TRANSPARENCY_SHADING_PASS,
 };
 
 PassEnum lightIndexedForwardRenderingOpaqueEntityPasses[] =
