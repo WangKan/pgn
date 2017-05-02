@@ -11,7 +11,7 @@ public:
 	static PGN_DLL_INTERFACE RenderingContext* create(Display displayPrototype, int numThreads);
 	virtual void beginDraw(Display display, int thread) = 0;
 	virtual void endDraw() = 0;
-	virtual void beginFrame() = 0; // todo: ¸Ä¸öÃû¡£
+	virtual void beginOnscreenPass() = 0;
 };
 
 }

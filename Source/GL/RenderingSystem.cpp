@@ -27,12 +27,7 @@ void RenderingSystem::_free()
 	delete this;
 }
 
-void RenderingSystem::beginFrame()
-{
-	rc->beginFrame();
-}
-
-void RenderingSystem::beginFrame(int numRenderTargets, pgn::RenderTargetView* renderTargets[], pgn::DepthStencilView* depthStencilView)
+void RenderingSystem::beginOffscreenPass(int numRenderTargets, pgn::RenderTargetView* renderTargets[], pgn::DepthStencilView* depthStencilView)
 {
 	if (!offscreenFB)
 		glGenFramebuffers(1, &offscreenFB);
@@ -86,12 +81,17 @@ void RenderingSystem::beginFrame(int numRenderTargets, pgn::RenderTargetView* re
 	assert(rrrr == GL_FRAMEBUFFER_COMPLETE);
 }
 
+void RenderingSystem::beginOnscreenPass()
+{
+	rc->beginOnscreenPass();
+}
+
 void RenderingSystem::clearDepthStencilView(pgn::DepthStencilView* depthStencilView, bool clearDepth, float depth, bool clearStencil, unsigned char stencil)
 {
 	if(depthStencilView)
-		beginFrame(0, 0, depthStencilView);
+		beginOffscreenPass(0, 0, depthStencilView);
 	else
-		beginFrame();
+		beginOnscreenPass();
 
 	unsigned clearMask = 0;
 	if (clearDepth) clearMask |= GL_DEPTH_BUFFER_BIT;
@@ -102,23 +102,23 @@ void RenderingSystem::clearDepthStencilView(pgn::DepthStencilView* depthStencilV
 	glDepthMask(GL_TRUE);
 	glStencilMask(0xff);
 	glClear(clearMask);
-	//endFrame(0);
+	//endPass(0);
 }
 
 void RenderingSystem::clearRenderTargetView(pgn::RenderTargetView* renderTargetView, float r, float g, float b, float a)
 {
 	if(renderTargetView)
 	{
-		beginFrame(1, &renderTargetView, 0);
+		beginOffscreenPass(1, &renderTargetView, 0);
 	}
 	else
 	{
-		beginFrame();
+		beginOnscreenPass();
 	}
 	glClearColor(r, g, b, a);
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glClear(GL_COLOR_BUFFER_BIT);
-	//endFrame(0);
+	//endPass(0);
 }
 
 const unsigned modes[] = {GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_TRIANGLES, GL_TRIANGLE_STRIP};
@@ -128,7 +128,7 @@ void RenderingSystem::draw(int indicesPerInstance, int instanceCount)
 	glDrawElementsInstanced(modes[primType], indicesPerInstance, GL_UNSIGNED_SHORT, (void*)indexBufferOffset, instanceCount);
 }
 
-void RenderingSystem::endFrame(pgn::SyncPoint* sync)
+void RenderingSystem::endPass(pgn::SyncPoint* sync)
 {
 	if (sync)
 		addSyncPoint((SyncPoint*)sync);

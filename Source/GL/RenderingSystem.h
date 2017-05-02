@@ -18,8 +18,8 @@ public:
 	virtual void dispose();
 	virtual void _free();
 	void addSyncPoint(SyncPoint* sync);
-	virtual void beginFrame();
-	virtual void beginFrame(int numRenderTargets, pgn::RenderTargetView* renderTargets[], pgn::DepthStencilView* depthStencilView);
+	virtual void beginOffscreenPass(int numRenderTargets, pgn::RenderTargetView* renderTargets[], pgn::DepthStencilView* depthStencilView);
+	virtual void beginOnscreenPass();
 	virtual bool checkSyncPoint(pgn::SyncPoint* sync);
 	virtual pgn::Buffer*			createBuffer(pgn::BufferDesc* desc);
 	virtual pgn::DepthStencilState*	createDepthStencilState(pgn::DepthStencilStateDesc* desc);
@@ -40,7 +40,7 @@ public:
 	virtual void clearDepthStencilView(pgn::DepthStencilView* depthStencilView, bool clearDepth, float depth, bool clearStencil, unsigned char stencil);
 	virtual void clearRenderTargetView(pgn::RenderTargetView* renderTargetView, float r, float g, float b, float a);
 	virtual void draw(int indicesPerInstance, int instanceCount);
-	virtual void endFrame(pgn::SyncPoint* sync);
+	virtual void endPass(pgn::SyncPoint* sync);
 	virtual void finish();
 	virtual void flush();
 	virtual int getConstantBufferOffsetAlignment();

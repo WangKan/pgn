@@ -45,8 +45,8 @@ class RenderingSystem : public Interface
 public:
 	static PGN_DLL_INTERFACE RenderingSystem* create(RenderingContext* rc);
 
-	virtual void beginFrame() = 0;
-	virtual void beginFrame(int numRenderTargets, RenderTargetView* renderTargets[], DepthStencilView* depthStencilView) = 0;
+	virtual void beginOffscreenPass(int numRenderTargets, RenderTargetView* renderTargets[], DepthStencilView* depthStencilView) = 0;
+	virtual void beginOnscreenPass() = 0;
 	virtual bool checkSyncPoint(SyncPoint* sync) = 0;
 	virtual Buffer*				createBuffer(BufferDesc* desc) = 0;
 	virtual DepthStencilState*	createDepthStencilState(DepthStencilStateDesc* desc) = 0;
@@ -67,7 +67,7 @@ public:
 	virtual void clearDepthStencilView(DepthStencilView* depthStencilView/*0表示帧缓冲*/, bool clearDepth, float depth, bool clearStencil, unsigned char stencil) = 0;
 	virtual void clearRenderTargetView(RenderTargetView* renderTargetView/*0表示帧缓冲*/, float r, float g, float b, float a) = 0;
 	virtual void draw(int indicesPerInstance, int instanceCount) = 0;
-	virtual void endFrame(SyncPoint* sync) = 0;
+	virtual void endPass(SyncPoint* sync) = 0;
 	virtual void finish() = 0;
 	virtual void flush() = 0;
 	virtual int getConstantBufferOffsetAlignment() = 0;

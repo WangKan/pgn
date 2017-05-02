@@ -19,7 +19,7 @@ public:
 	virtual void _free();
 	virtual void beginDraw(HDC hDC, int thread);
 	virtual void endDraw();
-	virtual void beginFrame();
+	virtual void beginOnscreenPass();
 };
 
 RenderingContext::RenderingContext(HDC hDC, int numThreads)
@@ -63,7 +63,7 @@ void RenderingContext::endDraw()
 	wglMakeCurrent(NULL, NULL);
 }
 
-void RenderingContext::beginFrame()
+void RenderingContext::beginOnscreenPass()
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	unsigned backBuf = GL_BACK_LEFT;

@@ -1158,12 +1158,12 @@ void Renderer::render(FrameContext* frameContext)
 			ResourceView* rtView = env->offscreenRTs.size() ? env->offscreenRTs[0].view : env->depthStencilBuf.view;
 			pgn::TextureDesc* texDesc = rtView->tex->getDesc();
 
-			rs->beginFrame((int)env->offscreenRTs.size(), rtViews, (pgn::DepthStencilView*)env->depthStencilBuf.view->view);
+			rs->beginOffscreenPass((int)env->offscreenRTs.size(), rtViews, (pgn::DepthStencilView*)env->depthStencilBuf.view->view);
 			rs->setViewport(0, 0, texDesc->width, texDesc->height, texDesc->height, 0.0f, 1.0f);
 		}
 		else
 		{
-			rs->beginFrame();
+			rs->beginOnscreenPass();
 			rs->setViewport(viewport.left, viewport.top, viewport.width, viewport.height, viewport.fullHeight, 0.0f, 1.0f);
 		}
 
@@ -1257,7 +1257,7 @@ void Renderer::render(FrameContext* frameContext)
 			}
 		}
 
-		rs->endFrame(i == cfg.numActivePasses - 1 ? frameContext->sync : 0);
+		rs->endPass(i == cfg.numActivePasses - 1 ? frameContext->sync : 0);
 	}
 
 	frameContext->heap->clear();

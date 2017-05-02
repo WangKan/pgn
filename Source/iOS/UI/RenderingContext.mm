@@ -17,7 +17,7 @@ public:
 	virtual void _free();
 	virtual void beginDraw(CAEAGLLayer* eaglLayer, int thread);
 	virtual void endDraw();
-	virtual void beginFrame();
+	virtual void beginOnscreenPass();
 };
 
 RenderingContext::RenderingContext(int numThreads)
@@ -100,7 +100,7 @@ void RenderingContext::endDraw()
     [EAGLContext setCurrentContext:nil];
 }
 
-void RenderingContext::beginFrame()
+void RenderingContext::beginOnscreenPass()
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, screenFB);
 	const unsigned backBuf = GL_BACK;
