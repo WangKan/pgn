@@ -21,6 +21,8 @@ public:
 	static PGN_DLL_INTERFACE Graphics* create(Display displayPrototype, FileStream* assetStream, FileStream* cacheStream);
 
 	virtual void				beginDraw(pgn::Window* wnd) = 0;
+	virtual bool				beginFrame() = 0;
+	virtual void				draw(Scene* scene, Camera* camera) = 0;
 	virtual Camera*				createCamera() = 0;
 	virtual DirectionalLight*	createDirectionalLight() = 0;
 	virtual EditableModel*		createEditableModel() = 0;
@@ -30,6 +32,7 @@ public:
 	virtual Scene*				createScene() = 0;
 	virtual SkeletalModel*		createSkeletalModel() = 0;
 	virtual void				endDraw() = 0;
+	virtual void				endFrame() = 0;
 };
 
 }

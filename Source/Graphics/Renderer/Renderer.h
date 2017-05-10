@@ -143,7 +143,7 @@ public:
 
 typedef std::map<const VertexFormat*, BatchGroupPtr> BatchGroupMap;
 
-class FrameContext
+class SceneContext
 {
 public:
 	std::map<TechEnum, BatchGroupMap> batches[numPasses];
@@ -176,8 +176,8 @@ public:
 
 	pgn::SyncPoint* sync;
 
-	FrameContext(pgn::RenderingSystem* rs);
-	~FrameContext();
+	SceneContext(pgn::RenderingSystem* rs);
+	~SceneContext();
 };
 
 class Renderer
@@ -219,15 +219,16 @@ public:
 	pgn::ResourceHandle* screenAlignedQuad;
 	pgn::ResourceHandle* sphere;
 
-	static const int maxNumPrerenderedFrames = 3;
-	std::vector<FrameContext*> freeList;
-	pgn::Queue<FrameContext*> retired;
-	FrameContext* frameContext;
+	std::vector<SceneContext*> freeList;
+	pgn::Queue<SceneContext*> retired;
+	SceneContext* sceneContext;
 
 	RenderingStage* renderingStage;
-	pgn::Pipeline* frameQueue;
+	pgn::Pipeline* renderQueue;
 
+	int queuedFrameCount;
 	long long submittingCount;
+	long long retireCount;
 	long long finishCount;
 
 	Renderer(pgn::Display displayPrototype, pgn::FileStream* assetStream, pgn::FileStream* cacheStream);
@@ -236,9 +237,12 @@ public:
 	bool buildPrograms(void* cacheFileBuf = 0);
 	void beginDraw(pgn::Window* wnd, RendererConfig* cfg);
 	void endDraw();
-	FrameContext* beginSubmit();
+	bool beginFrame();
+	void endFrame();
+	SceneContext* beginSubmit();
 	void submit(PassEnum passEnum, TechEnum techEnum, Batch* batch);
 	void endSubmit();
-	void render(FrameContext* frameContext);
+	void clearFrameBuffer();
+	void render(SceneContext* sceneContext);
 	void finish();
 };

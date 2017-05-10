@@ -5,15 +5,9 @@
 #include "SceneEntity.h"
 #include "ScenePointLight.h"
 
-class CBufAllocator;
-class Graphics;
-struct SceneEntityListEntry;
-
 class Scene : public pgn::Scene
 {
 public:
-	Graphics* graphics;
-
 	SceneEntity::StdList sceneModels;
 	SceneEntity::StdList sceneSkeletalModels;
 	SceneEntity::StdList sceneNavModels;
@@ -23,7 +17,7 @@ public:
 	static const int numLightDisjointSets = 4;
 	std::vector<ScenePointLight*> lightDisjointSets[numLightDisjointSets];
 
-	Scene(Graphics* graphics);
+	Scene();
 	virtual void dispose();
 	virtual void _free();
 
@@ -41,6 +35,4 @@ public:
 
 	virtual pgn::SceneDirectionalLight* add(pgn::DirectionalLight* light);
 	virtual void remove(pgn::SceneDirectionalLight* sceneDirLight);
-
-	virtual void commit(pgn::Camera* camera);
 };

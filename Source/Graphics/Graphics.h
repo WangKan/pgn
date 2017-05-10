@@ -29,6 +29,8 @@ public:
 	virtual void dispose();
 	virtual void _free();
 	virtual void					beginDraw(pgn::Window* wnd);
+	virtual bool					beginFrame();
+	virtual void					draw(pgn::Scene* scene, pgn::Camera* camera);
 	virtual pgn::Camera*			createCamera();
 	virtual pgn::DirectionalLight*	createDirectionalLight();
 	virtual pgn::EditableModel*		createEditableModel();
@@ -38,5 +40,6 @@ public:
 	virtual pgn::Scene*				createScene();
 	virtual pgn::SkeletalModel*		createSkeletalModel();
 	virtual void					endDraw();
+	virtual void					endFrame();
 	void performPendingRemovals();
 };

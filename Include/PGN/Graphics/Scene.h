@@ -2,7 +2,6 @@
 #include "../Common/Interface.h"
 namespace pgn {
 
-class Camera;
 class DirectionalLight;
 class Model;
 class NavModel;
@@ -29,8 +28,6 @@ public:
 
 	virtual SceneDirectionalLight* add(DirectionalLight* light) = 0;
 	virtual void remove(SceneDirectionalLight* sceneDirLight) = 0;
-
-	virtual void commit(Camera* camera) = 0;
 };
 
 }

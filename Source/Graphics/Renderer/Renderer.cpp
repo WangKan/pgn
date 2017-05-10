@@ -146,14 +146,14 @@ RendererConfig lightIndexedForwardRendering =
 	0
 };
 
-FrameContext::FrameContext(pgn::RenderingSystem* rs)
+SceneContext::SceneContext(pgn::RenderingSystem* rs)
 {
 	heap = pgn::Heap::create();
 	cbufAllocator = debug_new CBufAllocator(rs);
 	sync = rs->createSyncPoint();
 }
 
-FrameContext::~FrameContext()
+SceneContext::~SceneContext()
 {
 	for (auto& passBatches : batches)
 	{
@@ -171,6 +171,21 @@ FrameContext::~FrameContext()
 	delete cbufAllocator;
 	sync->destroy();
 }
+
+struct RenderingJob
+{
+	enum Job
+	{
+		clearFrameBuffer,
+		drawScene,
+		present
+	};
+
+	Job job;
+	union{
+		SceneContext* sceneContext;
+	};
+};
 
 class RenderingStage : public pgn::PipelineStage
 {
@@ -196,15 +211,24 @@ public:
 
 	virtual void process(void* p)
 	{
-		FrameContext* frameContext = *((FrameContext**)p);
+		RenderingJob* job = (RenderingJob*)p;
 
-		renderer->render(frameContext);
-		wnd->present();
+		if (job->job == RenderingJob::clearFrameBuffer)
+		{
+			renderer->clearFrameBuffer();
+		}
+		else if (job->job == RenderingJob::drawScene)
+		{
+			renderer->render(job->sceneContext);
+		}
+		else if (job->job == RenderingJob::present)
+		{
+			wnd->present();
+		}
 	}
 };
 
 Renderer::Renderer(pgn::Display displayPrototype, pgn::FileStream* assetStream, pgn::FileStream* cacheStream)
-	: retired(maxNumPrerenderedFrames)
 {
 	getVertexFormatTable();
 
@@ -224,10 +248,10 @@ Renderer::Renderer(pgn::Display displayPrototype, pgn::FileStream* assetStream, 
 	envConsts[VIEW].size = sizeof(pgn::Float4x3);
 	envConsts[VIEW_PROJ].size = sizeof(pgn::Float4x4);
 	envConsts[INV_PROJ].size = sizeof(pgn::Float4x4);
-	envConsts[W_POINT_LIGHT].size = sizeof(((FrameContext*)0)->wPointLights);
-	envConsts[V_POINT_LIGHT].size = sizeof(((FrameContext*)0)->vPointLights);
-	envConsts[W_DIR_LIGHT].size = sizeof(((FrameContext*)0)->wDirLights);
-	envConsts[V_DIR_LIGHT].size = sizeof(((FrameContext*)0)->vDirLights);
+	envConsts[W_POINT_LIGHT].size = sizeof(((SceneContext*)0)->wPointLights);
+	envConsts[V_POINT_LIGHT].size = sizeof(((SceneContext*)0)->vPointLights);
+	envConsts[W_DIR_LIGHT].size = sizeof(((SceneContext*)0)->wDirLights);
+	envConsts[V_DIR_LIGHT].size = sizeof(((SceneContext*)0)->vDirLights);
 }
 
 Renderer::~Renderer()
@@ -853,28 +877,27 @@ void Renderer::beginDraw(pgn::Window* wnd, RendererConfig* _cfg)
 			cacheStream->close();
 	}
 
-	for (int i = 0; i < maxNumPrerenderedFrames; i++)
-		freeList.push_back(new(_pageAlloc(sizeof(FrameContext))) FrameContext(rs));
-
 	rs->flush();
 
 	renderingStage = debug_new RenderingStage(this, wnd);
 	pgn::PipelineStage* stage = renderingStage;
-	frameQueue = pgn::Pipeline::create(sizeof(FrameContext*), maxNumPrerenderedFrames, 1, &stage, false);
+	renderQueue = pgn::Pipeline::create(sizeof(RenderingJob), 64, 1, &stage, false);
 
+	queuedFrameCount = 0;
 	submittingCount = 0;
+	retireCount = 0;
 	finishCount = 0;
 }
 
 void Renderer::endDraw()
 {
-	frameQueue->destroy();
+	renderQueue->destroy();
 	delete renderingStage;
 
-	for (auto frameContext : freeList)
+	for (auto sceneContext : freeList)
 	{
-		frameContext->~FrameContext();
-		pgn::pageFree(frameContext, sizeof(FrameContext));
+		sceneContext->~SceneContext();
+		pgn::pageFree(sceneContext, sizeof(SceneContext));
 	}
 
 	for (auto& tech : techs)
@@ -957,47 +980,76 @@ void Renderer::endDraw()
 	rc->endDraw();
 }
 
-FrameContext* Renderer::beginSubmit()
+bool Renderer::beginFrame()
 {
-	FrameContext** ppFrameContext = (FrameContext**)frameQueue->get();
-
-	if (ppFrameContext)
-		retired.push(*ppFrameContext);
+	while (RenderingJob* job = (RenderingJob*)renderQueue->get())
+	{
+		if (job->job == RenderingJob::present)
+		{
+			queuedFrameCount--;
+		}
+		else if (job->job == RenderingJob::drawScene)
+		{
+			retireCount++;
+			retired.push(job->sceneContext);
+		}
+	}
 
 	while (!retired.empty())
 	{
-		FrameContext* frameContext = retired.front();
+		SceneContext* sceneContext = retired.front();
 
-		if (!rs->checkSyncPoint(frameContext->sync))
+		if (!rs->checkSyncPoint(sceneContext->sync))
 			break;
 
-		freeList.push_back(frameContext);
 		finishCount++;
+		freeList.push_back(sceneContext);
 
 		retired.pop();
 	}
 
-	if (freeList.empty())
-		return 0;
+	if (queuedFrameCount >= 2) return false;
 
-	frameContext = freeList.back();
+	RenderingJob job;
+	job.job = RenderingJob::clearFrameBuffer;
+
+	assert(renderQueue->put(&job));
+	queuedFrameCount++;
+
+	return true;
+}
+
+void Renderer::endFrame()
+{
+	RenderingJob job;
+	job.job = RenderingJob::present;
+
+	assert(renderQueue->put(&job));
+}
+
+SceneContext* Renderer::beginSubmit()
+{
+	if (freeList.empty())
+		freeList.push_back(new(_pageAlloc(sizeof(SceneContext))) SceneContext(rs));
+
+	sceneContext = freeList.back();
 	freeList.pop_back();
 
-	frameContext->cbufAllocator->init();
+	sceneContext->cbufAllocator->init();
 
-	return frameContext;
+	return sceneContext;
 }
 
 void Renderer::submit(PassEnum passEnum, TechEnum techEnum, Batch* batch)
 {
 	if (!isPassActive[passEnum]) return;
 
-	BatchGroupPtr* ppBatchGroup = &frameContext->batches[passEnum][techEnum][batch->geom->vertexFormat];
+	BatchGroupPtr* ppBatchGroup = &sceneContext->batches[passEnum][techEnum][batch->geom->vertexFormat];
 	BatchGroup* batchGroup = ppBatchGroup->p;
 	if (!batchGroup)
 	{
 		batchGroup = debug_new BatchGroup(heap);
-		batchGroup->get_allocator().setPool(frameContext->heap);
+		batchGroup->get_allocator().setPool(sceneContext->heap);
 		ppBatchGroup->p = batchGroup;
 	}
 	batchGroup->push_back(*batch);
@@ -1005,16 +1057,26 @@ void Renderer::submit(PassEnum passEnum, TechEnum techEnum, Batch* batch)
 
 void Renderer::endSubmit()
 {
-	frameContext->cbufAllocator->commit();
+	sceneContext->cbufAllocator->commit();
 	rs->flush();
 
-	frameQueue->put(&frameContext);
+	RenderingJob job;
+	job.job = RenderingJob::drawScene;
+	job.sceneContext = sceneContext;
+
+	assert(renderQueue->put(&job));
 	submittingCount++;
 }
 
-void Renderer::render(FrameContext* frameContext)
+void Renderer::clearFrameBuffer()
 {
-	Viewport viewport = frameContext->viewport;
+	rs->clearRenderTargetView(0, 0.0f, 0.0f, 0.0f, 1.0f);
+	rs->clearDepthStencilView(0, true, 1.0f, false, 0);
+}
+
+void Renderer::render(SceneContext* sceneContext)
+{
+	Viewport viewport = sceneContext->viewport;
 
 	for (auto view : resViews)
 	{
@@ -1053,8 +1115,8 @@ void Renderer::render(FrameContext* frameContext)
 		}
 	}
 
-	pgn::Float4x3 view = frameContext->view;
-	pgn::Float4x4 proj = frameContext->proj;
+	pgn::Float4x3 view = sceneContext->view;
+	pgn::Float4x4 proj = sceneContext->proj;
 
 	pgn::Float4x4 view4x4;
 	view4x4.float4x3 = view;
@@ -1082,30 +1144,30 @@ void Renderer::render(FrameContext* frameContext)
 	camPos.y = invView[1][3];
 	camPos.z = invView[2][3];
 
-	for (int i = 0; i < frameContext->numPointLights; i++)
+	for (int i = 0; i < sceneContext->numPointLights; i++)
 	{
-		frameContext->vPointLights[i].intensity_spec = frameContext->wPointLights[i].intensity_spec;
-		frameContext->vPointLights[i].pos_att[3] = frameContext->wPointLights[i].pos_att[3];
-		pgn::transformVertex(&frameContext->wPointLights[i].pos_att.float3, &view, &frameContext->vPointLights[i].pos_att.float3);
+		sceneContext->vPointLights[i].intensity_spec = sceneContext->wPointLights[i].intensity_spec;
+		sceneContext->vPointLights[i].pos_att[3] = sceneContext->wPointLights[i].pos_att[3];
+		pgn::transformVertex(&sceneContext->wPointLights[i].pos_att.float3, &view, &sceneContext->vPointLights[i].pos_att.float3);
 	}
 
-	for (int i = 0; i < FrameContext::maxNumDirLights; i++)
+	for (int i = 0; i < SceneContext::maxNumDirLights; i++)
 	{
-		if (frameContext->wDirLights[i].dir_enabled[3] == 0.0f) continue;
+		if (sceneContext->wDirLights[i].dir_enabled[3] == 0.0f) continue;
 
-		frameContext->vDirLights[i].intensity_spec = frameContext->wDirLights[i].intensity_spec;
-		frameContext->vDirLights[i].dir_enabled[3] = frameContext->wDirLights[i].dir_enabled[3];
-		pgn::transformVector(&frameContext->wDirLights[i].dir_enabled.float3, &view, &frameContext->vDirLights[i].dir_enabled.float3);
+		sceneContext->vDirLights[i].intensity_spec = sceneContext->wDirLights[i].intensity_spec;
+		sceneContext->vDirLights[i].dir_enabled[3] = sceneContext->wDirLights[i].dir_enabled[3];
+		pgn::transformVector(&sceneContext->wDirLights[i].dir_enabled.float3, &view, &sceneContext->vDirLights[i].dir_enabled.float3);
 	}
 
 	envConsts[VIEW].p = &view;
 	envConsts[VIEW_PROJ].p = &viewProj;
 	envConsts[INV_PROJ].p = &invProj;
 	envConsts[CAM_POS].p = &camPos;
-	envConsts[W_POINT_LIGHT].p = frameContext->wPointLights;
-	envConsts[V_POINT_LIGHT].p = frameContext->vPointLights;
-	envConsts[W_DIR_LIGHT].p = frameContext->wDirLights;
-	envConsts[V_DIR_LIGHT].p = frameContext->vDirLights;
+	envConsts[W_POINT_LIGHT].p = sceneContext->wPointLights;
+	envConsts[V_POINT_LIGHT].p = sceneContext->vPointLights;
+	envConsts[W_DIR_LIGHT].p = sceneContext->wDirLights;
+	envConsts[V_DIR_LIGHT].p = sceneContext->vDirLights;
 
 	enum BindingPoint
 	{
@@ -1114,9 +1176,6 @@ void Renderer::render(FrameContext* frameContext)
 		, boneMatBlockBindingPoint
 		, materialBlockBindingPoint
 	};
-
-	rs->clearRenderTargetView(0, 0.0f, 0.0f, 0.0f, 1.0f);
-	rs->clearDepthStencilView(0, true, 1.0f, false, 0);
 
 	for (int i = 0; i < cfg.numActivePasses; i++)
 	{
@@ -1167,7 +1226,7 @@ void Renderer::render(FrameContext* frameContext)
 			rs->setViewport(viewport.left, viewport.top, viewport.width, viewport.height, viewport.fullHeight, 0.0f, 1.0f);
 		}
 
-		auto& passBatches = frameContext->batches[pass];
+		auto& passBatches = sceneContext->batches[pass];
 		for (auto& techBatches : passBatches)
 		{
 			TechEnum techEnum = techBatches.first;
@@ -1257,27 +1316,35 @@ void Renderer::render(FrameContext* frameContext)
 			}
 		}
 
-		rs->endPass(i == cfg.numActivePasses - 1 ? frameContext->sync : 0);
+		rs->endPass(i == cfg.numActivePasses - 1 ? sceneContext->sync : 0);
 	}
 
-	frameContext->heap->clear();
+	sceneContext->heap->clear();
 }
 
 void Renderer::finish()
 {
-	frameQueue->finish();
+	renderQueue->finish();
 
-	while (FrameContext** ppFrameContext = (FrameContext**)frameQueue->get())
+	while (RenderingJob* job = (RenderingJob*)renderQueue->get())
 	{
-		retired.push(*ppFrameContext);
+		if (job->job == RenderingJob::present)
+		{
+			queuedFrameCount--;
+		}
+		else if (job->job == RenderingJob::drawScene)
+		{
+			retireCount++;
+			retired.push(job->sceneContext);
+		}
 	}
 
 	while (!retired.empty())
 	{
-		FrameContext* frameContext = retired.front();
+		SceneContext* sceneContext = retired.front();
 
-		freeList.push_back(frameContext);
 		finishCount++;
+		freeList.push_back(sceneContext);
 
 		retired.pop();
 	}

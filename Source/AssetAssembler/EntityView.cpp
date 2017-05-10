@@ -397,5 +397,9 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 		camera->setViewMat(&viewMat);
 	}
 
-	scene->commit(camera);
+	if (graphics->beginFrame())
+	{
+		graphics->draw(scene, camera);
+		graphics->endFrame();
+	}
 }

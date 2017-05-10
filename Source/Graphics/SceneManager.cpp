@@ -159,7 +159,11 @@ void SceneManager::tick(int dt)
 	float aspectRatio = (float)window->getClientWidth() / (float)window->getClientHeight();
 	camera->setFrustumFovLH(60.0f / 180.0f*3.14f, aspectRatio, 0.01f, 1024);
 	camera->setViewport(0, 0, window->getClientWidth(), window->getClientHeight(), window->getClientHeight());
-	scene->commit(camera);
+	if (graphics->beginFrame())
+	{
+		graphics->draw(scene, camera);
+		graphics->endFrame();
+	}
 }
 
 void SceneManager::setCamera(pgn::Float3* eye, pgn::Float3* lookAt)
