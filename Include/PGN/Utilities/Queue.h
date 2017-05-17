@@ -1,10 +1,12 @@
+#include <vector>
+
 namespace pgn {
 
-template<class T, int capacity>
+template<class T>
 class Queue
 {
 public:
-	T a[capacity];
+	std::vector<T> a;
 	int size;
 	int begin, end;
 
@@ -15,17 +17,36 @@ public:
 		end = 0;
 	}
 
+	Queue(int capacity)
+	{
+		a.resize(capacity);
+		size = 0;
+		begin = 0;
+		end = 0;
+	}
+
 	void push(T& e)
 	{
+		if (a.size() == size)
+		{
+			a.emplace_back();
+
+			for (size_t i = a.size() - 1; i > begin; i--)
+				a[i] = a[i - 1];
+
+			begin++;
+			begin %= a.size();
+		}
+
 		a[end++] = e;
-		end %= capacity;
+		end %= a.size();
 		size++;
 	}
 
 	void pop()
 	{
 		begin++;
-		begin %= capacity;
+		begin %= a.size();
 		size--;
 	}
 
@@ -46,7 +67,7 @@ public:
 
 	bool full()
 	{
-		return size == capacity;
+		return size == a.size();
 	}
 };
 

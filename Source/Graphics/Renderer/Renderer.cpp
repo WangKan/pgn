@@ -204,6 +204,7 @@ public:
 };
 
 Renderer::Renderer(pgn::Display displayPrototype, pgn::FileStream* assetStream, pgn::FileStream* cacheStream)
+	: retired(maxNumPrerenderedFrames)
 {
 	getVertexFormatTable();
 

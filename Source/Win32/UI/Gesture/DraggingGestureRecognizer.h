@@ -22,7 +22,7 @@ class DraggingGestureRecognizer : public pgn::DraggingGestureRecognizer, public 
 	InternalState internalState;
 	int start[2];
 
-	pgn::Queue<Report, 4> reportQueue;
+	pgn::Queue<Report> reportQueue;
 	Report curReport;
 
 public:

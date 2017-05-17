@@ -6,6 +6,7 @@
 #include <Windowsx.h>
 
 DraggingGestureRecognizer::DraggingGestureRecognizer()
+	: reportQueue(4)
 {
 	internalState = inputNotRecognized;
 
