@@ -7,8 +7,8 @@
     <ProjectGuid>{CA53D0ED-52F6-4033-969A-C5B85FF6D96E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityEditor</RootNamespace>
-    <AssemblyName>EntityEditor</AssemblyName>
+    <RootNamespace>AssetAssembler</RootNamespace>
+    <AssemblyName>AssetAssembler</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
