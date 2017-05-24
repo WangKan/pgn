@@ -61,7 +61,7 @@ void Graphics::performPendingRemovals()
 	{
 		Model* model = pendingModelRemovals.front();
 
-		if (model->submittingStamp > renderer.finishCount) break;
+		if (model->submittingStamp >= renderer.finishCount) break;
 
 		model->~Model();
 		modelPool->_free(model);
@@ -72,7 +72,7 @@ void Graphics::performPendingRemovals()
 	{
 		EditableModel* model = pendingEditableModelRemovals.front();
 
-		if (model->submittingStamp > renderer.finishCount) break;
+		if (model->submittingStamp >= renderer.finishCount) break;
 
 		model->~EditableModel();
 		editableModelPool->_free(model);
@@ -83,7 +83,7 @@ void Graphics::performPendingRemovals()
 	{
 		NavModel* model = pendingNavModelRemovals.front();
 
-		if (model->submittingStamp > renderer.finishCount) break;
+		if (model->submittingStamp >= renderer.finishCount) break;
 
 		model->~NavModel();
 		navModelPool->_free(model);
