@@ -33,6 +33,7 @@ void buildPerspectiveProjMatFovLH(pgn::Float4x4* mat, float verticalFov, float a
 	*_h = h;
 }
 
+#ifdef PGN_USE_D3D
 void buildOrthogonalProjMatLH(pgn::Float4x3* _mat, float w, float h, float n, float f)
 {
 	pgn::Float4x3& mat = *_mat;
@@ -42,3 +43,14 @@ void buildOrthogonalProjMatLH(pgn::Float4x3* _mat, float w, float h, float n, fl
 	mat[0][2] = 0;		mat[1][2] = 0;		mat[2][2] = 1 / (f - n);
 	mat[0][3] = 0;		mat[1][3] = 0;		mat[2][3] = -n / (f - n);
 }
+#else
+void buildOrthogonalProjMatLH(pgn::Float4x3* _mat, float w, float h, float n, float f)
+{
+	pgn::Float4x3& mat = *_mat;
+
+	mat[0][0] = 2 / w;	mat[1][0] = 0;		mat[2][0] = 0;
+	mat[0][1] = 0;		mat[1][1] = 2 / h;	mat[2][1] = 0;
+	mat[0][2] = 0;		mat[1][2] = 0;		mat[2][2] = 2 / (f - n);
+	mat[0][3] = 0;		mat[1][3] = 0;		mat[2][3] = -(f + n) / (f - n);
+}
+#endif
