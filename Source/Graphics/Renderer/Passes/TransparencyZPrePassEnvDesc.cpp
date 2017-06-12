@@ -6,8 +6,8 @@ static DepthStencilBufDesc depthStencilBuf =
 {
 	DEPTH_STENCIL_MAP_DS_VIEW,
 
-	true,
-	1.0f,
+	false,
+	0,
 
 	false,
 	0
@@ -28,4 +28,4 @@ static EnvDesc desc =
 	sizeof(constEnums) / sizeof(EnvConstEnum)
 };
 
-EnvDesc* zPrePassEnvDesc = &desc;
+EnvDesc* transparencyZPrePassEnvDesc = &desc;

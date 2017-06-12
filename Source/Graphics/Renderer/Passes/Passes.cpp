@@ -4,6 +4,7 @@
 #include "LightingPassEnvDesc.h"
 #include "LightVolumePassesEnvDescs.h"
 #include "Passes.h"
+#include "TransparencyZPrePassEnvDesc.h"
 #include "ZPrePassEnvDesc.h"
 
 EnvDesc* envDescs[numPasses] =

@@ -71,6 +71,7 @@
     <ClInclude Include="Renderer\Passes\RTs\LightIndexMap.h" />
     <ClInclude Include="Renderer\Passes\RTs\ResourceViewDesc.h" />
     <ClInclude Include="Renderer\Passes\RTs\RTs.h" />
+    <ClInclude Include="Renderer\Passes\TransparencyZPrePassEnvDesc.h" />
     <ClInclude Include="Renderer\Passes\ZPrePassEnvDesc.h" />
     <ClInclude Include="Renderer\Techs\LightIndexingTechDesc.h" />
     <ClInclude Include="Renderer\Techs\NavMeshTechDesc.h" />
@@ -152,6 +153,7 @@
     <ClCompile Include="Renderer\Passes\RTs\GBufs.cpp" />
     <ClCompile Include="Renderer\Passes\RTs\LightIndexMap.cpp" />
     <ClCompile Include="Renderer\Passes\RTs\RTs.cpp" />
+    <ClCompile Include="Renderer\Passes\TransparencyZPrePassEnvDesc.cpp" />
     <ClCompile Include="Renderer\Passes\ZPrePassEnvDesc.cpp" />
     <ClCompile Include="Renderer\Techs\LightIndexingTechDesc.cpp" />
     <ClCompile Include="Renderer\Techs\NavMeshTechDesc.cpp" />

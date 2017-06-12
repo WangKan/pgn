@@ -324,6 +324,9 @@
     <ClInclude Include="Renderer\Techs\PipeStates\StaticMeshForwardShadingPassPipeStateDesc.h">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\Passes\TransparencyZPrePassEnvDesc.h">
+      <Filter>Source Files\Renderer\Passes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Model.cpp">
@@ -490,6 +493,9 @@
     </ClCompile>
     <ClCompile Include="Renderer\Techs\PipeStates\StaticMeshForwardShadingPassPipeStateDesc.cpp">
       <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Passes\TransparencyZPrePassEnvDesc.cpp">
+      <Filter>Source Files\Renderer\Passes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
