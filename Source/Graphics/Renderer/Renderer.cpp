@@ -1211,13 +1211,13 @@ void Renderer::render(SceneContext* sceneContext)
 					rs->clearRenderTargetView(rtView, rt->clearValue[0], rt->clearValue[1], rt->clearValue[2], rt->clearValue[3]);
 			}
 
-			if (env->depthStencilBuf.depthClearNeeded || env->depthStencilBuf.stencilClearNeeded)
+			if (env->depthStencilBuf.view && (env->depthStencilBuf.depthClearNeeded || env->depthStencilBuf.stencilClearNeeded))
 				rs->clearDepthStencilView((pgn::DepthStencilView*)env->depthStencilBuf.view->view, env->depthStencilBuf.depthClearNeeded, env->depthStencilBuf.depthClearValue, env->depthStencilBuf.stencilClearNeeded, env->depthStencilBuf.stencilClearValue);
 
 			ResourceView* rtView = env->offscreenRTs.size() ? env->offscreenRTs[0].view : env->depthStencilBuf.view;
 			pgn::TextureDesc* texDesc = rtView->tex->getDesc();
 
-			rs->beginOffscreenPass((int)env->offscreenRTs.size(), rtViews, (pgn::DepthStencilView*)env->depthStencilBuf.view->view);
+			rs->beginOffscreenPass((int)env->offscreenRTs.size(), rtViews, env->depthStencilBuf.view ? (pgn::DepthStencilView*)env->depthStencilBuf.view->view : 0);
 			rs->setViewport(0, 0, texDesc->width, texDesc->height, texDesc->height, 0.0f, 1.0f);
 		}
 		else
