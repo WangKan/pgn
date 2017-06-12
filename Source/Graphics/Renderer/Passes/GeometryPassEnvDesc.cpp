@@ -5,11 +5,11 @@
 static RenderTargetDesc rts[] =
 {
 	G_BUF_0_RT_VIEW,
-	true,
+	false,
 	0.0f, 0.0f, 0.0f, 0.0f,
 
 	G_BUF_1_RT_VIEW,
-	true,
+	false,
 	0.0f, 0.0f, 0.0f, 0.0f
 };
 

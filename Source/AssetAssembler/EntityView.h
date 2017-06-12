@@ -18,6 +18,8 @@ public ref class EntityView
 	pgn::Scene* scene;
 
 	pgn::Camera* camera;
+	pgn::Model* skyBox;
+	pgn::SceneEntity* sceneSkyBox;
 	pgn::DirectionalLight* dirLight;
 	pgn::SceneDirectionalLight* sceneDirLight;
 
@@ -37,6 +39,8 @@ public ref class EntityView
 	pgn::DraggingGestureRecognizer* draggingGestureRecognizer;
 
 	bool viewMatDirty;
+
+	std::string getFullName(String^ fileName);
 
 public:
 	EntityView(IntPtr^ hWnd, Options^ options);

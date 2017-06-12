@@ -1,4 +1,5 @@
 #include "../Passes/Passes.h"
+#include "PipeStates/CopyingPassPipeStateDesc.h"
 #include "PipeStates/LightingPassPipeStateDesc.h"
 #include "TechDesc.h"
 
@@ -11,6 +12,7 @@ namespace {
 		Constructor()
 		{
 			pipeStateDescs[LIGHTING_PASS] = lightingPassPipeStateDesc;
+			pipeStateDescs[COPYING_PASS] = copyingPassPipeStateDesc;
 		}
 	};
 

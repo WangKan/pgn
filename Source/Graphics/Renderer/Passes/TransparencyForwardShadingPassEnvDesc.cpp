@@ -22,9 +22,10 @@ static DepthStencilBufDesc depthStencilBuf =
 
 static unsigned constEnums[] =
 {
-	  INV_PROJ
-	, V_POINT_LIGHT
-	, V_DIR_LIGHT
+	VIEW_PROJ
+	, CAM_POS
+	, W_POINT_LIGHT
+	, W_DIR_LIGHT
 };
 
 static EnvDesc desc =
@@ -36,4 +37,4 @@ static EnvDesc desc =
 	sizeof(constEnums) / sizeof(EnvConstEnum)
 };
 
-EnvDesc* lightingPassEnvDesc = &desc;
+EnvDesc* transparencyForwardShadingPassEnvDesc = &desc;

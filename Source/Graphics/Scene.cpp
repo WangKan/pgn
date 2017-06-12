@@ -24,6 +24,20 @@ void Scene::_free()
 	delete this;
 }
 
+pgn::SceneEntity* Scene::addSkyBox(pgn::Model* model, bool useInstancedDrawing)
+{
+	sceneSkyBoxes.emplace_front(dynamic_cast<Model*>(model), useInstancedDrawing);
+	SceneEntity* sceneEntity = &sceneSkyBoxes.front();
+	sceneEntity->it = sceneSkyBoxes.begin();
+	return sceneEntity;
+}
+
+void Scene::removeSkyBox(pgn::SceneEntity* _sceneEntity)
+{
+	SceneEntity* sceneEntity = (SceneEntity*)_sceneEntity;
+	sceneSkyBoxes.erase(sceneEntity->it);
+}
+
 pgn::SceneEntity* Scene::addModel(pgn::Model* model, bool useInstancedDrawing)
 {
 	sceneModels.emplace_front(dynamic_cast<Model*>(model), useInstancedDrawing);

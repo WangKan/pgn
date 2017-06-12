@@ -58,6 +58,7 @@
     <ClInclude Include="Renderer\Assets\PNT.h" />
     <ClInclude Include="Renderer\Assets\PNTFactory.h" />
     <ClInclude Include="Renderer\NavGeometry.h" />
+    <ClInclude Include="Renderer\Passes\CopyingPassEnvDesc.h" />
     <ClInclude Include="Renderer\Passes\EnvConstEnum.h" />
     <ClInclude Include="Renderer\Passes\EnvDesc.h" />
     <ClInclude Include="Renderer\Passes\ForwardShadingPassEnvDesc.h" />
@@ -69,13 +70,17 @@
     <ClInclude Include="Renderer\Passes\RTs\DepthStencilMap.h" />
     <ClInclude Include="Renderer\Passes\RTs\GBufs.h" />
     <ClInclude Include="Renderer\Passes\RTs\LightIndexMap.h" />
+    <ClInclude Include="Renderer\Passes\RTs\RawImage.h" />
     <ClInclude Include="Renderer\Passes\RTs\ResourceViewDesc.h" />
     <ClInclude Include="Renderer\Passes\RTs\RTs.h" />
+    <ClInclude Include="Renderer\Passes\SkyBoxRenderingPassEnvDesc.h" />
+    <ClInclude Include="Renderer\Passes\TransparencyForwardShadingPassEnvDesc.h" />
     <ClInclude Include="Renderer\Passes\TransparencyZPrePassEnvDesc.h" />
     <ClInclude Include="Renderer\Passes\ZPrePassEnvDesc.h" />
     <ClInclude Include="Renderer\Techs\LightIndexingTechDesc.h" />
     <ClInclude Include="Renderer\Techs\NavMeshTechDesc.h" />
     <ClInclude Include="Renderer\Techs\PipeStates\Common.h" />
+    <ClInclude Include="Renderer\Techs\PipeStates\CopyingPassPipeStateDesc.h" />
     <ClInclude Include="Renderer\Techs\PipeStates\LightIndexingPassesPipeStateDescs.h" />
     <ClInclude Include="Renderer\Techs\PipeStates\LightingPassPipeStateDesc.h" />
     <ClInclude Include="Renderer\Techs\PipeStates\LightVolumePassesPipeStateDescs.h" />
@@ -98,11 +103,13 @@
     <ClInclude Include="Renderer\Techs\PipeStates\SkinnedMeshGeometryPassPipeStateDesc.h" />
     <ClInclude Include="Renderer\Techs\PipeStates\SkinnedMeshForwardShadingPassPipeStateDesc.h" />
     <ClInclude Include="Renderer\Techs\PipeStates\SkinnedMeshZOnlyPassPipeStateDesc.h" />
+    <ClInclude Include="Renderer\techs\PipeStates\SkyBoxRenderingPassPipeStateDesc.h" />
     <ClInclude Include="Renderer\Techs\PipeStates\StaticMeshGeometryPassPipeStateDesc.h" />
     <ClInclude Include="Renderer\Techs\PipeStates\StaticMeshForwardShadingPassPipeStateDesc.h" />
     <ClInclude Include="Renderer\Techs\PipeStates\StaticMeshZOnlyPassPipeStateDesc.h" />
     <ClInclude Include="Renderer\Techs\PostProcessingTechDesc.h" />
     <ClInclude Include="Renderer\Techs\SkinnedMeshTechDesc.h" />
+    <ClInclude Include="Renderer\techs\SkyBoxTechDesc.h" />
     <ClInclude Include="Renderer\Techs\StaticMeshTechDesc.h" />
     <ClInclude Include="Renderer\Techs\TechDesc.h" />
     <ClInclude Include="Renderer\Techs\Techs.h" />
@@ -143,6 +150,7 @@
     <ClCompile Include="Renderer\Assets\PNMFactory.cpp" />
     <ClCompile Include="Renderer\Assets\PNT.cpp" />
     <ClCompile Include="Renderer\Assets\PNTFactory.cpp" />
+    <ClCompile Include="Renderer\Passes\CopyingPassEnvDesc.cpp" />
     <ClCompile Include="Renderer\Passes\ForwardShadingPassEnvDesc.cpp" />
     <ClCompile Include="Renderer\Passes\GeometryPassEnvDesc.cpp" />
     <ClCompile Include="Renderer\Passes\LightIndexingPassesEnvDescs.cpp" />
@@ -152,12 +160,16 @@
     <ClCompile Include="Renderer\Passes\RTs\DepthStencilMap.cpp" />
     <ClCompile Include="Renderer\Passes\RTs\GBufs.cpp" />
     <ClCompile Include="Renderer\Passes\RTs\LightIndexMap.cpp" />
+    <ClCompile Include="Renderer\Passes\RTs\RawImage.cpp" />
     <ClCompile Include="Renderer\Passes\RTs\RTs.cpp" />
+    <ClCompile Include="Renderer\Passes\SkyBoxRenderingPassEnvDesc.cpp" />
+    <ClCompile Include="Renderer\Passes\TransparencyForwardShadingPassEnvDesc.cpp" />
     <ClCompile Include="Renderer\Passes\TransparencyZPrePassEnvDesc.cpp" />
     <ClCompile Include="Renderer\Passes\ZPrePassEnvDesc.cpp" />
     <ClCompile Include="Renderer\Techs\LightIndexingTechDesc.cpp" />
     <ClCompile Include="Renderer\Techs\NavMeshTechDesc.cpp" />
     <ClCompile Include="Renderer\Techs\PipeStates\Common.cpp" />
+    <ClCompile Include="Renderer\Techs\PipeStates\CopyingPassPipeStateDesc.cpp" />
     <ClCompile Include="Renderer\Techs\PipeStates\LightIndexingPassesPipeStateDescs.cpp" />
     <ClCompile Include="Renderer\Techs\PipeStates\LightingPassPipeStateDesc.cpp" />
     <ClCompile Include="Renderer\Techs\PipeStates\LightVolumePassesPipeStateDescs.cpp" />
@@ -166,11 +178,13 @@
     <ClCompile Include="Renderer\Techs\PipeStates\SkinnedMeshGeometryPassPipeStateDesc.cpp" />
     <ClCompile Include="Renderer\Techs\PipeStates\SkinnedMeshForwardShadingPassPipeStateDesc.cpp" />
     <ClCompile Include="Renderer\Techs\PipeStates\SkinnedMeshZOnlyPassPipeStateDesc.cpp" />
+    <ClCompile Include="Renderer\techs\PipeStates\SkyBoxRenderingPassPipeStateDesc.cpp" />
     <ClCompile Include="Renderer\Techs\PipeStates\StaticMeshGeometryPassPipeStateDesc.cpp" />
     <ClCompile Include="Renderer\Techs\PipeStates\StaticMeshForwardShadingPassPipeStateDesc.cpp" />
     <ClCompile Include="Renderer\Techs\PipeStates\StaticMeshZOnlyPassPipeStateDesc.cpp" />
     <ClCompile Include="Renderer\Techs\PostProcessingTechDesc.cpp" />
     <ClCompile Include="Renderer\Techs\SkinnedMeshTechDesc.cpp" />
+    <ClCompile Include="Renderer\techs\SkyBoxTechDesc.cpp" />
     <ClCompile Include="Renderer\Techs\StaticMeshTechDesc.cpp" />
     <ClCompile Include="Renderer\Techs\Techs.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -376,6 +390,8 @@
     <PropertyPageSchema Include="GLSLCompile.xml" />
   </ItemGroup>
   <ItemGroup>
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\copyingPassPS.glsl" />
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\copyingPassVS.glsl" />
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\lightIndexingPassesPS.glsl" />
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\lightIndexingPassesVS.glsl" />
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\lightingPassPS.glsl" />
@@ -392,6 +408,8 @@
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\skinnedMeshForwardShadingPassVS.glsl" />
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\skinnedMeshZOnlyPassPS.glsl" />
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\skinnedMeshZOnlyPassVS.glsl" />
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skyBoxRenderingPassPS.glsl" />
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skyBoxRenderingPassVS.glsl" />
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshGeometryPassPS.glsl" />
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshGeometryPassVS.glsl" />
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshForwardShadingPassPS.glsl" />

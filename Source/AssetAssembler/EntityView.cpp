@@ -10,6 +10,7 @@
 #include <PGN/Graphics/SkeletalModel.h>
 #include <PGN/Math/Math.h>
 #include <PGN/Platform/DebugHeap.h>
+#include <PGN/Platform/FileStream.h>
 #include <PGN/Platform/UI/Gesture/DraggingGestureRecognizer.h>
 #include <PGN/Platform/UI/Window.h>
 #include <PGN/Utilities/Clock.h>
@@ -28,16 +29,10 @@ EntityView::EntityView(IntPtr^ hWnd, Options^ options)
 
 	_beginDebugHeap();
 
-	wnd = pgn::Window::create(8, 8, 8, 8, 24, 8, 1, (HWND)hWnd->ToPointer());
+	wnd = pgn::Window::create(8, 8, 8, 8, 0, 0, 1, (HWND)hWnd->ToPointer());
 
-	std::string tempDir;
-
-	char* str = (char*)(void*)System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(options->tempDir);
-	tempDir = str;
-	System::Runtime::InteropServices::Marshal::FreeHGlobal(System::IntPtr((void*)str));
-
-	assetStream1 = pgn::createStdFileStream(tempDir.c_str());
-	assetStream2 = pgn::createStdFileStream(tempDir.c_str());
+	assetStream1 = pgn::createStdFileStream("");
+	assetStream2 = pgn::createStdFileStream("");
 	cacheStream = pgn::createStdFileStream("");
 
 	graphics = pgn::Graphics::create(wnd->getDisplay(), assetStream1, /*cacheStream*/0);
@@ -46,6 +41,12 @@ EntityView::EntityView(IntPtr^ hWnd, Options^ options)
 	scene = graphics->createScene();
 
 	camera = graphics->createCamera();
+
+	skyBox = graphics->createModel();
+	skyBox->setMesh("skybox.PNM");
+	skyBox->setDiffuseMap(0, "black");
+	sceneSkyBox = scene->addSkyBox(skyBox, false);
+	sceneSkyBox->setScale(1.0f, 1.0f);
 
 	dirLight = graphics->createDirectionalLight();
 	sceneDirLight = scene->add(dirLight);
@@ -80,11 +81,13 @@ EntityView::EntityView(IntPtr^ hWnd, Options^ options)
 
 EntityView::~EntityView()
 {
+	scene->removeSkyBox(sceneSkyBox);
 	scene->remove(sceneDirLight);
 	scene->removeSkeletalModel(sceneEntity);
 	scene->removeNavModel(navModelSceneEntity);
 	scene->destroy();
 
+	skyBox->destroy();
 	camera->destroy();
 	dirLight->destroy();
 
@@ -158,6 +161,15 @@ pgn::Float4x3 viewMat =
 
 pgn::Float4x3 tempViewMat;
 
+pgn::Float4x3 invViewMat;
+
+pgn::Float4x3 skyBoxWorldMat =
+{
+	1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 1, 0,
+};
+
 pgn::Float3 dir1 =
 {
 	0, 0, 1
@@ -208,7 +220,7 @@ void initViewMat(float minFov)
 {
 	center = (aabb.min + aabb.max) / 2.0f;
 
-	float r = len(center - aabb.min);
+	float r = aabb.min.x > aabb.max.x || aabb.min.y > aabb.max.y || aabb.min.z > aabb.max.z ? 0 : len(center - aabb.min);
 	float dist = r / sin(minFov / 2.0f);
 
 	viewMat[0][0] = 1.0f;		viewMat[1][0] = 0.0f;		viewMat[2][0] = 0.0f;
@@ -225,10 +237,29 @@ void copy(pgn::Float4x3& dest, pgn::Float4x3& src)
 }
 #pragma managed(pop)
 
-void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
+std::string EntityView::getFullName(String^ fileName)
 {
 	using namespace System::Runtime::InteropServices;
 
+	String^ fullName;
+
+	if (System::IO::Path::IsPathRooted(fileName))
+		fullName = fileName;
+	else
+		fullName = options->tempDir + fileName;
+
+	char* cstr;
+	std::string str;
+
+	cstr = (char*)(void*)Marshal::StringToHGlobalAnsi(fullName);
+	str = cstr;
+	Marshal::FreeHGlobal(System::IntPtr((void*)cstr));
+
+	return str;
+}
+
+void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
+{
 	float aspectRatio = (float)wnd->getClientWidth() / (float)wnd->getClientHeight();
 	float vFov = options->verticalFovFixed ? options->fov : options->fov / aspectRatio;
 
@@ -240,11 +271,7 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 
 	if (dirtyFlags->mesh)
 	{
-		char* str;
-
-		str = (char*)(void*)Marshal::StringToHGlobalAnsi(props->mesh);
-		model->setMesh(str);
-		Marshal::FreeHGlobal(System::IntPtr((void*)str));
+		model->setMesh(getFullName(props->mesh).c_str());
 
 		if (props->diffuseMap == "")
 		{
@@ -252,9 +279,7 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 		}
 		else
 		{
-			str = (char*)(void*)Marshal::StringToHGlobalAnsi(options->tempDir + Utilities::getFileName(props->diffuseMap, ".TGA") + ".dxt.PNT");
-			model->setDiffuseMap(0, str);
-			Marshal::FreeHGlobal(System::IntPtr((void*)str));
+			model->setDiffuseMap(0, getFullName(Utilities::getFileName(props->diffuseMap, ".TGA") + ".dxt.PNT").c_str());
 		}
 
 		viewMatDirty = true;
@@ -268,9 +293,7 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 		}
 		else
 		{
-			char* str = (char*)(void*)Marshal::StringToHGlobalAnsi(options->tempDir + Utilities::getFileName(props->diffuseMap, ".TGA") + ".dxt.PNT");
-			model->setDiffuseMap(0, str);
-			Marshal::FreeHGlobal(System::IntPtr((void*)str));
+			model->setDiffuseMap(0, getFullName(Utilities::getFileName(props->diffuseMap, ".TGA") + ".dxt.PNT").c_str());
 		}
 	}
 
@@ -283,11 +306,10 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 		for each(Anim^ animProp in props->anims)
 		{
 			pgn::Animation* anim = animFactory->createAnimation();
+			std::string fullName = getFullName(animProp->fileName);
 
-			char* str = (char*)(void*)Marshal::StringToHGlobalAnsi(animProp->fileName);
-			anim->set(str);
-			tmp[str] = anim;
-			Marshal::FreeHGlobal(System::IntPtr((void*)str));
+			anim->set(fullName.c_str());
+			tmp[fullName.c_str()] = anim;
 		}
 
 		for (auto& entry : *anims)
@@ -298,12 +320,7 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 
 	if (dirtyFlags->navMesh)
 	{
-		char* str;
-
-		str = (char*)(void*)Marshal::StringToHGlobalAnsi(props->navMesh);
-		navModel->setMesh(str);
-		Marshal::FreeHGlobal(System::IntPtr((void*)str));
-
+		navModel->setMesh(getFullName(props->navMesh).c_str());
 		viewMatDirty = true;
 	}
 
@@ -343,11 +360,11 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 			}
 		}
 
-		float hFov = vFov * aspectRatio;
-		initViewMat(min(vFov, hFov));
-
 		delete min;
 		delete max;
+
+		float hFov = vFov * aspectRatio;
+		initViewMat(min(vFov, hFov));
 	}
 
 	if (dirtyFlags->curAnim)
@@ -356,9 +373,7 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 		{
 			Anim^ animProp = (Anim^)o;
 
-			char* str = (char*)(void*)Marshal::StringToHGlobalAnsi(animProp->fileName);
-			skel->playAnimation((*anims)[str]);
-			Marshal::FreeHGlobal(System::IntPtr((void*)str));
+			skel->playAnimation((*anims)[getFullName(animProp->fileName)]);
 		}
 	}
 
@@ -387,6 +402,12 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 
 		pgn::buildViewMat(&viewMat, &center, yaw, pitch, &tempViewMat);
 		camera->setViewMat(&tempViewMat);
+
+		pgn::calculateInverseViewMat(&tempViewMat, &invViewMat);
+		skyBoxWorldMat[0][3] = invViewMat[0][3];
+		skyBoxWorldMat[1][3] = invViewMat[1][3];
+		skyBoxWorldMat[2][3] = invViewMat[2][3];
+		sceneSkyBox->setWorldMat(&skyBoxWorldMat);
 	}
 	else if (draggingGestureRecognizer->getState() == pgn::gestureEnded)
 	{
@@ -395,6 +416,12 @@ void EntityView::update(EntityProperties^ props, DirtyFlags^ dirtyFlags)
 	else
 	{
 		camera->setViewMat(&viewMat);
+
+		pgn::calculateInverseViewMat(&viewMat, &invViewMat);
+		skyBoxWorldMat[0][3] = invViewMat[0][3];
+		skyBoxWorldMat[1][3] = invViewMat[1][3];
+		skyBoxWorldMat[2][3] = invViewMat[2][3];
+		sceneSkyBox->setWorldMat(&skyBoxWorldMat);
 	}
 
 	if (graphics->beginFrame())

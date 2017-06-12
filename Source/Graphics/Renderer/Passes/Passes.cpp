@@ -1,9 +1,12 @@
+#include "CopyingPassEnvDesc.h"
 #include "ForwardShadingPassEnvDesc.h"
 #include "GeometryPassEnvDesc.h"
 #include "LightIndexingPassesEnvDescs.h"
 #include "LightingPassEnvDesc.h"
 #include "LightVolumePassesEnvDescs.h"
 #include "Passes.h"
+#include "SkyBoxRenderingPassEnvDesc.h"
+#include "TransparencyForwardShadingPassEnvDesc.h"
 #include "TransparencyZPrePassEnvDesc.h"
 #include "ZPrePassEnvDesc.h"
 
@@ -25,6 +28,8 @@ EnvDesc* envDescs[numPasses] =
 	lightIndexingPass4PipeStateEnvDesc,
 	lightingPassEnvDesc,
 	forwardShadingPassEnvDesc,
+	skyBoxRenderingPassEnvDesc,
 	transparencyZPrePassEnvDesc,
 	transparencyForwardShadingPassEnvDesc,
+	copyingPassEnvDesc,
 };

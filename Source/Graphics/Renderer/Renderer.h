@@ -216,6 +216,7 @@ public:
 	std::map<std::string, pgn::Texture*> texBindingPointMap;
 
 	pgn::ResourceHandle* gray;
+	pgn::ResourceHandle* black;
 	pgn::ResourceHandle* screenAlignedQuad;
 	pgn::ResourceHandle* sphere;
 
@@ -242,7 +243,6 @@ public:
 	SceneContext* beginSubmit();
 	void submit(PassEnum passEnum, TechEnum techEnum, Batch* batch);
 	void endSubmit();
-	void clearFrameBuffer();
 	void render(SceneContext* sceneContext);
 	void finish();
 };

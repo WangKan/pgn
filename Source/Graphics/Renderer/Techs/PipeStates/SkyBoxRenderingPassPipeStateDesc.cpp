@@ -4,22 +4,19 @@
 
 using namespace pgn;
 
-extern "C" char lightingPassVS[];
-extern "C" char lightingPassPS[];
+extern "C" char skyBoxRenderingPassVS[];
+extern "C" char skyBoxRenderingPassPS[];
 
 static SamplerDesc* samplerDescs[] =
 {
-	  pointSamplerDesc
-	, pointSamplerDesc
-	, pointSamplerDesc
-	, pointSamplerDesc
+	  diffuseMapSamplerDesc
 };
 
 static DepthStencilStateDesc depthStencilStateDesc =
 {
 	true,					// depthEnable
 	false,					// depthWrite
-	NOT_EQUAL,				// depthFunc
+	EQUAL,					// depthFunc
 
 	false,					// stencilEnable
 	0xff,					// stencilReadMask
@@ -40,8 +37,8 @@ static DepthStencilStateDesc depthStencilStateDesc =
 
 static PipeStateDesc pipeStateDesc =
 {
-	lightingPassVS,
-	lightingPassPS,
+	skyBoxRenderingPassVS,
+	skyBoxRenderingPassPS,
 	samplerDescs,
 	sizeof(samplerDescs) / sizeof(samplerDescs[0]),
 	commonRasterizerStateDesc,
@@ -49,4 +46,4 @@ static PipeStateDesc pipeStateDesc =
 	blendingDisabledStateDesc
 };
 
-PipeStateDesc* lightingPassPipeStateDesc = &pipeStateDesc;
+PipeStateDesc* skyBoxRenderingPassPipeStateDesc = &pipeStateDesc;

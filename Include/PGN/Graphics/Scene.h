@@ -14,6 +14,9 @@ class SkeletalModel;
 class Scene : public Interface
 {
 public:
+	virtual SceneEntity* addSkyBox(Model* model, bool useInstancedDrawing) = 0;
+	virtual void removeSkyBox(SceneEntity* sceneEntity) = 0;
+
 	virtual SceneEntity* addModel(Model* model, bool useInstancedDrawing) = 0;
 	virtual void removeModel(SceneEntity* sceneEntity) = 0;
 

@@ -187,7 +187,7 @@ void createSwapChain(HDC hDC, int redBits, int greenBits, int blueBits, int alph
 	int formats[2];
 	unsigned numFormats;
 	wglChoosePixelFormatARB(hDC, (int*)&attribs, NULL, 2, formats, &numFormats);
-	assert(numFormats == 1);
+	//assert(numFormats == 1);
 	PIXELFORMATDESCRIPTOR pfd;
 	SetPixelFormat(hDC, formats[0], &pfd);
 }

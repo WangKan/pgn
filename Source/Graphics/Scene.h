@@ -8,6 +8,7 @@
 class Scene : public pgn::Scene
 {
 public:
+	SceneEntity::StdList sceneSkyBoxes;
 	SceneEntity::StdList sceneModels;
 	SceneEntity::StdList sceneSkeletalModels;
 	SceneEntity::StdList sceneNavModels;
@@ -20,6 +21,9 @@ public:
 	Scene();
 	virtual void dispose();
 	virtual void _free();
+
+	virtual pgn::SceneEntity* addSkyBox(pgn::Model* model, bool useInstancedDrawing);
+	virtual void removeSkyBox(pgn::SceneEntity* sceneEntity);
 
 	virtual pgn::SceneEntity* addModel(pgn::Model* model, bool useInstancedDrawing);
 	virtual void removeModel(pgn::SceneEntity* sceneEntity);

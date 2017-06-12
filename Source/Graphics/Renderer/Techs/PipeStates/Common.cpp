@@ -57,7 +57,7 @@ static DepthStencilStateDesc _commonDepthStencilStateDesc =
 {
 	true,					// depthEnable
 	true,					// depthWrite
-	LESS,					// depthFunc
+	LESS_EQUAL,				// depthFunc
 
 	false,					// stencilEnable
 	0xff,					// stencilReadMask

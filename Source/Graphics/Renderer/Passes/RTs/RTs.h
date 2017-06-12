@@ -7,6 +7,7 @@ enum ResourceViewEnum
 	G_BUF_0_RT_VIEW,
 	G_BUF_1_RT_VIEW,
 	LIGHT_INDEX_MAP_RT_VIEW,
+	RAW_IMAGE_RT_VIEW,
 
 	numResViews
 };

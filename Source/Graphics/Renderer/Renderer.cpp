@@ -76,8 +76,10 @@ PassEnum lightIndexedDeferredRenderingActivePasses[] =
 	LIGHT_INDEXING_PASS_4,
 	LIGHTING_PASS,
 	FORWARD_SHADING_PASS,
+	SKY_BOX_RENDERING_PASS,
 	TRANSPARENCY_Z_PRE_PASS,
 	TRANSPARENCY_SHADING_PASS,
+	COPYING_PASS,
 };
 
 PassEnum lightIndexedDeferredRenderingOpaqueEntityPasses[] =
@@ -87,7 +89,8 @@ PassEnum lightIndexedDeferredRenderingOpaqueEntityPasses[] =
 
 PassEnum lightIndexedDeferredRenderingPostProcessingPasses[] =
 {
-	LIGHTING_PASS
+	LIGHTING_PASS,
+	COPYING_PASS
 };
 
 RendererConfig lightIndexedDeferredRendering =
@@ -121,14 +124,21 @@ PassEnum lightIndexedForwardRenderingActivePasses[] =
 	LIGHT_VOLUME_FRONT_FACE_PASS_4,
 	LIGHT_INDEXING_PASS_4,
 	FORWARD_SHADING_PASS,
+	SKY_BOX_RENDERING_PASS,
 	TRANSPARENCY_Z_PRE_PASS,
 	TRANSPARENCY_SHADING_PASS,
+	COPYING_PASS,
 };
 
 PassEnum lightIndexedForwardRenderingOpaqueEntityPasses[] =
 {
 	Z_PRE_PASS,
 	FORWARD_SHADING_PASS
+};
+
+PassEnum lightIndexedForwardRenderingPostProcessingPasses[] =
+{
+	COPYING_PASS
 };
 
 RendererConfig lightIndexedForwardRendering =
@@ -142,8 +152,8 @@ RendererConfig lightIndexedForwardRendering =
 	transparentEntityPasses,
 	sizeof(transparentEntityPasses) / sizeof(transparentEntityPasses[0]),
 
-	0,
-	0
+	lightIndexedForwardRenderingPostProcessingPasses,
+	sizeof(lightIndexedForwardRenderingPostProcessingPasses) / sizeof(lightIndexedForwardRenderingPostProcessingPasses[0])
 };
 
 SceneContext::SceneContext(pgn::RenderingSystem* rs)
@@ -176,7 +186,6 @@ struct RenderingJob
 {
 	enum Job
 	{
-		clearFrameBuffer,
 		drawScene,
 		present
 	};
@@ -213,11 +222,7 @@ public:
 	{
 		RenderingJob* job = (RenderingJob*)p;
 
-		if (job->job == RenderingJob::clearFrameBuffer)
-		{
-			renderer->clearFrameBuffer();
-		}
-		else if (job->job == RenderingJob::drawScene)
+		if (job->job == RenderingJob::drawScene)
 		{
 			renderer->render(job->sceneContext);
 		}
@@ -465,6 +470,28 @@ void Renderer::beginDraw(pgn::Window* wnd, RendererConfig* _cfg)
 
 		pgn::Texture* tex = rs->createTexture(&texDesc, levels);
 		gray = texMgr->addResource("gray", tex);
+	}
+
+	// 创建黑色纹理
+	{
+		unsigned char level0[][4] =
+		{
+			0, 0, 0, 255
+		};
+
+		void* levels[] =
+		{
+			level0
+		};
+
+		pgn::TextureDesc texDesc;
+		texDesc.format = pgn::RGBA8;
+		texDesc.width = 1;
+		texDesc.height = 1;
+		texDesc.numLevels = sizeof(levels) / sizeof(levels[0]);
+
+		pgn::Texture* tex = rs->createTexture(&texDesc, levels);
+		black = texMgr->addResource("black", tex);
 	}
 
 	GeometryHelper helper(rs);
@@ -952,6 +979,13 @@ void Renderer::endDraw()
 		tex->destroy();
 	}
 
+	// 删除黑色纹理
+	{
+		pgn::Texture* tex = (pgn::Texture*)black->core();
+		texMgr->removeResource(black);
+		tex->destroy();
+	}
+
 	GeometryHelper helper(rs);
 
 	// 删除screen-aligned quad
@@ -1010,10 +1044,6 @@ bool Renderer::beginFrame()
 
 	if (queuedFrameCount >= 2) return false;
 
-	RenderingJob job;
-	job.job = RenderingJob::clearFrameBuffer;
-
-	assert(renderQueue->put(&job));
 	queuedFrameCount++;
 
 	return true;
@@ -1066,12 +1096,6 @@ void Renderer::endSubmit()
 
 	assert(renderQueue->put(&job));
 	submittingCount++;
-}
-
-void Renderer::clearFrameBuffer()
-{
-	rs->clearRenderTargetView(0, 0.0f, 0.0f, 0.0f, 1.0f);
-	rs->clearDepthStencilView(0, true, 1.0f, false, 0);
 }
 
 void Renderer::render(SceneContext* sceneContext)

@@ -52,8 +52,8 @@ void Graphics::_free()
 
 void Graphics::beginDraw(pgn::Window* wnd)
 {
-	//renderer.beginDraw(wnd, &lightIndexedDeferredRendering);
-	renderer.beginDraw(wnd, &lightIndexedForwardRendering);
+	renderer.beginDraw(wnd, &lightIndexedDeferredRendering);
+	//renderer.beginDraw(wnd, &lightIndexedForwardRendering);
 }
 
 bool Graphics::beginFrame()
@@ -84,6 +84,42 @@ public:
 #endif
 
 const int maxInstanceCount = 256;
+
+void submitSkyBoxes(Graphics* graphics, SceneEntityListEntry* first, int count, CBufAllocator* cbufAllocator)
+{
+	assert(count <= maxInstanceCount);
+
+	Model* model = first->sceneEntity->model;
+
+	if (!model->complete())
+		return;
+
+	model->submittingStamp = graphics->renderer.submittingCount;
+
+	Batch batch;
+	batch.geom = (Geometry*)model->geomHandle->core();
+	batch.textureInfo = &model->textureInfo;
+	batch.boneMatBuf.buf = 0;
+
+	SceneEntityListEntry* entry = first;
+	int n = count;
+
+	while (n)
+	{
+		batch.instanceCount = min(n, maxInstanceCount);
+		Movable* instances = (Movable*)cbufAllocator->alloc(sizeof(Movable) * batch.instanceCount, &batch.instanceCBlockBuf);
+
+		for (int i = 0; i < batch.instanceCount; i++)
+		{
+			instances[i] = entry->sceneEntity->movable;
+			entry = entry->next;
+		}
+
+		graphics->renderer.submit(SKY_BOX_RENDERING_PASS, SKY_BOX_TECH, &batch);
+
+		n -= batch.instanceCount;
+	}
+}
 
 void submitModels(Graphics* graphics, SceneEntityListEntry* first, int count, CBufAllocator* cbufAllocator)
 {
@@ -276,6 +312,7 @@ void Graphics::draw(pgn::Scene* _scene, pgn::Camera* _camera)
 		}
 	};
 
+	groupSubmit(scene->sceneSkyBoxes, submitSkyBoxes);
 	groupSubmit(scene->sceneModels, submitModels);
 	groupSubmit(scene->sceneSkeletalModels, submitSkeletalModels);
 	groupSubmit(scene->sceneNavModels, submitNavModels);

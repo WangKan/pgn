@@ -327,6 +327,27 @@
     <ClInclude Include="Renderer\Passes\TransparencyZPrePassEnvDesc.h">
       <Filter>Source Files\Renderer\Passes</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\Passes\RTs\RawImage.h">
+      <Filter>Source Files\Renderer\Passes\RTs</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Passes\CopyingPassEnvDesc.h">
+      <Filter>Source Files\Renderer\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Techs\PipeStates\CopyingPassPipeStateDesc.h">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Passes\TransparencyForwardShadingPassEnvDesc.h">
+      <Filter>Source Files\Renderer\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Passes\SkyBoxRenderingPassEnvDesc.h">
+      <Filter>Source Files\Renderer\Passes</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\techs\PipeStates\SkyBoxRenderingPassPipeStateDesc.h">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\techs\SkyBoxTechDesc.h">
+      <Filter>Source Files\Renderer\Techs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Model.cpp">
@@ -497,6 +518,27 @@
     <ClCompile Include="Renderer\Passes\TransparencyZPrePassEnvDesc.cpp">
       <Filter>Source Files\Renderer\Passes</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer\Passes\RTs\RawImage.cpp">
+      <Filter>Source Files\Renderer\Passes\RTs</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Passes\CopyingPassEnvDesc.cpp">
+      <Filter>Source Files\Renderer\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Techs\PipeStates\CopyingPassPipeStateDesc.cpp">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Passes\TransparencyForwardShadingPassEnvDesc.cpp">
+      <Filter>Source Files\Renderer\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Passes\SkyBoxRenderingPassEnvDesc.cpp">
+      <Filter>Source Files\Renderer\Passes</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\techs\PipeStates\SkyBoxRenderingPassPipeStateDesc.cpp">
+      <Filter>Source Files\Renderer\Techs\PipeStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\techs\SkyBoxTechDesc.cpp">
+      <Filter>Source Files\Renderer\Techs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\lightIndexingPassesPS.glsl">
@@ -563,6 +605,18 @@
       <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
     </GLSLCompile>
     <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\staticMeshForwardShadingPassVS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\copyingPassPS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\Techs\PipeStates\Shaders\copyingPassVS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skyBoxRenderingPassPS.glsl">
+      <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
+    </GLSLCompile>
+    <GLSLCompile Include="Renderer\techs\PipeStates\shaders\skyBoxRenderingPassVS.glsl">
       <Filter>Source Files\Renderer\Techs\PipeStates\Shaders</Filter>
     </GLSLCompile>
   </ItemGroup>
