@@ -26,9 +26,9 @@ static DepthStencilBufDesc depthStencilBuf =
 
 static unsigned constEnums[] =
 {
-	  CAM_POS
+	VIEW_PROJ
 	, VIEW
-	, VIEW_PROJ
+	, CAM_POS
 };
 
 static EnvDesc desc =

@@ -3,8 +3,8 @@
 
 uniform EnvCBlock@0 // enum BindingPoint
 {
-	highp vec3 camPos;
 	highp mat4 viewProj;
+	highp vec3 camPos;
 	PointLight wPointLights[256];
 	DirectionalLight wDirLights[8];
 };

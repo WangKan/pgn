@@ -2,9 +2,9 @@
 
 uniform EnvCBlock@0 // enum BindingPoint
 {
-	vec3 camPos;
-	mat3x4 view;
 	mat4 viewProj;
+	mat3x4 view;
+	vec3 camPos;
 };
 
 flat out lowp float Ks;

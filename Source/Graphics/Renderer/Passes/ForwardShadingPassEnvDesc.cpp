@@ -4,8 +4,8 @@
 
 static unsigned constEnums[] =
 {
-	  CAM_POS
-	, VIEW_PROJ
+	VIEW_PROJ
+	, CAM_POS
 	, W_POINT_LIGHT
 	, W_DIR_LIGHT
 };
