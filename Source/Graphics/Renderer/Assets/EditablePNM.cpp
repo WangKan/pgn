@@ -39,7 +39,7 @@ bool EditablePNM::submit(void* rawData, void* customArg)
 
 	for (int i = 0; i < header->numSubsets; i++)
 	{
-		Aabb aabb = { { FLT_MAX, FLT_MAX, FLT_MAX }, { FLT_MIN, FLT_MIN, FLT_MIN } };
+		Aabb aabb = { { FLT_MAX, FLT_MAX, FLT_MAX }, { -FLT_MAX, -FLT_MAX, -FLT_MAX } };
 
 		int numIndices = header->numIndices[i];
 

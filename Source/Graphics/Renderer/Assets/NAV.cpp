@@ -58,7 +58,7 @@ bool NAV::submit(void* rawData, void* customArg)
 
 	rs->flush();
 
-	Aabb aabb = { { FLT_MAX, FLT_MAX, FLT_MAX }, { FLT_MIN, FLT_MIN, FLT_MIN } };
+	Aabb aabb = { { FLT_MAX, FLT_MAX, FLT_MAX }, { -FLT_MAX, -FLT_MAX, -FLT_MAX } };
 	float(*pos)[3] = (float(*)[3])attribs[0];
 
 	for (int i = 0; i < header->numVertices; i++)

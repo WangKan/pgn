@@ -128,7 +128,7 @@ public:
 
 	void init()
 	{
-		Aabb empty = { { FLT_MAX, FLT_MAX, FLT_MAX }, { FLT_MIN, FLT_MIN, FLT_MIN } };
+		Aabb empty = { { FLT_MAX, FLT_MAX, FLT_MAX }, { -FLT_MAX, -FLT_MAX, -FLT_MAX } };
 		min = empty.min;
 		max = empty.max;
 	}
