@@ -18,6 +18,6 @@ public:
 	void init();
 	virtual void dispose();
 	virtual void _free();
-	virtual void set(char fileName[]);
+	virtual void set(const char fileName[]);
 	virtual bool complete();
 };

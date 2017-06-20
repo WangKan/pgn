@@ -24,7 +24,7 @@ void EditableModel::_free()
 	graphics->pendingEditableModelRemovals.push_back(this);
 }
 
-void EditableModel::setMesh(char fileName[])
+void EditableModel::setMesh(const char fileName[])
 {
 	init();
 	geomHandle = fileName ? graphics->renderer.editableGeomMgr->getResource(fileName) : 0;

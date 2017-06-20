@@ -22,7 +22,7 @@ void Animation::dispose()
 	init();
 }
 
-void Animation::set(char fileName[])
+void Animation::set(const char fileName[])
 {
 	init();
 	anim = fileName ? animMgr->getResource(fileName) : 0;

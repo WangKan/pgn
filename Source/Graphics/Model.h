@@ -18,9 +18,9 @@ public:
 	void init();
 	virtual void dispose();
 	virtual void _free();
-	virtual void setMesh(char fileName[]);
-	void setTexture(int subset, int index, char fileName[]);
-	virtual void setDiffuseMap(int subset, char fileName[]);
+	virtual void setMesh(const char fileName[]);
+	void setTexture(int subset, int index, const char fileName[]);
+	virtual void setDiffuseMap(int subset, const char fileName[]);
 	virtual bool complete();
 	virtual int getNumSubsets();
 	virtual pgn::SkeletonTemplate* getSkeletonTemplate();

@@ -55,14 +55,14 @@ void Model::_free()
 	graphics->pendingModelRemovals.push_back(this);
 }
 
-void Model::setMesh(char fileName[])
+void Model::setMesh(const char fileName[])
 {
 	init();
 	geomHandle = fileName ? graphics->renderer.geomMgr->getResource(fileName) : 0;
 	_complete = false;
 }
 
-void Model::setTexture(int subset, int index, char fileName[])
+void Model::setTexture(int subset, int index, const char fileName[])
 {
 	while ((int)textureInfo.textureSets.size() <= subset)
 		textureInfo.textureSets.emplace_back();
@@ -80,7 +80,7 @@ void Model::setTexture(int subset, int index, char fileName[])
 	_complete = false;
 }
 
-void Model::setDiffuseMap(int subset, char fileName[])
+void Model::setDiffuseMap(int subset, const char fileName[])
 {
 	setTexture(subset, DIFFUSE_MAP, fileName);
 }

@@ -20,7 +20,7 @@ public:
 	void init();
 	virtual void dispose();
 	virtual void _free();
-	virtual void setMesh(char fileName[]);
+	virtual void setMesh(const char fileName[]);
 	virtual bool complete();
 	virtual void getAabb(pgn::Float3* min, pgn::Float3* max);
 };

@@ -31,7 +31,7 @@ void NavModel::_free()
 	graphics->pendingNavModelRemovals.push_back(this);
 }
 
-void NavModel::setMesh(char fileName[])
+void NavModel::setMesh(const char fileName[])
 {
 	init();
 	geomHandle = fileName ? graphics->renderer.navGeomMgr->getResource(fileName) : 0;

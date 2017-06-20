@@ -29,7 +29,7 @@ void ResourceManager::_free()
 	delete this;
 }
 
-pgn::ResourceHandle* ResourceManager::getResource(char name[])
+pgn::ResourceHandle* ResourceManager::getResource(const char name[])
 {
 	collectGarbage(1);
 

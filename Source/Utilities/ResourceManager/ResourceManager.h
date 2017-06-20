@@ -21,7 +21,7 @@ public:
 	virtual void dispose();
 	virtual void _free();
 
-	virtual pgn::ResourceHandle* getResource(char name[]);
+	virtual pgn::ResourceHandle* getResource(const char name[]);
 	virtual void releaseResource(pgn::ResourceHandle* resHandle);
 
 	virtual pgn::ResourceHandle* addResource(const char name[], void* core);
