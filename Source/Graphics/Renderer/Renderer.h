@@ -72,7 +72,6 @@ class Env
 public:
 	int numConsts;
 	EnvConst** consts;
-	CBufRange* cbuf;
 	std::vector<RenderTarget> offscreenRTs;
 	DepthStencilBuf depthStencilBuf;
 };
@@ -146,16 +145,16 @@ typedef std::map<const VertexFormat*, BatchGroupPtr> BatchGroupMap;
 class SceneContext
 {
 public:
-	std::map<TechEnum, BatchGroupMap> batches[numPasses];
-	pgn::Heap* heap;
-
-	CBufAllocator* cbufAllocator;
+	pgn::Float4x3 view;
+	pgn::Float4x4 proj;
+	Viewport viewport;
 
 	struct PointLight
 	{
 		pgn::Float4 intensity_spec;
 		pgn::Float4 pos_att;
 	};
+
 	static const int maxNumPointLights = 256;
 	PointLight wPointLights[maxNumPointLights];
 	PointLight vPointLights[maxNumPointLights];
@@ -166,13 +165,14 @@ public:
 		pgn::Float4 intensity_spec;
 		pgn::Float4 dir_enabled;
 	};
+
 	static const int maxNumDirLights = 8;
 	DirectionalLight wDirLights[maxNumDirLights];
 	DirectionalLight vDirLights[maxNumDirLights];
 
-	pgn::Float4x3 view;
-	pgn::Float4x4 proj;
-	Viewport viewport;
+	std::map<TechEnum, BatchGroupMap> batches[numPasses];
+	pgn::Heap* heap;
+	CBufAllocator* cbufAllocator;
 
 	pgn::SyncPoint* sync;
 
