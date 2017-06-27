@@ -72,6 +72,7 @@ class Env
 public:
 	int numConsts;
 	EnvConst** consts;
+	int sizeCBuf;
 	std::vector<RenderTarget> offscreenRTs;
 	DepthStencilBuf depthStencilBuf;
 };

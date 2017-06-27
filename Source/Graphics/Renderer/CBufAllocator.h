@@ -75,6 +75,7 @@ public:
 	CBufAllocator(pgn::RenderingSystem* rs)
 	{
 		this->rs = rs;
+		bufs.reserve(128);
 		bufs.emplace_back(rs);
 	}
 
@@ -100,7 +101,10 @@ public:
 			curBuf++;
 
 			if (curBuf == bufs.size())
+			{
+				assert(bufs.size() < bufs.capacity());
 				bufs.emplace_back(rs);
+			}
 
 			baseAddr = bufs[curBuf].map();
 		}

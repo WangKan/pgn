@@ -824,20 +824,7 @@ void Renderer::beginDraw(pgn::Window* wnd, RendererConfig* _cfg)
 				sizeCBuf += envConst->size;
 			}
 
-			pgn::BufferDesc bufDesc =
-			{
-				pgn::CONSTANT_BUFFER,
-				pgn::STATIC_DRAW,
-				sizeCBuf
-			};
-
-			CBufRange* bufRange = debug_new CBufRange;
-
-			bufRange->buf = rs->createBuffer(&bufDesc);
-			bufRange->offset = 0;
-			bufRange->size = sizeCBuf;
-
-			env->cbuf = bufRange;
+			env->sizeCBuf = sizeCBuf;
 		}
 
 		env->numConsts = numConsts;
@@ -955,11 +942,7 @@ void Renderer::endDraw()
 		Env* env = &envs[pass];
 
 		if (env->numConsts)
-		{
 			delete env->consts;
-			env->cbuf->buf->destroy();
-			delete env->cbuf;
-		}
 	}
 
 	for (auto view : resViews)
@@ -1065,8 +1048,6 @@ SceneContext* Renderer::beginSubmit()
 	sceneContext = freeList.back();
 	freeList.pop_back();
 
-	sceneContext->cbufAllocator->init();
-
 	return sceneContext;
 }
 
@@ -1087,7 +1068,6 @@ void Renderer::submit(PassEnum passEnum, TechEnum techEnum, Batch* batch)
 
 void Renderer::endSubmit()
 {
-	sceneContext->cbufAllocator->commit();
 	rs->flush();
 
 	RenderingJob job;
@@ -1205,19 +1185,21 @@ void Renderer::render(SceneContext* sceneContext)
 	{
 		PassEnum pass = cfg.activePasses[i];
 		Env* env = &envs[pass];
-		CBufRange* cbuf = env->cbuf;
 
 		if (env->numConsts)
 		{
-			char* p = (char*)cbuf->buf->map(cbuf->offset, cbuf->size);
+			CBufRange cbuf;
+			char* p = (char*)sceneContext->cbufAllocator->alloc(env->sizeCBuf, &cbuf);
+
 			for(int j = 0; j < env->numConsts; j++)
 			{
 				EnvConst* envConst = env->consts[j];
 				memcpy(p, envConst->p, envConst->size);
 				p += envConst->size;
 			}
-			cbuf->buf->unmap();
-			rs->setConstantBuffers(envCBlockBindingPoint, 1, &cbuf->buf, &cbuf->offset, &cbuf->size);
+
+			sceneContext->cbufAllocator->commit();
+			rs->setConstantBuffers(envCBlockBindingPoint, 1, &cbuf.buf, &cbuf.offset, &cbuf.size);
 		}
 
 		if (!env->offscreenRTs.empty() || env->depthStencilBuf.view)

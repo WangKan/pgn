@@ -269,11 +269,12 @@ void Graphics::draw(pgn::Scene* _scene, pgn::Camera* _camera)
 	Scene* scene = (Scene*)_scene;
 	Camera* camera = (Camera*)_camera;
 
-	SceneContext* sceneContext = renderer.beginSubmit();
-
 	performPendingRemovals();
 
+	SceneContext* sceneContext = renderer.beginSubmit();
 	CBufAllocator* cbufAllocator = sceneContext->cbufAllocator;
+
+	cbufAllocator->init();
 
 	typedef void Submit(Graphics* graphics, SceneEntityListEntry* first, int count, CBufAllocator* cbufAllocator);
 
