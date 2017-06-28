@@ -1,10 +1,11 @@
 #include <PGN/Common/debug_new.h>
 #include <PGN/Platform/UI/GL.h>
 #include <PGN/RenderingSystem/Buffer.h>
+#include <PGN/Utilities/SharedInterfaceImpl.h>
 #include "RenderingSystem.h"
 #include "VertexInputLayout.h"
 
-class Buffer : public pgn::Buffer
+class Buffer : public virtual pgn::Buffer, public virtual SharedInterfaceImpl
 {
 public:
 	unsigned bindingType;
@@ -71,7 +72,7 @@ void RenderingSystem::setVertexBuffers(int startSlot, int numBuffers, pgn::Buffe
 		if(location >= 0)
 		{
 			Attribute attrib = vertexInputLayout->attribs[location];
-			Buffer* vb = (Buffer*)buffers[i];
+			Buffer* vb = dynamic_cast<Buffer*>(buffers[i]);
 			if(curVB != vb)
 			{
 				glBindBuffer(GL_ARRAY_BUFFER, vb->buf);
@@ -92,7 +93,7 @@ void RenderingSystem::setVertexBuffers(int startSlot, int numBuffers, pgn::Buffe
 void RenderingSystem::setIndexBuffer(pgn::Buffer* buf, int offset)
 {
 	indexBufferOffset = offset;
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ((Buffer*)buf)->buf);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, dynamic_cast<Buffer*>(buf)->buf);
 }
 
 void RenderingSystem::setConstantBuffers(int startSlot, int numBuffers, pgn::Buffer* buffers[], int offsets[], int sizes[])
@@ -100,6 +101,6 @@ void RenderingSystem::setConstantBuffers(int startSlot, int numBuffers, pgn::Buf
 	for(int i = 0; i < numBuffers; i++)
 	{
 		int indexBindingPoint = startSlot + i;
-		glBindBufferRange(GL_UNIFORM_BUFFER, indexBindingPoint, ((Buffer*)buffers[i])->buf, offsets[i], sizes[i]);
+		glBindBufferRange(GL_UNIFORM_BUFFER, indexBindingPoint, dynamic_cast<Buffer*>(buffers[i])->buf, offsets[i], sizes[i]);
 	}
 }

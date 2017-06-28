@@ -1,5 +1,5 @@
 #pragma once
-#include "../Common/Interface.h"
+#include "../Common/SharedInterface.h"
 namespace pgn {
 
 enum BindingType
@@ -21,7 +21,7 @@ struct BufferDesc
 	int				size;
 };
 
-class Buffer : public Interface
+class Buffer : public virtual SharedInterface
 {
 public:
 	virtual void update(int offset, int size, void* data) = 0;

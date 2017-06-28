@@ -87,6 +87,7 @@
     <ClInclude Include="..\..\Include\PGN\Utilities\HeapAllocator.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\Heap.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\Pipeline.h" />
+    <ClInclude Include="..\..\Include\PGN\Utilities\SharedInterfaceImpl.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\SkeletalAnimation\Animation.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\SkeletalAnimation\AnimationFactory.h" />
     <ClInclude Include="..\..\Include\PGN\Utilities\SkeletalAnimation\Skeleton.h" />

@@ -30,9 +30,15 @@ public:
 			offsetAlignment_1 = rs->getConstantBufferOffsetAlignment() - 1;
 		}
 
+		Buffer(Buffer& src)
+		{
+			*this = src;
+			buf->retain();
+		}
+
 		~Buffer()
 		{
-			buf->destroy();
+			buf->release();
 		}
 
 		void* map()
@@ -75,7 +81,6 @@ public:
 	CBufAllocator(pgn::RenderingSystem* rs)
 	{
 		this->rs = rs;
-		bufs.reserve(128);
 		bufs.emplace_back(rs);
 	}
 
@@ -102,7 +107,6 @@ public:
 
 			if (curBuf == bufs.size())
 			{
-				assert(bufs.size() < bufs.capacity());
 				bufs.emplace_back(rs);
 			}
 

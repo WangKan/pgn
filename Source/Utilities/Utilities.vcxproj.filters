@@ -299,5 +299,8 @@
     <ClInclude Include="..\..\Include\PGN\Utilities\Physics\PhysicsWorldFactory.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Include\PGN\Utilities\SharedInterfaceImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
