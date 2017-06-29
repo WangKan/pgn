@@ -26,6 +26,7 @@ class Buffer : public virtual SharedInterface
 public:
 	virtual void update(int offset, int size, void* data) = 0;
 	virtual void* map(int offset, int size) = 0;
+    virtual void commit(int offset, int size) = 0;
 	virtual void unmap() = 0;
 };
 

@@ -47,7 +47,8 @@ public:
 		}
 
 		void unmap()
-		{
+        {
+            buf->commit(0, offset);
 			buf->unmap();
 		}
 
@@ -82,6 +83,7 @@ public:
 	{
 		this->rs = rs;
 		bufs.emplace_back(rs);
+        baseAddr = 0;
 	}
 
 	~CBufAllocator()
@@ -95,20 +97,21 @@ public:
 			buf.clear();
 
 		curBuf = 0;
-		baseAddr = bufs[0].map();
 	}
 
 	void* alloc(int size, CBufRange* bufRange)
 	{
+        if (!baseAddr)
+            baseAddr = bufs[curBuf].map();
+        
 		while (!bufs[curBuf].alloc(size, bufRange))
 		{
 			bufs[curBuf].unmap();
+            
 			curBuf++;
 
 			if (curBuf == bufs.size())
-			{
 				bufs.emplace_back(rs);
-			}
 
 			baseAddr = bufs[curBuf].map();
 		}
@@ -118,6 +121,7 @@ public:
 
 	void commit()
 	{
-		bufs[curBuf].unmap();
-	}
+        bufs[curBuf].unmap();
+        baseAddr = 0;
+    }
 };

@@ -1048,6 +1048,8 @@ SceneContext* Renderer::beginSubmit()
 	sceneContext = freeList.back();
 	freeList.pop_back();
 
+	sceneContext->cbufAllocator->init();
+
 	return sceneContext;
 }
 
@@ -1068,6 +1070,7 @@ void Renderer::submit(PassEnum passEnum, TechEnum techEnum, Batch* batch)
 
 void Renderer::endSubmit()
 {
+	sceneContext->cbufAllocator->commit();
 	rs->flush();
 
 	RenderingJob job;

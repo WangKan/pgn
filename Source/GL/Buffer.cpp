@@ -16,6 +16,7 @@ public:
 	virtual void _free();
 	virtual void update(int offset, int size, void* data);
 	virtual void* map(int offset, int size);
+    virtual void commit(int offset, int size);
 	virtual void unmap();
 };
 
@@ -54,7 +55,12 @@ void Buffer::update(int offset, int size, void* data)
 void* Buffer::map(int offset, int size)
 {
 	glBindBuffer(bindingType, buf);
-	return glMapBufferRange(bindingType, offset, size, GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
+	return glMapBufferRange(bindingType, offset, size, GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT | GL_MAP_FLUSH_EXPLICIT_BIT);
+}
+
+void Buffer::commit(int offset, int size)
+{
+    glFlushMappedBufferRange(bindingType, offset, size);
 }
 
 void Buffer::unmap()
