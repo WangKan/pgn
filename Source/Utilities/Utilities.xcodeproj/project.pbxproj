@@ -68,7 +68,7 @@
 		57EFEB4018DFE04F005F0C59 /* Clock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clock.cpp; sourceTree = "<group>"; };
 		57EFEB4118DFE04F005F0C59 /* Heap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Heap.cpp; sourceTree = "<group>"; };
 		57EFEB4218DFE04F005F0C59 /* Pool2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pool2.cpp; sourceTree = "<group>"; };
-		57EFEB4318DFE04F005F0C59 /* Pipeline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pipeline.cpp; sourceTree = "<group>"; };
+		57EFEB4318DFE04F005F0C59 /* Pipeline.cpp */ = {isa = PBXFileReference; fileEncoding = 2147483673; lastKnownFileType = sourcecode.cpp.cpp; path = Pipeline.cpp; sourceTree = "<group>"; };
 		57EFEB4518DFE04F005F0C59 /* AsyncLoader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AsyncLoader.cpp; sourceTree = "<group>"; };
 		57EFEB4618DFE04F005F0C59 /* ResourceHandle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceHandle.cpp; sourceTree = "<group>"; };
 		57EFEB4718DFE04F005F0C59 /* ResourceHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceHandle.h; sourceTree = "<group>"; };

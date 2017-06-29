@@ -45,7 +45,6 @@
 		5759128C1A383D5A001B1CCD /* outputDebugInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = outputDebugInfo.h; path = ../../Include/PGN/Platform/outputDebugInfo.h; sourceTree = "<group>"; };
 		5759128D1A383D5A001B1CCD /* pageAlloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pageAlloc.h; path = ../../Include/PGN/Platform/pageAlloc.h; sourceTree = "<group>"; };
 		5759128E1A383D5A001B1CCD /* SystemInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SystemInfo.h; path = ../../Include/PGN/Platform/SystemInfo.h; sourceTree = "<group>"; };
-		575912901A383D5A001B1CCD /* Atomic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Atomic.h; sourceTree = "<group>"; };
 		575912911A383D5A001B1CCD /* Mutex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mutex.h; sourceTree = "<group>"; };
 		575912921A383D5A001B1CCD /* Semaphore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Semaphore.h; sourceTree = "<group>"; };
 		575912931A383D5A001B1CCD /* Signal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Signal.h; sourceTree = "<group>"; };
@@ -104,7 +103,6 @@
 		5759128F1A383D5A001B1CCD /* Thread */ = {
 			isa = PBXGroup;
 			children = (
-				575912901A383D5A001B1CCD /* Atomic.h */,
 				575912911A383D5A001B1CCD /* Mutex.h */,
 				575912921A383D5A001B1CCD /* Semaphore.h */,
 				575912931A383D5A001B1CCD /* Signal.h */,

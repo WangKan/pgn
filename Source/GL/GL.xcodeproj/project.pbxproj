@@ -35,7 +35,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5766A4DC1B79F3E8006F35B5 /* SyncPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SyncPoint.h; sourceTree = "<group>"; };
 		5766A4DD1B79F41A006F35B5 /* SyncPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SyncPoint.cpp; sourceTree = "<group>"; };
 		576E8F0C19457F1C00FDC5EE /* Buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Buffer.h; path = ../../Include/PGN/RenderingSystem/Buffer.h; sourceTree = "<group>"; };
 		576E8F0D19457F1C00FDC5EE /* CmpFunc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CmpFunc.h; path = ../../Include/PGN/RenderingSystem/CmpFunc.h; sourceTree = "<group>"; };
@@ -80,6 +79,7 @@
 		576E8F3419457F4B00FDC5EE /* VertexInputLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VertexInputLayout.cpp; sourceTree = "<group>"; };
 		576E8F3519457F4B00FDC5EE /* VertexInputLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertexInputLayout.h; sourceTree = "<group>"; };
 		57EFEB5F18DFFB19005F0C59 /* libGL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGL.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C24F27321F04FA1D00690BFD /* SyncPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SyncPoint.h; path = ../../Include/PGN/RenderingSystem/SyncPoint.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +142,7 @@
 		57EFEB8918DFFB99005F0C59 /* Include */ = {
 			isa = PBXGroup;
 			children = (
+				C24F27321F04FA1D00690BFD /* SyncPoint.h */,
 				576E8F0C19457F1C00FDC5EE /* Buffer.h */,
 				576E8F0D19457F1C00FDC5EE /* CmpFunc.h */,
 				576E8F0E19457F1C00FDC5EE /* DepthStencilState.h */,
@@ -160,7 +161,6 @@
 				576E8F1B19457F1C00FDC5EE /* ResourceView.h */,
 				576E8F1C19457F1C00FDC5EE /* Sampler.h */,
 				576E8F1D19457F1C00FDC5EE /* Shader.h */,
-				5766A4DC1B79F3E8006F35B5 /* SyncPoint.h */,
 				576E8F1E19457F1C00FDC5EE /* Texture.h */,
 				576E8F1F19457F1C00FDC5EE /* VertexInputLayout.h */,
 				576E8F2019457F1C00FDC5EE /* VertexShader.h */,

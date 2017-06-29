@@ -315,7 +315,7 @@
 		C201AA611E5543A200ABC070 /* RTs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTs.h; sourceTree = "<group>"; };
 		C201AA621E5543A200ABC070 /* ZPrePassEnvDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ZPrePassEnvDesc.cpp; sourceTree = "<group>"; };
 		C201AA631E5543A200ABC070 /* ZPrePassEnvDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPrePassEnvDesc.h; sourceTree = "<group>"; };
-		C201AA641E5543A200ABC070 /* Renderer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = Renderer.cpp; sourceTree = "<group>"; };
+		C201AA641E5543A200ABC070 /* Renderer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 2147483673; path = Renderer.cpp; sourceTree = "<group>"; };
 		C201AA651E5543A200ABC070 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		C201AA671E5543A200ABC070 /* LightIndexingTechDesc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LightIndexingTechDesc.cpp; sourceTree = "<group>"; };
 		C201AA681E5543A200ABC070 /* LightIndexingTechDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightIndexingTechDesc.h; sourceTree = "<group>"; };
@@ -693,7 +693,7 @@
 				C201AA491E5543A100ABC070 /* Passes */,
 				C201AA641E5543A200ABC070 /* Renderer.cpp */,
 				C201AA651E5543A200ABC070 /* Renderer.h */,
-				C201AA661E5543A200ABC070 /* techs */,
+				C201AA661E5543A200ABC070 /* Techs */,
 				C201AAB21E5543A200ABC070 /* TextureInfo.h */,
 				C201AAB31E5543A200ABC070 /* VertexFormat.cpp */,
 				C201AAB41E5543A200ABC070 /* VertexFormat.h */,
@@ -774,7 +774,7 @@
 			path = RTs;
 			sourceTree = "<group>";
 		};
-		C201AA661E5543A200ABC070 /* techs */ = {
+		C201AA661E5543A200ABC070 /* Techs */ = {
 			isa = PBXGroup;
 			children = (
 				C24F26C11F04C8EC00690BFD /* PipeStates */,
@@ -795,6 +795,7 @@
 				C201AAB01E5543A200ABC070 /* Techs.cpp */,
 				C201AAB11E5543A200ABC070 /* Techs.h */,
 			);
+			name = Techs;
 			path = techs;
 			sourceTree = "<group>";
 		};
@@ -928,7 +929,7 @@
 				C24F26CE1F04C8EC00690BFD /* NavMeshZOnlyPassPipeStateDesc.cpp */,
 				C24F26CF1F04C8EC00690BFD /* NavMeshZOnlyPassPipeStateDesc.h */,
 				C24F26D01F04C8EC00690BFD /* PipeStateDesc.h */,
-				C24F26D11F04C8EC00690BFD /* shaders */,
+				C24F26D11F04C8EC00690BFD /* Shaders */,
 				C24F26F91F04C8EC00690BFD /* SkinnedMeshForwardShadingPassPipeStateDesc.cpp */,
 				C24F26FA1F04C8EC00690BFD /* SkinnedMeshForwardShadingPassPipeStateDesc.h */,
 				C24F26FB1F04C8EC00690BFD /* SkinnedMeshGeometryPassPipeStateDesc.cpp */,
@@ -947,7 +948,7 @@
 			path = PipeStates;
 			sourceTree = "<group>";
 		};
-		C24F26D11F04C8EC00690BFD /* shaders */ = {
+		C24F26D11F04C8EC00690BFD /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
 				C24F26D21F04C8EC00690BFD /* BoneMatBlock.h */,
@@ -990,6 +991,7 @@
 				C24F26F71F04C8EC00690BFD /* staticMeshZOnlyPassVS.glsl */,
 				C24F26F81F04C8EC00690BFD /* ZOnlyPassEnvCBlock.h */,
 			);
+			name = Shaders;
 			path = shaders;
 			sourceTree = "<group>";
 		};
