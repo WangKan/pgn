@@ -147,7 +147,12 @@ void logicThreadFunc(UIWindow* uiWnd)
 		t = _t;
 		skel->updatePose(dt);
 		camera->setViewport(0, 0, wnd->getClientWidth(), wnd->getClientHeight(), wnd->getClientHeight());
-		scene->commit(camera);
+        
+        if(graphics->beginFrame())
+        {
+            graphics->draw(scene, camera);
+            graphics->endFrame();
+        }
 	}
 
     scene->remove(sceneLight);

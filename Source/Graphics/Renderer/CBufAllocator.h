@@ -30,7 +30,7 @@ public:
 			offsetAlignment_1 = rs->getConstantBufferOffsetAlignment() - 1;
 		}
 
-		Buffer(Buffer& src)
+		Buffer(const Buffer& src)
 		{
 			*this = src;
 			buf->retain();
