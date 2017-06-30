@@ -45,6 +45,7 @@ PFNGLDRAWELEMENTSINSTANCEDPROC			glDrawElementsInstanced;
 PFNGLENABLEIPROC						glEnablei;
 PFNGLENABLEVERTEXATTRIBARRAYPROC		glEnableVertexAttribArray;
 PFNGLFENCESYNCPROC						glFenceSync;
+PFNGLFLUSHMAPPEDBUFFERRANGEPROC			glFlushMappedBufferRange;
 PFNGLFRAMEBUFFERRENDERBUFFERPROC		glFramebufferRenderbuffer;
 PFNGLFRAMEBUFFERTEXTURE2DPROC			glFramebufferTexture2D;
 PFNGLGENBUFFERSPROC						glGenBuffers;
@@ -182,6 +183,7 @@ void WGL::addRef()
 	glEnablei = (PFNGLENABLEIPROC)wglGetProcAddress("glEnablei");
 	glEnableVertexAttribArray = (PFNGLENABLEVERTEXATTRIBARRAYPROC)wglGetProcAddress("glEnableVertexAttribArray");
 	glFenceSync = (PFNGLFENCESYNCPROC)wglGetProcAddress("glFenceSync");
+	glFlushMappedBufferRange = (PFNGLFLUSHMAPPEDBUFFERRANGEPROC)wglGetProcAddress("glFlushMappedBufferRange");
 	glFramebufferRenderbuffer = (PFNGLFRAMEBUFFERRENDERBUFFERPROC)wglGetProcAddress("glFramebufferRenderbuffer");
 	glFramebufferTexture2D = (PFNGLFRAMEBUFFERTEXTURE2DPROC)wglGetProcAddress("glFramebufferTexture2D");
 	glGenBuffers = (PFNGLGENBUFFERSPROC)wglGetProcAddress("glGenBuffers");
