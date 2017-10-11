@@ -31,15 +31,18 @@ public:
 		{
 			a.emplace_back();
 
-			for (size_t i = a.size() - 1; i > begin; i--)
-				a[i] = a[i - 1];
+			if (begin != 0)
+			{
+				for (size_t i = a.size() - 1; i > begin; i--)
+					a[i] = a[i - 1];
 
-			begin++;
-			begin %= a.size();
+				begin++;
+			}
 		}
 
-		a[end++] = e;
+		end++;
 		end %= a.size();
+		a[end] = e;
 		size++;
 	}
 
@@ -57,7 +60,7 @@ public:
 
 	T& back()
 	{
-		return a[begin];
+		return a[end];
 	}
 
 	bool empty()
