@@ -14,7 +14,7 @@ public:
 	{
 		size = 0;
 		begin = 0;
-		end = 0;
+		end = -1;
 	}
 
 	Queue(int capacity)
@@ -22,7 +22,7 @@ public:
 		a.resize(capacity);
 		size = 0;
 		begin = 0;
-		end = 0;
+		end = -1;
 	}
 
 	void push(T& e)
